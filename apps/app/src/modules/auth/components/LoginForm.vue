@@ -27,19 +27,18 @@ import { useValidator, required, email } from '@/common/composables/useValidate'
 
 import { login } from '@/auth/services';
 import { TOKEN_NAME } from '@/auth/constants';
-import { URL_USER } from '@/user/constants';
+import { URL_EXERCISE } from '@/exercise/constants';
 
 const { auth } = useAuth();
 
 const formData = ref<ILoginData>({
   email: '',
   password: '',
-  role: 'admin',
 });
 
 const { mutate: mutateLogin } = login({
   onSuccess: (user: { token: string }) => {
-    auth(user.token, URL_USER, setAuthHeader, TOKEN_NAME);
+    auth(user.token, URL_EXERCISE, setAuthHeader, TOKEN_NAME);
     toast.success('Welcome!');
   },
 });

@@ -1,5 +1,5 @@
 import { API_AUTH_CHECK, API_AUTH_LOGIN, API_AUTH_SETUP } from 'fitness-tracker-contracts';
-import type { ILoginData, IUserToken, IBaseReply, ISignUpData } from 'fitness-tracker-contracts';
+import type { ILoginData, IUserToken, IBaseReply } from 'fitness-tracker-contracts';
 
 import { IFastifyInstance } from '../interface/index.js';
 import { authService } from '../services/auth.js';
@@ -26,7 +26,7 @@ export default async function (fastify: IFastifyInstance) {
     }
   );
 
-  fastify.post<{ Body: ISignUpData; Reply: { 201: IBaseReply; '5xx': IBaseReply } }>(
+  fastify.post<{ Body: ILoginData; Reply: { 201: IBaseReply; '5xx': IBaseReply } }>(
     API_AUTH_SETUP,
     async function (request, reply) {
       const isUserExists = await authService.setup(request.body);

@@ -1,5 +1,5 @@
 import { API_EXERCISE } from 'fitness-tracker-contracts';
-import type { IBaseReply, IExercise, IBaseParams, ISignUpData } from 'fitness-tracker-contracts';
+import type { IBaseReply, IExercise, IBaseParams, ILoginData } from 'fitness-tracker-contracts';
 
 import { IFastifyInstance } from '../interface/index.js';
 import { exerciseService } from '../services/exercise.js';
@@ -7,7 +7,7 @@ import { exerciseService } from '../services/exercise.js';
 export default async function (fastify: IFastifyInstance) {
   fastify.get<{ Querystring: { page: number }; Reply: { 200: { data: IExercise[]; total?: number } } }>(
     API_EXERCISE,
-    { preValidation: [fastify.onlyAdmin] },
+    { preValidation: [fastify.onlyUser] },
     async function (request, reply) {
       const { data, total } = await exerciseService.getMany<IExercise>(request.query.page);
 
@@ -26,7 +26,7 @@ export default async function (fastify: IFastifyInstance) {
 
   fastify.patch<{ Body: IExercise; Params: IBaseParams; Reply: { 200: IBaseReply } }>(
     `${API_EXERCISE}/:id`,
-    { preValidation: [fastify.onlyAdmin] },
+    { preValidation: [fastify.onlyUser] },
     async function (request, reply) {
       await exerciseService.update<IExercise>(request.body, request.params.id);
 
@@ -34,11 +34,11 @@ export default async function (fastify: IFastifyInstance) {
     }
   );
 
-  fastify.post<{ Body: ISignUpData; Reply: { 201: IBaseReply } }>(
+  fastify.post<{ Body: ILoginData; Reply: { 201: IBaseReply } }>(
     API_EXERCISE,
-    { preValidation: [fastify.onlyAdmin] },
+    { preValidation: [fastify.onlyUser] },
     async function (request, reply) {
-      await exerciseService.create<ISignUpData>(request.body);
+      await exerciseService.create<ILoginData>(request.body);
 
       reply.code(201).send({ message: 'Exercise created' });
     }
@@ -46,7 +46,7 @@ export default async function (fastify: IFastifyInstance) {
 
   fastify.delete<{ Params: IBaseParams; Reply: { 200: IBaseReply } }>(
     `${API_EXERCISE}/:id`,
-    { preValidation: [fastify.onlyAdmin] },
+    { preValidation: [fastify.onlyUser] },
     async function (request, reply) {
       await exerciseService.delete(request.params.id);
 

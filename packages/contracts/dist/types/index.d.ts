@@ -4,12 +4,9 @@ export interface IEntity {
   dateUpdated?: Date | string;
 }
 
-export type TUserRole = "user" | "admin";
-
 export interface IUser extends IEntity {
   email: string;
   password?: string;
-  role?: TUserRole;
 }
 
 export interface IExercise extends IEntity {
@@ -30,17 +27,12 @@ export interface IActivity extends IEntity {
 export interface IUserToken {
   _id: string;
   email: string;
-  role: TUserRole;
   token?: string;
 }
 
-export interface ISignUpData {
+export interface ILoginData {
   email: string;
   password: string;
-}
-
-export interface ILoginData extends ISignUpData {
-  role: TUserRole;
 }
 
 export interface IFileToUpload {

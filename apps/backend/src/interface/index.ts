@@ -1,11 +1,9 @@
 import type { FastifyInstance, FastifySchema } from 'fastify';
 
-import type { ILoginData, IUser, ISignUpData, IUserToken, IFileToUpload } from 'fitness-tracker-contracts';
+import type { ILoginData, IUser, IUserToken, IFileToUpload } from 'fitness-tracker-contracts';
 
 export interface IFastifyInstance extends FastifyInstance {
-  onlyAdmin: () => void;
   onlyUser: () => void;
-  onlyLoggedIn: () => void;
 }
 
 export interface ISchema {
@@ -59,7 +57,7 @@ export interface IAuthService {
     isWrongPassword: boolean;
   }>;
 
-  setup: (admin: ISignUpData) => Promise<boolean>;
+  setup: (admin: ILoginData) => Promise<boolean>;
 }
 
 export interface IUploadService {

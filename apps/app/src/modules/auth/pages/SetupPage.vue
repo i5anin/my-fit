@@ -9,9 +9,9 @@ import { useAuth } from '@/common/composables/useAuth';
 
 import SetupForm from '@/auth/components/SetupForm.vue';
 
-import { URL_USER } from '@/user/constants';
+import { URL_EXERCISE } from '@/exercise/constants';
 
 const { redirectIfAuth } = useAuth();
 
-redirectIfAuth(URL_USER);
+redirectIfAuth(URL_EXERCISE);
 </script>

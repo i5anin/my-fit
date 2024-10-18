@@ -3,7 +3,6 @@ import {
   API_AUTH_LOGIN,
   API_AUTH_SETUP,
   IBaseReply,
-  ISignUpData,
   ILoginData,
   IUserToken,
 } from 'fitness-tracker-contracts';
@@ -28,7 +27,7 @@ export function checkAuth() {
 export function setup(options: object) {
   return useMutation({
     mutationKey: [API_AUTH_SETUP],
-    mutationFn: async (formData: ISignUpData) => {
+    mutationFn: async (formData: ILoginData) => {
       const { data } = await api.post<IBaseReply>(API_AUTH_SETUP, formData);
 
       return data;

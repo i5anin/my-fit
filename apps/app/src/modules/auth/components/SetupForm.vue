@@ -21,7 +21,7 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { UiButton, UiField, UiInput, toast } from 'mhz-ui';
-import { ISignUpData } from 'fitness-tracker-contracts';
+import { ILoginData } from 'fitness-tracker-contracts';
 
 import { useValidator, required, email } from '@/common/composables/useValidate';
 import { setup } from '@/auth/services';
@@ -29,7 +29,7 @@ import { URL_LOGIN } from '@/auth/constants';
 
 const router = useRouter();
 
-const formData = ref<ISignUpData>({
+const formData = ref<ILoginData>({
   email: '',
   password: '',
 });

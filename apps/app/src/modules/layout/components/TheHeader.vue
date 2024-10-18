@@ -1,7 +1,7 @@
 <template>
   <header :class="$style.header">
     <div :class="$style.logoAndSearch">
-      <RouterLink :to="URL_USER" aria-label="Logo">
+      <RouterLink :to="URL_EXERCISE" aria-label="Logo">
         <img src="/logo.png" width="48" />
       </RouterLink>
     </div>
@@ -17,7 +17,7 @@ import { TOKEN_NAME, URL_LOGIN } from '@/auth/constants';
 
 import { logout } from '@/common/composables/useAuth';
 import { deleteAuthHeader } from '@/common/plugins/api';
-import { URL_USER } from '@/user/constants';
+import { URL_EXERCISE } from '@/exercise/constants';
 </script>
 
 <style module lang="scss">
