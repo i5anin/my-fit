@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import { TOKEN_NAME, URL_LOGIN, URL_SETUP } from '@/auth/constants';
 
-import { getCookieToken, logout } from '@/common/composables/useAuth';
+import { getCookieToken, logout } from '@/auth/composables/useAuth';
 import { deleteAuthHeader } from '@/common/plugins/api';
 import { routes } from '@/common/router/routes';
 

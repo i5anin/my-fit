@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth } from '@/common/composables/useAuth';
+import { useAuth } from '@/auth/composables/useAuth';
 
 import SetupForm from '@/auth/components/SetupForm.vue';
 

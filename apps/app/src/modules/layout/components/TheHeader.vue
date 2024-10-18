@@ -15,7 +15,7 @@ import { UiButton } from 'mhz-ui';
 
 import { TOKEN_NAME, URL_LOGIN } from '@/auth/constants';
 
-import { logout } from '@/common/composables/useAuth';
+import { logout } from '@/auth/composables/useAuth';
 import { deleteAuthHeader } from '@/common/plugins/api';
 import { URL_EXERCISE } from '@/exercise/constants';
 </script>

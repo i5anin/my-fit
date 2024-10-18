@@ -21,7 +21,7 @@ import { ref, computed } from 'vue';
 
 import { UiButton, UiField, UiInput, toast } from 'mhz-ui';
 import { ILoginData } from 'fitness-tracker-contracts';
-import { useAuth } from '@/common/composables/useAuth';
+import { useAuth } from '@/auth/composables/useAuth';
 import { setAuthHeader } from '@/common/plugins/api';
 import { useValidator, required, email } from '@/common/composables/useValidate';
 

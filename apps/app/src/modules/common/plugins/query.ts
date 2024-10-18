@@ -1,6 +1,6 @@
 import { QueryCache, QueryClient, type VueQueryPluginOptions } from '@tanstack/vue-query';
 
-import { logout } from '@/common/composables/useAuth';
+import { logout } from '@/auth/composables/useAuth';
 import { handleError, deleteAuthHeader } from '@/common/plugins/api';
 
 export const queryClient = new QueryClient();

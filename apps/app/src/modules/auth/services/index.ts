@@ -9,7 +9,7 @@ import {
 
 import { useQuery, useMutation } from '@/common/plugins/query';
 import { api } from '@/common/plugins/api';
-import { setAuth } from '@/common/composables/useAuth';
+import { setAuth } from '@/auth/composables/useAuth';
 
 export function checkAuth() {
   return useQuery({
