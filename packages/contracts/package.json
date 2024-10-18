@@ -1,0 +1,23 @@
+{
+  "name": "fitness-tracker-contracts",
+  "description": "Fitness tracker contracts",
+  "version": "1.0.0",
+  "author": "Alexandr Dergunov <dergunovs@mail.ru> (https://github.com/dergunovs)",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dergunovs/fit",
+    "directory": "packages/contracts"
+  },
+  "engines": {
+    "npm": ">=10.8.2",
+    "node": ">=22.8.0"
+  }
+}

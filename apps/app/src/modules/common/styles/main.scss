@@ -1,0 +1,9 @@
+@use 'mhz-ui/dist/colors';
+@use 'mhz-ui/dist/fonts';
+@use 'mhz-ui/dist/breakpoints';
+@use 'mhz-ui/dist/transitions';
+@use 'mhz-ui/dist/base';
+
+* {
+  font-family: 'base', sans-serif;
+}
