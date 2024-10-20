@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h2>Login</h2>
+    <h2>Логин</h2>
 
     <form @submit.prevent="submit" :class="$style.form">
-      <UiField label="E-mail" isRequired :error="error('email')">
+      <UiField label="Электронная почта" isRequired :error="error('email')">
         <UiInput v-model="formData.email" />
       </UiField>
 
-      <UiField label="Password" isRequired :error="error('password')">
+      <UiField label="Пароль" isRequired :error="error('password')">
         <UiInput v-model="formData.password" type="password" />
       </UiField>
 
-      <UiButton type="submit">Submit</UiButton>
+      <UiButton type="submit">Войти</UiButton>
     </form>
   </div>
 </template>
@@ -39,7 +39,7 @@ const formData = ref<ILoginData>({
 const { mutate: mutateLogin } = login({
   onSuccess: (user: { token: string }) => {
     auth(user.token, URL_EXERCISE, setAuthHeader, TOKEN_NAME);
-    toast.success('Welcome!');
+    toast.success('Добро пожаловать!');
   },
 });
 

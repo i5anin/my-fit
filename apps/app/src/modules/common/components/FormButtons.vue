@@ -2,19 +2,19 @@
   <div :class="$style.buttons">
     <div :class="$style.buttonsInner">
       <UiButton type="submit" :isDisabled="props.isLoading" data-test="form-buttons-submit">
-        {{ props.id ? 'Update' : 'Submit' }}
+        {{ props.id ? 'Обновить' : 'Добавить' }}
       </UiButton>
 
       <UiButton @click="router.go(-1)" layout="secondary" :isDisabled="props.isLoading" data-test="form-buttons-back">
-        Back
+        Назад
       </UiButton>
     </div>
 
     <UiButton v-if="props.id" @click="isShowConfirm = true" layout="secondary" :isDisabled="props.isLoading">
-      Delete
+      Удалить
     </UiButton>
 
-    <UiModal v-model="isShowConfirm" isConfirm @confirm="emit('delete', props.id)">Confirm delete?</UiModal>
+    <UiModal v-model="isShowConfirm" isConfirm @confirm="emit('delete', props.id)">Подтверждаете удаление?</UiModal>
   </div>
 </template>
 

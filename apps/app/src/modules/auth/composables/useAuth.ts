@@ -36,8 +36,6 @@ export function useAuth() {
     setCookieToken(token, tokenName);
     setAuthHeader(token);
     setAuth(true);
-
-    router.push(url);
   }
 
   function redirectIfAuth(url: string) {

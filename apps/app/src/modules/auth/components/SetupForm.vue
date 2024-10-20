@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h2>Add first user</h2>
+    <h2>Создать админа</h2>
 
     <form @submit.prevent="submit" :class="$style.form">
-      <UiField label="E-mail" isRequired :error="error('email')">
+      <UiField label="Электронная почта" isRequired :error="error('email')">
         <UiInput v-model="formData.email" />
       </UiField>
 
-      <UiField label="Password" isRequired :error="error('password')">
+      <UiField label="Пароль" isRequired :error="error('password')">
         <UiInput v-model="formData.password" type="password" />
       </UiField>
 
-      <UiButton type="submit">Submit</UiButton>
+      <UiButton type="submit">Создать</UiButton>
     </form>
   </div>
 </template>
@@ -25,7 +25,7 @@ import { ILoginData } from 'fitness-tracker-contracts';
 
 import { useValidator, required, email } from '@/common/composables/useValidate';
 import { setup } from '@/auth/services';
-import { URL_LOGIN } from '@/auth/constants';
+import { URL_HOME } from '@/common/constants';
 
 const router = useRouter();
 
@@ -36,8 +36,8 @@ const formData = ref<ILoginData>({
 
 const { mutate: mutateSetup } = setup({
   onSuccess: () => {
-    toast.success('User successfully added!');
-    router.push(URL_LOGIN);
+    toast.success('Админ создан!');
+    router.push(URL_HOME);
   },
 });
 

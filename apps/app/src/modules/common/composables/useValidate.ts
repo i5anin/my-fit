@@ -31,10 +31,10 @@ export function useValidator<T>(formData: Ref<T>, rules: ComputedRef<object>) {
 
 export const required = {
   required: true,
-  message: 'This field is required',
+  message: 'После обязательное',
 };
 
 export const email = {
   type: 'email',
-  message: 'This is not correct email',
+  message: 'Введите корретный адрес',
 };

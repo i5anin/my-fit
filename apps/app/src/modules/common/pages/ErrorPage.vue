@@ -1,5 +1,5 @@
 <template>
   <div>
-    <div>Error</div>
+    <div>Ошибка</div>
   </div>
 </template>

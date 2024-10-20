@@ -1,10 +1,10 @@
 <template>
   <form @submit.prevent="props.user?._id ? update() : submit()" :class="$style.form">
-    <UiField label="Email" isRequired :error="error('email')">
+    <UiField label="Электронная почта" isRequired :error="error('email')">
       <UiInput v-model="formData.email" />
     </UiField>
 
-    <UiField v-if="!props.user?._id" label="Password" isRequired :error="error('password')">
+    <UiField v-if="!props.user?._id" label="Пароль" isRequired :error="error('password')">
       <UiInput v-model="formData.password" />
     </UiField>
 
@@ -46,7 +46,7 @@ const formData = ref<IUser>({
 const { mutate: mutatePost, isPending: isLoadingPost } = postUser({
   onSuccess: async () => {
     await queryClient.refetchQueries({ queryKey: [API_USER] });
-    toast.success('User added');
+    toast.success('Пользователь добавлен');
     router.push(URL_USER);
   },
 });
@@ -54,7 +54,7 @@ const { mutate: mutatePost, isPending: isLoadingPost } = postUser({
 const { mutate: mutateUpdate, isPending: isLoadingUpdate } = updateUser({
   onSuccess: async () => {
     await queryClient.refetchQueries({ queryKey: [API_USER] });
-    toast.success('User updated');
+    toast.success('Пользователь обновлен');
   },
 });
 
@@ -62,7 +62,7 @@ const { mutate: mutateDelete } = deleteUser({
   onSuccess: async () => {
     queryClient.removeQueries({ queryKey: [API_USER] });
     await queryClient.refetchQueries({ queryKey: [API_USER] });
-    toast.success('User deleted');
+    toast.success('Пользователь удален');
     router.push(URL_USER);
   },
 });

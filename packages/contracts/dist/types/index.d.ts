@@ -17,6 +17,8 @@ export interface IExerciseDone extends IEntity {
   exercise: IExercise;
   repetitions: number;
   duration: number;
+  isToFailure: boolean;
+  weight?: number;
 }
 
 export interface IActivity extends IEntity {
@@ -52,11 +54,7 @@ export interface IBaseParams {
 export declare const API_AUTH_CHECK = "/auth/check";
 export declare const API_AUTH_LOGIN = "/auth/login";
 export declare const API_AUTH_SETUP = "/auth/setup";
-
 export declare const API_USER = "/user";
-
 export declare const API_EXERCISE = "/exercise";
-
 export declare const API_ACTIVITY = "/activity";
-
 export declare const API_UPLOAD = "/upload";

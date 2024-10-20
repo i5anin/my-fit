@@ -1,23 +1,33 @@
 <template>
   <header :class="$style.header">
     <div :class="$style.logoAndSearch">
-      <RouterLink :to="URL_EXERCISE" aria-label="Logo">
+      <RouterLink :to="URL_HOME" aria-label="Logo">
         <img src="/logo.png" width="48" />
       </RouterLink>
     </div>
 
-    <UiButton @click="logout(URL_LOGIN, deleteAuthHeader, TOKEN_NAME)" layout="plain">Logout</UiButton>
+    <div :class="$style.buttons">
+      <UiButton @click="goToHome" layout="plain">Главная</UiButton>
+      <UiButton @click="logout(URL_HOME, deleteAuthHeader, TOKEN_NAME)" layout="plain">Выйти</UiButton>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { UiButton } from 'mhz-ui';
 
-import { TOKEN_NAME, URL_LOGIN } from '@/auth/constants';
+import { TOKEN_NAME } from '@/auth/constants';
 
 import { logout } from '@/auth/composables/useAuth';
 import { deleteAuthHeader } from '@/common/plugins/api';
-import { URL_EXERCISE } from '@/exercise/constants';
+import { URL_HOME } from '@/common/constants';
+
+const router = useRouter();
+
+function goToHome() {
+  router.push(URL_HOME);
+}
 </script>
 
 <style module lang="scss">
@@ -43,5 +53,10 @@ import { URL_EXERCISE } from '@/exercise/constants';
 .logo {
   display: block;
   width: 150px;
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
 }
 </style>

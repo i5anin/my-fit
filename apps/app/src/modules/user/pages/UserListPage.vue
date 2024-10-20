@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="$style.page">
-      <RouterLink :to="URL_USER_CREATE">Add user</RouterLink>
+      <RouterLink :to="URL_USER_CREATE">Добавить пользователя</RouterLink>
 
       <UserList :users="users" />
 

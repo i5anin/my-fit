@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="props.exercise?._id ? update() : submit()" :class="$style.form">
-    <UiField label="Title" isRequired :error="error('title')">
+    <UiField label="Название" isRequired :error="error('title')">
       <UiInput v-model="formData.title" />
     </UiField>
 
@@ -41,7 +41,7 @@ const formData = ref<IExercise>({
 const { mutate: mutatePost, isPending: isLoadingPost } = postExercise({
   onSuccess: async () => {
     await queryClient.refetchQueries({ queryKey: [API_EXERCISE] });
-    toast.success('Exercise added');
+    toast.success('Упражнение добавлено');
     router.push(URL_EXERCISE);
   },
 });
@@ -49,7 +49,7 @@ const { mutate: mutatePost, isPending: isLoadingPost } = postExercise({
 const { mutate: mutateUpdate, isPending: isLoadingUpdate } = updateExercise({
   onSuccess: async () => {
     await queryClient.refetchQueries({ queryKey: [API_EXERCISE] });
-    toast.success('Exercise updated');
+    toast.success('Упражнение обновлено');
   },
 });
 
@@ -57,7 +57,7 @@ const { mutate: mutateDelete } = deleteExercise({
   onSuccess: async () => {
     queryClient.removeQueries({ queryKey: [API_EXERCISE] });
     await queryClient.refetchQueries({ queryKey: [API_EXERCISE] });
-    toast.success('Exercise deleted');
+    toast.success('Упражнение удалено');
     router.push(URL_EXERCISE);
   },
 });

@@ -32,5 +32,5 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
-const tableHeaders = [{ title: 'Title' }, { title: 'Created' }, { title: 'Updated' }];
+const tableHeaders = [{ title: 'Название' }, { title: 'Создано' }, { title: 'Обновлено' }];
 </script>

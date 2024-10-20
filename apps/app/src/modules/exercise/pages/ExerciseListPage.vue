@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="$style.page">
-      <RouterLink :to="URL_EXERCISE_CREATE">Add exercise</RouterLink>
+      <RouterLink :to="URL_EXERCISE_CREATE">Добавить упражнение</RouterLink>
 
       <ExerciseList :exercises="exercises" />
 
