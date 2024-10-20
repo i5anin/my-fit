@@ -8,7 +8,7 @@ export function getUsers(page: Ref<number>) {
   return useQuery({
     queryKey: [API_USER, page],
     queryFn: async () => {
-      const { data } = await api.get<{ data: IUser[]; total: number }>(API_USER, { params: { page } });
+      const { data } = await api.get<{ data: IUser[]; total: number }>(API_USER, { params: { page: page.value } });
 
       return data;
     },

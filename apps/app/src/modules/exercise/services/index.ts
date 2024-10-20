@@ -8,7 +8,9 @@ export function getExercises(page: Ref<number>) {
   return useQuery({
     queryKey: [API_EXERCISE, page],
     queryFn: async () => {
-      const { data } = await api.get<{ data: IExercise[]; total: number }>(API_EXERCISE, { params: { page } });
+      const { data } = await api.get<{ data: IExercise[]; total: number }>(API_EXERCISE, {
+        params: { page: page.value },
+      });
 
       return data;
     },

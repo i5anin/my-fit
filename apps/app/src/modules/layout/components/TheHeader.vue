@@ -1,13 +1,13 @@
 <template>
   <header :class="$style.header">
     <div :class="$style.logoAndSearch">
-      <RouterLink :to="URL_HOME" aria-label="Logo">
+      <RouterLink :to="URL_ACTIVITY" aria-label="Logo">
         <img src="/logo.png" width="48" />
       </RouterLink>
     </div>
 
     <div :class="$style.buttons">
-      <UiButton @click="goToHome" layout="plain">Главная</UiButton>
+      <UiButton @click="goToActivities" layout="plain">Занятия</UiButton>
       <UiButton @click="logout(URL_HOME, deleteAuthHeader, TOKEN_NAME)" layout="plain">Выйти</UiButton>
     </div>
   </header>
@@ -22,11 +22,12 @@ import { TOKEN_NAME } from '@/auth/constants';
 import { logout } from '@/auth/composables/useAuth';
 import { deleteAuthHeader } from '@/common/plugins/api';
 import { URL_HOME } from '@/common/constants';
+import { URL_ACTIVITY } from '@/activity/constants';
 
 const router = useRouter();
 
-function goToHome() {
-  router.push(URL_HOME);
+function goToActivities() {
+  router.push(URL_ACTIVITY);
 }
 </script>
 

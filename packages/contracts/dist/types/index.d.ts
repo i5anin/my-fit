@@ -18,6 +18,7 @@ export interface IExerciseDone extends IEntity {
   repetitions: number;
   duration: number;
   isToFailure: boolean;
+  isDone: boolean;
   weight?: number;
 }
 
