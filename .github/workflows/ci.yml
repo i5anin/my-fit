@@ -28,7 +28,7 @@ jobs:
           envkey_DATABASE: ${{ secrets.DATABASE }}
           envkey_SECRET: ${{ secrets.SECRET }}
           envkey_PORT: ${{ secrets.PORT }}
-          envkey_APP_URL: ${{ secrets.SITE_URL }}
+          envkey_APP_URL: ${{ secrets.APP_URL }}
           directory: apps/backend/
       - name: Build
         run: npm run build
