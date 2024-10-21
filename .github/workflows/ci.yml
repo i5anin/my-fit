@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.8.0"
+      - name: Install
+        run: npm i
+      - name: Create App .env
+        uses: SpicyPizza/create-envfile@v2.0.2
+        with:
+          envkey_VITE_API: ${{ secrets.ENV_VITE_API }}
+          envkey_VITE_PATH_UPLOAD: ${{ secrets.VITE_PATH_UPLOAD }}
+          directory: apps/app/
+      - name: Create Backend .env
+        uses: SpicyPizza/create-envfile@v2.0.2
+        with:
+          envkey_DATABASE: ${{ secrets.DATABASE }}
+          envkey_SECRET: ${{ secrets.SECRET }}
+          envkey_PORT: ${{ secrets.PORT }}
+          envkey_APP_URL: ${{ secrets.SITE_URL }}
+          directory: apps/back/
+      - name: Build
+        run: npm run build
+      - name: Lint check
+        run: npm run lint
+      - name: TS check
+        run: npm run ts

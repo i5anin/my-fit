@@ -1,6 +1,6 @@
 {
-  "name": "fit-tracker",
-  "description": "Fitness tracker",
+  "name": "fitness-tracker",
+  "description": "Fitness tracker app",
   "version": "1.0.0",
   "author": "Alexandr Dergunov <dergunovs@mail.ru> (https://github.com/dergunovs)",
   "license": "MIT",
@@ -13,7 +13,8 @@
     "lint": "turbo run lint --no-daemon",
     "ts": "turbo run ts --no-daemon",
     "dev": "turbo run dev --no-daemon",
-    "build": "turbo run build --no-daemon"
+    "build": "turbo run build --no-daemon",
+    "pub": "changeset version && changeset publish"
   },
   "dependencies": {
     "@changesets/cli": "2.27.9"
