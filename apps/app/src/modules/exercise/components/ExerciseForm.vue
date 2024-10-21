@@ -4,6 +4,18 @@
       <UiInput v-model="formData.title" />
     </UiField>
 
+    <div :class="$style.weights">
+      <div>Возможные веса</div>
+
+      <UiCheckbox
+        v-for="weight in EXERCISE_WEIGHT_OPTIONS"
+        :key="weight"
+        :modelValue="choosenWeights.some((choosen) => choosen === weight)"
+        @update:modelValue="updateWeights(weight, $event)"
+        :label="`${weight} кг.`"
+      />
+    </div>
+
     <FormButtons :id="props.exercise?._id" :isLoading="isLoadingPost || isLoadingUpdate" @delete="handleDelete" />
   </form>
 </template>
@@ -12,7 +24,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { UiField, UiInput, toast } from 'mhz-ui';
+import { UiField, UiInput, UiCheckbox, toast } from 'mhz-ui';
 import { API_EXERCISE, IExercise } from 'fitness-tracker-contracts';
 
 import { useQueryClient } from '@/common/plugins/query';
@@ -21,7 +33,7 @@ import { clone } from '@/common/plugins/clone';
 
 import FormButtons from '@/common/components/FormButtons.vue';
 
-import { URL_EXERCISE } from '@/exercise/constants';
+import { URL_EXERCISE, EXERCISE_WEIGHT_OPTIONS } from '@/exercise/constants';
 import { postExercise, updateExercise, deleteExercise } from '@/exercise/services';
 
 interface IProps {
@@ -36,7 +48,18 @@ const router = useRouter();
 
 const formData = ref<IExercise>({
   title: '',
+  weights: [],
 });
+
+const choosenWeights = ref<number[]>([]);
+
+function updateWeights(weight: number, isChecked: boolean) {
+  choosenWeights.value = isChecked
+    ? [...choosenWeights.value, weight]
+    : choosenWeights.value.filter((current) => current !== weight);
+
+  formData.value.weights = [...choosenWeights.value];
+}
 
 const { mutate: mutatePost, isPending: isLoadingPost } = postExercise({
   onSuccess: async () => {
@@ -83,7 +106,10 @@ function handleDelete(id: string) {
 }
 
 onMounted(() => {
-  if (props.exercise) formData.value = clone(props.exercise);
+  if (props.exercise) {
+    formData.value = clone(props.exercise);
+    if (formData.value.weights?.length) choosenWeights.value = [...formData.value.weights];
+  }
 });
 </script>
 
@@ -93,5 +119,11 @@ onMounted(() => {
   flex-direction: column;
   gap: 24px;
   align-items: flex-start;
+}
+
+.weights {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 </style>

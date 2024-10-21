@@ -11,6 +11,7 @@ export interface IUser extends IEntity {
 
 export interface IExercise extends IEntity {
   title: string;
+  weights?: number[];
 }
 
 export interface IExerciseDone extends IEntity {
