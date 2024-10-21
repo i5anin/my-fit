@@ -36,3 +36,31 @@ jobs:
         run: npm run lint
       - name: TS check
         run: npm run ts
+      - name: Deploy App
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: apps/app/dist
+          target: ${{ secrets.SSH_PATH }}
+      - name: Deploy Backend
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "apps/backend/build,apps/backend/package.json,apps/backend/package-lock.json,apps/backend/.env"
+          target: ${{ secrets.SSH_PATH }}
+      - name: Install Backend deps and Reload PM2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ${{ secrets.SSH_PATH_BACKEND }}
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            npm i
+            pm2 reload fit
