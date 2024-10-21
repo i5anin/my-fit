@@ -14,13 +14,16 @@ export interface IExercise extends IEntity {
   weights?: number[];
 }
 
-export interface IExerciseDone extends IEntity {
+export interface IExerciseChoosen extends IEntity {
   exercise: IExercise;
-  repetitions: number;
+  repeats: number;
+  weight?: number;
+}
+
+export interface IExerciseDone extends IExerciseChoosen {
   duration: number;
   isToFailure: boolean;
   isDone: boolean;
-  weight?: number;
 }
 
 export interface IActivity extends IEntity {

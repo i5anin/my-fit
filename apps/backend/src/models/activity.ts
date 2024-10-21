@@ -8,7 +8,7 @@ const activitySchema = new Schema<IActivity>(
       type: [
         {
           exercise: { type: Schema.Types.ObjectId, ref: 'Exercise', required: true },
-          repetitions: Number,
+          repeats: Number,
           duration: Number,
           isToFailure: Boolean,
           isDone: Boolean,

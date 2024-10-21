@@ -11,8 +11,9 @@ defineOptions({ name: 'LayoutEmpty' });
 <style module lang="scss">
 .layout {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   height: 100vh;
+  padding-top: 32px;
 }
 </style>
