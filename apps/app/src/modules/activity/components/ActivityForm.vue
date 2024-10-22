@@ -15,7 +15,7 @@
         <ExerciseChoosenList :choosenExercises="choosenExercises" @update="updateExercises" />
       </div>
 
-      <UiButton>Начать</UiButton>
+      <UiButton layout="accent">Начать</UiButton>
     </div>
   </div>
 </template>

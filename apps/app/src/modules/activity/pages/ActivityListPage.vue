@@ -5,7 +5,7 @@
       <UiButton @click="logout(URL_HOME, deleteAuthHeader, TOKEN_NAME)">Выйти</UiButton>
     </div>
 
-    <UiButton @click="startActivity">Начать занятие</UiButton>
+    <UiButton @click="startActivity">Сформировать занятие</UiButton>
 
     <ActivityList v-if="activities" :activities="activities.data" />
   </div>

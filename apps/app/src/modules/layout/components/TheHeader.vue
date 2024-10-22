@@ -1,8 +1,8 @@
 <template>
   <header :class="$style.header">
     <div :class="$style.logoAndSearch">
-      <RouterLink :to="URL_ACTIVITY" aria-label="Logo">
-        <img src="/logo.png" width="48" />
+      <RouterLink :to="URL_ACTIVITY" :class="$style.logo" aria-label="Logo">
+        <IconLogo width="32" height="32" /> FiT
       </RouterLink>
     </div>
 
@@ -17,8 +17,9 @@
 import { useRouter } from 'vue-router';
 import { UiButton } from 'mhz-ui';
 
-import { TOKEN_NAME } from '@/auth/constants';
+import IconLogo from '@/common/images/logo.svg';
 
+import { TOKEN_NAME } from '@/auth/constants';
 import { logout } from '@/auth/composables/useAuth';
 import { deleteAuthHeader } from '@/common/plugins/api';
 import { URL_HOME } from '@/common/constants';
@@ -52,8 +53,13 @@ function goToActivities() {
 }
 
 .logo {
-  display: block;
-  width: 150px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  text-decoration: none;
 }
 
 .buttons {

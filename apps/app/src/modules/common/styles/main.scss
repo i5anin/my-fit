@@ -4,6 +4,17 @@
 @use 'mhz-ui/dist/transitions';
 @use 'mhz-ui/dist/base';
 
+:root {
+  --color-primary-light-extra: #d3d0f4;
+  --color-primary-light: #b7b2ea;
+  --color-primary: #464181;
+  --color-primary-dark: #302c58;
+
+  --color-accent: #00b26d;
+  --color-accent-dark: #037248;
+  --color-accent-light: #4effbb;
+}
+
 * {
   font-family: 'base', sans-serif;
 }
