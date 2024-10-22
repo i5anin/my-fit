@@ -1,7 +1,7 @@
-Fitness tracker app.
+Приложение простого фитнес трекера для домашних занятий.
 
-**Frontend:** TS, Vite, Vue, Tanstack Query.
+**Фронт:** TS, Vite, Vue, Tanstack Query.
 
-**Backend:** TS, Fastify, Mongoose, MongoDB.
+**Бэк:** TS, Fastify, Mongoose, MongoDB.
 
-**Site:** https://app-fit.ru
+**Сайт:** https://app-fit.ru
