@@ -22,8 +22,7 @@
 import { UiTable } from 'mhz-ui';
 import { IUser } from 'fitness-tracker-contracts';
 
-import { formatDate } from '@/common/plugins/date';
-
+import { formatDate } from '@/common/helpers/date';
 import { URL_USER_EDIT } from '@/user/constants';
 
 interface IProps {

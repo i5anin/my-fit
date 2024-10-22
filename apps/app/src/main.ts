@@ -3,10 +3,9 @@ import { toast } from 'mhz-ui';
 
 import App from './App.vue';
 
+import router from '@/common/router';
 import { VueQueryPlugin, vueQueryOptions } from '@/common/plugins/query';
 import { setBaseURL } from '@/common/plugins/api';
-
-import router from '@/common/router';
 import { TOKEN_NAME } from '@/auth/constants';
 import { URL_HOME } from '@/common/constants';
 

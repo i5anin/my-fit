@@ -7,7 +7,7 @@
 
     <UiButton @click="startActivity">Сформировать занятие</UiButton>
 
-    <ActivityList v-if="activities" :activities="activities.data" />
+    <ActivityList v-if="activities?.data.length" :activities="activities.data" />
   </div>
 </template>
 

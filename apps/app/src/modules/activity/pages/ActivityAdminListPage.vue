@@ -1,12 +1,10 @@
 <template>
   <div>
     <div :class="$style.page">
-      <RouterLink :to="URL_EXERCISE_CREATE">Добавить упражнение</RouterLink>
-
-      <ExerciseList :exercises="exercises" />
+      <ActivityAdminList :activities="activities" />
 
       <UiPagination
-        v-show="exercises?.length"
+        v-show="activities?.length"
         :page="page"
         :total="total"
         @update="(value: number) => setPage(setPaginationPage(value, page))"
@@ -18,18 +16,17 @@
 <script setup lang="ts">
 import { UiPagination } from 'mhz-ui';
 
-import ExerciseList from '@/exercise/components/ExerciseList.vue';
+import ActivityAdminList from '@/activity/components/ActivityAdminList.vue';
 
 import { usePagination } from '@/common/composables/usePagination';
 import { usePage } from '@/common/composables/usePage';
-import { getExercises } from '@/exercise/services';
-import { URL_EXERCISE_CREATE } from '@/exercise/constants';
+import { getActivities } from '@/activity/services';
 
 const { page, setPage } = usePage();
 
-const { data } = getExercises(page);
+const { data } = getActivities(page);
 
-const { data: exercises, total, setPaginationPage } = usePagination(data);
+const { data: activities, total, setPaginationPage } = usePagination(data);
 </script>
 
 <style module lang="scss">

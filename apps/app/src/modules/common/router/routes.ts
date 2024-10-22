@@ -3,9 +3,8 @@ import { RouteRecordRaw } from 'vue-router';
 import { authRoutes } from '@/auth/routes';
 import { userRoutes } from '@/user/routes';
 import { exerciseRoutes } from '@/exercise/routes';
-
-import { URL_HOME, URL_ERROR } from '@/common/constants';
 import { activityRoutes } from '@/activity/routes';
+import { URL_HOME, URL_ERROR } from '@/common/constants';
 
 export const routes: RouteRecordRaw[] = [
   ...authRoutes,

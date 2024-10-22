@@ -5,10 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth } from '@/auth/composables/useAuth';
-
 import SetupForm from '@/auth/components/SetupForm.vue';
 
+import { useAuth } from '@/auth/composables/useAuth';
 import { URL_ACTIVITY } from '@/activity/constants';
 
 const { redirectIfAuth } = useAuth();

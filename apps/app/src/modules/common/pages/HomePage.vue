@@ -15,11 +15,11 @@ import { useRouter } from 'vue-router';
 
 import { UiButton } from 'mhz-ui';
 
+import LoginForm from '@/auth/components/LoginForm.vue';
+
 import { TOKEN_NAME } from '@/auth/constants';
 import { logout, isAuth } from '@/auth/composables/useAuth';
 import { deleteAuthHeader } from '@/common/plugins/api';
-
-import LoginForm from '@/auth/components/LoginForm.vue';
 import { URL_EXERCISE } from '@/exercise/constants';
 import { URL_HOME } from '@/common/constants';
 import { URL_ACTIVITY } from '@/activity/constants';

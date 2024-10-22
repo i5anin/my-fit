@@ -14,6 +14,7 @@ export async function paginate<T>(Entity: Model<T>, pageQuery?: number) {
     .skip((page - 1) * limit)
     .limit(limit)
     .select('-password')
+    .sort('-dateCreated')
     .lean()
     .exec()) as T[];
 

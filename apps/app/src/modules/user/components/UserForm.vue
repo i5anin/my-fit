@@ -19,12 +19,11 @@ import { useRouter } from 'vue-router';
 import { UiField, UiInput, toast } from 'mhz-ui';
 import { API_USER, IUser } from 'fitness-tracker-contracts';
 
-import { useQueryClient } from '@/common/plugins/query';
-import { useValidator, required, email } from '@/common/composables/useValidate';
-import { clone } from '@/common/plugins/clone';
-
 import FormButtons from '@/common/components/FormButtons.vue';
 
+import { useQueryClient } from '@/common/plugins/query';
+import { useValidator, required, email } from '@/common/composables/useValidate';
+import { clone } from '@/common/helpers/clone';
 import { URL_USER } from '@/user/constants';
 import { postUser, updateUser, deleteUser } from '@/user/services';
 

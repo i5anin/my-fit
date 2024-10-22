@@ -18,11 +18,10 @@
 <script setup lang="ts">
 import { UiPagination } from 'mhz-ui';
 
-import { usePagination } from '@/common/composables/usePagination';
-import { usePage } from '@/common/composables/usePage';
-
 import UserList from '@/user/components/UserList.vue';
 
+import { usePagination } from '@/common/composables/usePagination';
+import { usePage } from '@/common/composables/usePage';
 import { getUsers } from '@/user/services';
 import { URL_USER_CREATE } from '@/user/constants';
 

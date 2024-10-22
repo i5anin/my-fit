@@ -25,7 +25,7 @@
     "async-validator": "4.2.5",
     "axios": "1.7.7",
     "fitness-tracker-contracts": "*",
-    "mhz-ui": "1.0.60",
+    "mhz-ui": "1.0.61",
     "sortablejs": "1.15.3",
     "sortablejs-vue3": "1.2.11",
     "vue": "3.5.12",

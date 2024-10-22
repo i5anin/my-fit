@@ -1,4 +1,10 @@
-import { URL_ACTIVITY, URL_ACTIVITY_CREATE, URL_ACTIVITY_EDIT } from '@/activity/constants';
+import {
+  URL_ACTIVITY,
+  URL_ACTIVITY_CREATE,
+  URL_ACTIVITY_EDIT,
+  URL_ACTIVITY_ADMIN,
+  URL_ACTIVITY_ADMIN_EDIT,
+} from '@/activity/constants';
 
 export const activityRoutes = [
   {
@@ -18,5 +24,16 @@ export const activityRoutes = [
     name: 'ActivityEdit',
     component: () => import('@/activity/pages/ActivityEditPage.vue'),
     meta: { layout: 'empty' },
+  },
+
+  {
+    path: URL_ACTIVITY_ADMIN,
+    name: 'ActivityAdminList',
+    component: () => import('@/activity/pages/ActivityAdminListPage.vue'),
+  },
+  {
+    path: `${URL_ACTIVITY_ADMIN_EDIT}/:activity`,
+    name: 'ActivityAdminEdit',
+    component: () => import('@/activity/pages/ActivityAdminEditPage.vue'),
   },
 ];

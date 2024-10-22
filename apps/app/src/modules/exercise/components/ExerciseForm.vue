@@ -27,12 +27,11 @@ import { useRouter } from 'vue-router';
 import { UiField, UiInput, UiCheckbox, toast } from 'mhz-ui';
 import { API_EXERCISE, IExercise } from 'fitness-tracker-contracts';
 
-import { useQueryClient } from '@/common/plugins/query';
-import { useValidator, required } from '@/common/composables/useValidate';
-import { clone } from '@/common/plugins/clone';
-
 import FormButtons from '@/common/components/FormButtons.vue';
 
+import { useQueryClient } from '@/common/plugins/query';
+import { useValidator, required } from '@/common/composables/useValidate';
+import { clone } from '@/common/helpers/clone';
 import { URL_EXERCISE, EXERCISE_WEIGHT_OPTIONS } from '@/exercise/constants';
 import { postExercise, updateExercise, deleteExercise } from '@/exercise/services';
 
