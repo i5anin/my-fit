@@ -8,7 +8,7 @@ export default async function (fastify: IFastifyInstance) {
   fastify.get<{ Reply: { 200: IBaseReply } }>(API_AUTH_CHECK, async function (request, reply) {
     await authService.check(request);
 
-    return reply.code(200).send({ message: 'Auth checked' });
+    return reply.code(200).send({ message: 'Успешно авторизован' });
   });
 
   fastify.post<{ Body: ILoginData; Reply: { 200: IUserToken; '4xx': IBaseReply } }>(
@@ -17,9 +17,9 @@ export default async function (fastify: IFastifyInstance) {
       const { user, isUserNotFound, isWrongPassword } = await authService.login(request.body, fastify.jwt.sign);
 
       if (isUserNotFound) {
-        reply.code(404).send({ message: 'User not found' });
+        reply.code(404).send({ message: 'Пользователь не найден' });
       } else if (isWrongPassword) {
-        reply.code(401).send({ message: 'Wrong password' });
+        reply.code(401).send({ message: 'Неправильный пароль' });
       } else {
         reply.code(200).send(user);
       }
@@ -32,9 +32,9 @@ export default async function (fastify: IFastifyInstance) {
       const isUserExists = await authService.setup(request.body);
 
       if (isUserExists) {
-        reply.code(500).send({ message: 'User already exists' });
+        reply.code(500).send({ message: 'Пользователи уже существуют' });
       } else {
-        reply.code(201).send({ message: 'User created' });
+        reply.code(201).send({ message: 'Пользователь создан' });
       }
     }
   );

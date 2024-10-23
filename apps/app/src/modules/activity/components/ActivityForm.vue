@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isShowForm">
     <h2>Сформировать занятие</h2>
 
     <form @submit.prevent="submit" :class="$style.form">
@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { toast, UiButton, UiModal } from 'mhz-ui';
 import { API_ACTIVITY, IActivity, IExerciseChoosen } from 'fitness-tracker-contracts';
@@ -35,6 +36,9 @@ import { getExercises } from '@/exercise/services';
 import { postActivity } from '@/activity/services';
 import { useQueryClient } from '@/common/plugins/query';
 import { deleteTempId } from '@/common/helpers/id';
+import { URL_ACTIVITY_EDIT } from '@/activity/constants';
+
+const router = useRouter();
 
 const queryClient = useQueryClient();
 
@@ -43,6 +47,7 @@ const formData = ref<IActivity>({
 });
 
 const isShowModal = ref(false);
+const isShowForm = ref(true);
 
 const { page } = usePage();
 
@@ -61,9 +66,11 @@ function updateExercises(updatedExercises: IExerciseChoosen[]) {
 }
 
 const { mutate: mutatePost, isPending: isLoadingPost } = postActivity({
-  onSuccess: async () => {
+  onSuccess: async (id: string) => {
     await queryClient.refetchQueries({ queryKey: [API_ACTIVITY] });
     toast.success('Занятие начато');
+
+    router.push(`${URL_ACTIVITY_EDIT}/${id}`);
   },
 });
 
@@ -71,6 +78,7 @@ const isValid = computed(() => !!formData.value.exercises?.length);
 
 function submit() {
   if (isValid.value) {
+    isShowForm.value = false;
     formData.value.exercises = deleteTempId(formData.value.exercises);
     mutatePost(formData.value);
   }

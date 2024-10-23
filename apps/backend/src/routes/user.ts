@@ -1,5 +1,5 @@
 import { API_USER } from 'fitness-tracker-contracts';
-import type { IBaseReply, IUser, IBaseParams, ILoginData } from 'fitness-tracker-contracts';
+import type { IBaseReply, IUser, IBaseParams } from 'fitness-tracker-contracts';
 
 import { IFastifyInstance } from '../interface/index.js';
 import { userService } from '../services/user.js';
@@ -31,17 +31,17 @@ export default async function (fastify: IFastifyInstance) {
     async function (request, reply) {
       await userService.update<IUser>(request.body, request.params.id);
 
-      reply.code(200).send({ message: 'User updated' });
+      reply.code(200).send({ message: 'Пользователь обновлен' });
     }
   );
 
-  fastify.post<{ Body: ILoginData; Reply: { 201: IBaseReply } }>(
+  fastify.post<{ Body: IUser; Reply: { 201: IBaseReply } }>(
     API_USER,
     { preValidation: [fastify.onlyUser] },
     async function (request, reply) {
-      await userService.create<ILoginData>(request.body);
+      await userService.create<IUser>(request.body);
 
-      reply.code(201).send({ message: 'User created' });
+      reply.code(201).send({ message: 'Пользователь создан' });
     }
   );
 
@@ -51,7 +51,7 @@ export default async function (fastify: IFastifyInstance) {
     async function (request, reply) {
       await userService.delete(request.params.id);
 
-      reply.code(200).send({ message: 'User deleted' });
+      reply.code(200).send({ message: 'Пользователь удален' });
     }
   );
 }

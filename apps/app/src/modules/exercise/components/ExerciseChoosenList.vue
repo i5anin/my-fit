@@ -1,19 +1,11 @@
 <template>
-  <div>
-    <Sortable
-      :list="props.choosenExercises"
-      :itemKey="(item) => item._id"
-      tag="div"
-      @end="updateIndex"
-      :class="$style.list"
-    >
-      <template #item="{ element }">
-        <div :key="element">
-          <ExerciseChoosenElement :choosenExercise="element" @delete="deleteChoosenExercise" />
-        </div>
-      </template>
-    </Sortable>
-  </div>
+  <Sortable :list="props.choosenExercises" itemKey="_id" tag="div" @end="updateIndex" :class="$style.list">
+    <template #item="{ element }">
+      <div :key="element">
+        <ExerciseChoosenElement :choosenExercise="element" @delete="deleteChoosenExercise" />
+      </div>
+    </template>
+  </Sortable>
 </template>
 
 <script setup lang="ts">

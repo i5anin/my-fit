@@ -16,7 +16,7 @@ export default async function (fastify: IFastifyInstance) {
       if (isFileExists) {
         reply.code(200).send(filename);
       } else {
-        reply.code(500).send({ message: 'File upload error' });
+        reply.code(500).send({ message: 'Ошибка загрузки файла' });
       }
     }
   );
@@ -27,7 +27,7 @@ export default async function (fastify: IFastifyInstance) {
     async function (request, reply) {
       await uploadService.delete(request.params.id);
 
-      reply.code(200).send({ message: 'File deleted' });
+      reply.code(200).send({ message: 'Файл удален' });
     }
   );
 }

@@ -1,8 +1,8 @@
 <template>
   <div :class="$style.page">
     <div :class="$style.buttons">
-      <UiButton @click="goToAdminPanel">Админка</UiButton>
-      <UiButton @click="logout(URL_HOME, deleteAuthHeader, TOKEN_NAME)">Выйти</UiButton>
+      <UiButton @click="goToAdminPanel" layout="secondary">Админка</UiButton>
+      <UiButton @click="logout(URL_HOME, deleteAuthHeader, TOKEN_NAME)" layout="secondary">Выйти</UiButton>
     </div>
 
     <UiButton @click="startActivity">Сформировать занятие</UiButton>

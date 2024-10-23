@@ -25,7 +25,11 @@ export const activityService: IBaseService = {
   create: async <T>(activityToCreate: T) => {
     const activity = new Activity(activityToCreate);
 
-    await activity.save();
+    const newActivity = await activity.save();
+
+    const id = newActivity._id.toString();
+
+    return id;
   },
 
   delete: async (_id?: string) => {

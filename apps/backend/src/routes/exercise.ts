@@ -1,5 +1,5 @@
 import { API_EXERCISE } from 'fitness-tracker-contracts';
-import type { IBaseReply, IExercise, IBaseParams, ILoginData } from 'fitness-tracker-contracts';
+import type { IBaseReply, IExercise, IBaseParams } from 'fitness-tracker-contracts';
 
 import { IFastifyInstance } from '../interface/index.js';
 import { exerciseService } from '../services/exercise.js';
@@ -30,17 +30,17 @@ export default async function (fastify: IFastifyInstance) {
     async function (request, reply) {
       await exerciseService.update<IExercise>(request.body, request.params.id);
 
-      reply.code(200).send({ message: 'Exercise updated' });
+      reply.code(200).send({ message: 'Упражнение обновлено' });
     }
   );
 
-  fastify.post<{ Body: ILoginData; Reply: { 201: IBaseReply } }>(
+  fastify.post<{ Body: IExercise; Reply: { 201: IBaseReply } }>(
     API_EXERCISE,
     { preValidation: [fastify.onlyUser] },
     async function (request, reply) {
-      await exerciseService.create<ILoginData>(request.body);
+      await exerciseService.create<IExercise>(request.body);
 
-      reply.code(201).send({ message: 'Exercise created' });
+      reply.code(201).send({ message: 'Упражнение создано' });
     }
   );
 
@@ -50,7 +50,7 @@ export default async function (fastify: IFastifyInstance) {
     async function (request, reply) {
       await exerciseService.delete(request.params.id);
 
-      reply.code(200).send({ message: 'Exercise deleted' });
+      reply.code(200).send({ message: 'Упражнение удалено' });
     }
   );
 }

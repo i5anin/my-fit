@@ -15,7 +15,7 @@ export default fp(async function (fastify) {
       await request.jwtVerify();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      reply.code(403).send({ message: 'Authentication error' });
+      reply.code(403).send({ message: 'Ошибка аутентификации' });
     }
   });
 });

@@ -1,5 +1,5 @@
 import { API_ACTIVITY } from 'fitness-tracker-contracts';
-import type { IBaseReply, IActivity, IBaseParams, ILoginData } from 'fitness-tracker-contracts';
+import type { IBaseReply, IActivity, IBaseParams } from 'fitness-tracker-contracts';
 
 import { IFastifyInstance } from '../interface/index.js';
 import { activityService } from '../services/activity.js';
@@ -31,17 +31,21 @@ export default async function (fastify: IFastifyInstance) {
     async function (request, reply) {
       await activityService.update<IActivity>(request.body, request.params.id);
 
-      reply.code(200).send({ message: 'Activity updated' });
+      reply.code(200).send({ message: 'Занятие обновлено' });
     }
   );
 
-  fastify.post<{ Body: ILoginData; Reply: { 201: IBaseReply } }>(
+  fastify.post<{ Body: IActivity; Reply: { 201: string; 500: IBaseReply } }>(
     API_ACTIVITY,
     { preValidation: [fastify.onlyUser] },
     async function (request, reply) {
-      await activityService.create<ILoginData>(request.body);
+      const id = await activityService.create<IActivity>(request.body);
 
-      reply.code(201).send({ message: 'Activity created' });
+      if (id) {
+        reply.code(201).send(id.toString());
+      } else {
+        reply.code(500).send({ message: 'Ошибка создания занятия' });
+      }
     }
   );
 
@@ -51,7 +55,7 @@ export default async function (fastify: IFastifyInstance) {
     async function (request, reply) {
       await activityService.delete(request.params.id);
 
-      reply.code(200).send({ message: 'Activity deleted' });
+      reply.code(200).send({ message: 'Занятие удалено' });
     }
   );
 }
