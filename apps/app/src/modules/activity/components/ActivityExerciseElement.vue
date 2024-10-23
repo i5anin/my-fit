@@ -9,7 +9,7 @@
       {{ buttonTitle }}
     </UiButton>
 
-    <ActivityTimer :start="start" :stop="stop" />
+    <ActivityTimer :duration="exercise.duration" :start="start" :stop="stop" isBig @stop="sendDurationData" />
   </div>
 </template>
 
@@ -44,9 +44,13 @@ const buttonTitle = computed(() => {
 });
 
 function handleClick() {
-  emit(isCurrentExerciseActive.value ? 'stop' : 'start', props.exercise._id);
+  emit('start', props.exercise._id);
   start.value = !isCurrentExerciseActive.value;
   stop.value = isCurrentExerciseActive.value;
+}
+
+function sendDurationData(duration: number) {
+  if (isCurrentExerciseActive.value) emit('stop', { id: props.exercise._id, duration });
 }
 </script>
 

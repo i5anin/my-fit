@@ -6,7 +6,7 @@
       :exercise="exercise"
       :activeExerciseId="props.activeExerciseId"
       @start="(id) => emit('start', id)"
-      @stop="(id) => emit('stop', id)"
+      @stop="(durationData) => emit('stop', durationData)"
     />
   </div>
 </template>

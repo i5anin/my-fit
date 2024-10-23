@@ -44,6 +44,8 @@ const queryClient = useQueryClient();
 
 const formData = ref<IActivity>({
   exercises: [],
+  duration: 0,
+  isDone: false,
 });
 
 const isShowModal = ref(false);

@@ -7,16 +7,17 @@ const activitySchema = new Schema<IActivity>(
     exercises: {
       type: [
         {
-          exercise: { type: Schema.Types.ObjectId, ref: 'Exercise', required: true },
           repeats: Number,
+          exercise: { type: Schema.Types.ObjectId, ref: 'Exercise', required: true },
           duration: Number,
-          isToFailure: Boolean,
           isDone: Boolean,
+          isToFailure: Boolean,
           weight: Number,
         },
       ],
     },
-    duration: { type: Number },
+    duration: { type: Number, required: true },
+    isDone: { type: Boolean, required: true },
     dateCreated: { type: Date, default: Date.now },
     dateUpdated: { type: Date },
   },

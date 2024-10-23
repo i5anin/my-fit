@@ -9,6 +9,21 @@
     />
 
     <div>Занятие началось {{ formatDateTime(props.activity.dateCreated) }}.</div>
+
+    <div v-if="props.activity.dateUpdated">
+      Занятие {{ formData.isDone ? 'закончено' : 'обновлено' }} {{ formatDateTime(props.activity.dateUpdated) }}.
+    </div>
+
+    <div>
+      Длительность:
+      <ActivityTimer
+        v-if="formData._id"
+        :duration="formData.duration"
+        :start="!formData.isDone"
+        :stop="formData.isDone"
+        @stop="finishActivity"
+      />
+    </div>
   </div>
 </template>
 
@@ -19,6 +34,7 @@ import { toast } from 'mhz-ui';
 import { API_ACTIVITY, IActivity } from 'fitness-tracker-contracts';
 
 import ActivityExerciseList from '@/activity/components/ActivityExerciseList.vue';
+import ActivityTimer from '@/activity/components/ActivityTimer.vue';
 
 import { updateActivity } from '@/activity/services';
 import { formatDateTime } from '@/common/helpers/date';
@@ -33,7 +49,11 @@ const props = defineProps<IProps>();
 
 const formData = ref<IActivity>({
   exercises: [],
+  duration: 0,
+  isDone: false,
 });
+
+const isTimerStopped = ref(false);
 
 const activeExerciseId = ref<string>();
 
@@ -50,16 +70,26 @@ function startExercise(id: string) {
   activeExerciseId.value = id;
 }
 
-function stopExercise(id: string) {
+function stopExercise(durationData: { id: string; duration: number }) {
   activeExerciseId.value = undefined;
 
   formData.value.exercises = formData.value.exercises.map((exercise) => {
-    if (exercise._id === id) {
-      return { ...exercise, isDone: true };
+    if (exercise._id === durationData.id) {
+      return { ...exercise, isDone: true, duration: durationData.duration };
     }
 
     return exercise;
   });
+
+  formData.value.isDone = !formData.value.exercises.some((exercise) => !exercise.isDone);
+
+  isTimerStopped.value = true;
+
+  mutateUpdate(formData.value);
+}
+
+function finishActivity(duration: number) {
+  formData.value.duration = duration;
 
   mutateUpdate(formData.value);
 }
@@ -73,6 +103,6 @@ onMounted(() => {
 .page {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 8px;
 }
 </style>

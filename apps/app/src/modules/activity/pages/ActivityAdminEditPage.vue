@@ -4,7 +4,11 @@
 
     <div>
       Упражнения:<br />
-      <div v-for="exercise in activity?.exercises" :key="exercise._id">{{ exercise }}</div>
+      <div v-for="exercise in activity?.exercises" :key="exercise._id">
+        <ExerciseTitle :exercise="exercise" />
+        <div v-if="exercise.isDone">Выполнено</div>
+        <div v-if="exercise.duration">Длительность: {{ exercise.duration }}</div>
+      </div>
     </div>
 
     <UiModal v-model="isShowConfirm" isConfirm @confirm="mutateDelete(activity?._id)" lang="ru">
@@ -29,6 +33,7 @@ import { useQueryClient } from '@/common/plugins/query';
 import { getActivity, deleteActivity } from '@/activity/services';
 import { URL_ACTIVITY_ADMIN } from '@/activity/constants';
 import { formatDateTime } from '@/common/helpers/date';
+import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
 
 const isShowConfirm = ref(false);
 

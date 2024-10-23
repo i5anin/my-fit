@@ -21,14 +21,15 @@ export interface IExerciseChoosen extends IEntity {
 }
 
 export interface IExerciseDone extends IExerciseChoosen {
-  duration?: number;
   isToFailure?: boolean;
+  duration?: number;
   isDone?: boolean;
 }
 
 export interface IActivity extends IEntity {
   exercises: IExerciseDone[];
-  duration?: number;
+  duration: number;
+  isDone: boolean;
 }
 
 export interface IUserToken {
