@@ -16,19 +16,19 @@ export default defineConfig({
     svgLoader(),
     VitePWA({
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,jpg,webp,woff2}'],
+        globPatterns: ['**/*.{svg,png,jpg,webp,woff2}'],
       },
       manifest: {
         name: 'FiT',
         short_name: 'FiT',
         description: 'Фитнес трекер',
         theme_color: '#ffffff',
+        background_color: '#ffffff',
         lang: 'ru',
         icons: [
           { src: 'pwa-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'pwa-512.png', sizes: '512x512', type: 'image/png' },
-          { src: 'pwa-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-          { src: 'pwa-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: 'pwa-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
         ],
       },
     }),

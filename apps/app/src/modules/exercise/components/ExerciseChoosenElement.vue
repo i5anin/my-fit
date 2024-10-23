@@ -1,10 +1,6 @@
 <template>
   <div :class="$style.exercise">
-    <div>
-      <b>{{ props.choosenExercise.exercise.title }}</b>
-      <span> - {{ props.choosenExercise.repeats }} раз</span>
-      <span v-if="props.choosenExercise.weight"> x {{ props.choosenExercise.weight }} кг.</span>
-    </div>
+    <ExerciseTitle :exercise="props.choosenExercise" />
 
     <button @click="emit('delete', choosenExercise._id)" :class="$style.delete" type="button">×</button>
   </div>
@@ -12,6 +8,8 @@
 
 <script setup lang="ts">
 import { IExerciseChoosen } from 'fitness-tracker-contracts';
+
+import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
 
 interface IProps {
   choosenExercise: IExerciseChoosen;

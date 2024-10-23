@@ -13,7 +13,10 @@ export const activityService: IBaseService = {
   },
 
   getOne: async <T>(_id: string) => {
-    const activity: IActivity | null = await Activity.findOne({ _id }).lean().exec();
+    const activity: IActivity | null = await Activity.findOne({ _id })
+      .populate({ path: 'exercises.exercise', select: 'title' })
+      .lean()
+      .exec();
 
     return { data: activity as T };
   },
