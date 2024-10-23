@@ -19,13 +19,13 @@
     "ts": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@tanstack/vue-query": "5.59.13",
+    "@tanstack/vue-query": "5.59.16",
     "@vueuse/core": "11.1.0",
     "@vueuse/integrations": "11.1.0",
     "async-validator": "4.2.5",
     "axios": "1.7.7",
     "fitness-tracker-contracts": "*",
-    "mhz-ui": "1.0.61",
+    "mhz-ui": "1.0.63",
     "sortablejs": "1.15.3",
     "sortablejs-vue3": "1.2.11",
     "vue": "3.5.12",

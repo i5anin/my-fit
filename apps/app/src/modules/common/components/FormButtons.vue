@@ -14,7 +14,9 @@
       Удалить
     </UiButton>
 
-    <UiModal v-model="isShowConfirm" isConfirm @confirm="emit('delete', props.id)">Подтверждаете удаление?</UiModal>
+    <UiModal v-model="isShowConfirm" isConfirm @confirm="emit('delete', props.id)" lang="ru">
+      Подтверждаете удаление?
+    </UiModal>
   </div>
 </template>
 

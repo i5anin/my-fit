@@ -1,11 +1,11 @@
 <template>
   <div :class="$style.element">
     <UiField v-if="props.exercise?.weights?.length" label="Вес, кг.">
-      <UiSelect v-model="choosenExercise.weight" :options="props.exercise?.weights" placeholder="Выбрать" />
+      <UiSelect v-model="choosenExercise.weight" :options="props.exercise?.weights" lang="ru" />
     </UiField>
 
     <UiField label="Повторения">
-      <UiSelect v-model="choosenExercise.repeats" :options="EXERCISE_REPEATS_OPTIONS" placeholder="Выбрать" />
+      <UiSelect v-model="choosenExercise.repeats" :options="EXERCISE_REPEATS_OPTIONS" lang="ru" />
     </UiField>
 
     <UiButton @click="addExercise">Добавить в занятие</UiButton>

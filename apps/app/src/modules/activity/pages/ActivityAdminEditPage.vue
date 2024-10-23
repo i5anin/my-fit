@@ -7,7 +7,9 @@
       <div v-for="exercise in activity?.exercises" :key="exercise._id">{{ exercise }}</div>
     </div>
 
-    <UiModal v-model="isShowConfirm" isConfirm @confirm="mutateDelete(activity?._id)">Подтверждаете удаление?</UiModal>
+    <UiModal v-model="isShowConfirm" isConfirm @confirm="mutateDelete(activity?._id)" lang="ru">
+      Подтверждаете удаление?
+    </UiModal>
 
     <div :class="$style.buttons">
       <UiButton @click="router.go(-1)">Назад</UiButton>

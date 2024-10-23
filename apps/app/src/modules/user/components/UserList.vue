@@ -1,5 +1,5 @@
 <template>
-  <UiTable :headers="tableHeaders" :isLoading="!props.users?.length">
+  <UiTable :headers="tableHeaders" :isLoading="!props.users?.length" lang="ru">
     <template v-if="props.users?.length">
       <tr v-for="user in props.users" :key="user._id">
         <td data-grow>
