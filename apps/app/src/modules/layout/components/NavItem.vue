@@ -21,7 +21,6 @@ const props = defineProps<IProps>();
   align-items: center;
   width: 100%;
   padding: 8px 12px;
-  font-size: 0.875rem;
   color: var(--color-black);
   text-decoration: none;
   border-radius: 16px;

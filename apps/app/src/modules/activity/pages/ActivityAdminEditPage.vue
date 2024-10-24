@@ -3,7 +3,7 @@
     <div v-if="activity">
       <div>Занятие началось: {{ formatDateTime(activity.dateCreated) }}</div>
       <div>Занятие закончилось: {{ formatDateTime(activity.dateUpdated) }}</div>
-      <div>Длительность: <ActivityTimer :duration="activity.duration" /></div>
+      <div>Длительность: <ActivityDuration :duration="activity.duration" /></div>
     </div>
 
     <div>
@@ -11,7 +11,7 @@
       <div v-for="exercise in activity?.exercises" :key="exercise._id">
         <ExerciseTitle :exercise="exercise" />
         <span v-if="!exercise.isDone">Не выполнено</span>
-        <div v-if="exercise.duration">Длительность: <ActivityTimer :duration="exercise.duration" /></div>
+        <div v-if="exercise.duration">Длительность: <ActivityDuration :duration="exercise.duration" /></div>
       </div>
     </div>
 
@@ -34,7 +34,7 @@ import { toast, UiButton, UiModal } from 'mhz-ui';
 import { API_ACTIVITY } from 'fitness-tracker-contracts';
 
 import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
-import ActivityTimer from '@/activity/components/ActivityTimer.vue';
+import ActivityDuration from '@/activity/components/ActivityDuration.vue';
 
 import { useQueryClient } from '@/common/plugins/query';
 import { getActivity, deleteActivity } from '@/activity/services';

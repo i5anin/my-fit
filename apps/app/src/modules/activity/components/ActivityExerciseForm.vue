@@ -16,7 +16,7 @@
 
     <div>
       Длительность:
-      <ActivityTimer
+      <ActivityDuration
         v-if="formData._id"
         :duration="formData.duration"
         :start="!formData.isDone"
@@ -34,7 +34,7 @@ import { toast } from 'mhz-ui';
 import { API_ACTIVITY, IActivity } from 'fitness-tracker-contracts';
 
 import ActivityExerciseList from '@/activity/components/ActivityExerciseList.vue';
-import ActivityTimer from '@/activity/components/ActivityTimer.vue';
+import ActivityDuration from '@/activity/components/ActivityDuration.vue';
 
 import { updateActivity } from '@/activity/services';
 import { formatDateTime } from '@/common/helpers/date';

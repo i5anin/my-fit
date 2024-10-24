@@ -9,7 +9,7 @@
       {{ buttonTitle }}
     </UiButton>
 
-    <ActivityTimer :duration="exercise.duration" :start="start" :stop="stop" isBig @stop="sendDurationData" />
+    <ActivityDuration :duration="exercise.duration" :start="start" :stop="stop" isBig @stop="sendDurationData" />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ import { UiButton } from 'mhz-ui';
 import { IExerciseDone } from 'fitness-tracker-contracts';
 
 import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
-import ActivityTimer from '@/activity/components/ActivityTimer.vue';
+import ActivityDuration from '@/activity/components/ActivityDuration.vue';
 
 interface IProps {
   exercise: IExerciseDone;
