@@ -8,6 +8,7 @@
         :page="page"
         :total="total"
         @update="(value: number) => setPage(setPaginationPage(value, page))"
+        lang="ru"
       />
     </div>
   </div>

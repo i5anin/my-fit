@@ -10,8 +10,8 @@ import { ref, watch, onMounted } from 'vue';
 
 interface IProps {
   duration?: number;
-  start: boolean;
-  stop: boolean;
+  start?: boolean;
+  stop?: boolean;
   isBig?: boolean;
 }
 

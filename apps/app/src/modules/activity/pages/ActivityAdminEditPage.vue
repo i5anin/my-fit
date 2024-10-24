@@ -1,13 +1,17 @@
 <template>
   <div :class="$style.page">
-    <div>Дата занятия: {{ formatDateTime(activity?.dateCreated) }}</div>
+    <div v-if="activity">
+      <div>Занятие началось: {{ formatDateTime(activity.dateCreated) }}</div>
+      <div>Занятие закончилось: {{ formatDateTime(activity.dateUpdated) }}</div>
+      <div>Длительность: <ActivityTimer :duration="activity.duration" /></div>
+    </div>
 
     <div>
       Упражнения:<br />
       <div v-for="exercise in activity?.exercises" :key="exercise._id">
         <ExerciseTitle :exercise="exercise" />
-        <div v-if="exercise.isDone">Выполнено</div>
-        <div v-if="exercise.duration">Длительность: {{ exercise.duration }}</div>
+        <span v-if="!exercise.isDone">Не выполнено</span>
+        <div v-if="exercise.duration">Длительность: <ActivityTimer :duration="exercise.duration" /></div>
       </div>
     </div>
 
@@ -29,11 +33,13 @@ import { useRoute, useRouter } from 'vue-router';
 import { toast, UiButton, UiModal } from 'mhz-ui';
 import { API_ACTIVITY } from 'fitness-tracker-contracts';
 
+import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
+import ActivityTimer from '@/activity/components/ActivityTimer.vue';
+
 import { useQueryClient } from '@/common/plugins/query';
 import { getActivity, deleteActivity } from '@/activity/services';
 import { URL_ACTIVITY_ADMIN } from '@/activity/constants';
 import { formatDateTime } from '@/common/helpers/date';
-import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
 
 const isShowConfirm = ref(false);
 

@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.layout">
-    <TheHeader />
+    <HeaderAdmin />
 
     <div :class="$style.container">
       <NavList />
@@ -13,10 +13,10 @@
 </template>
 
 <script setup lang="ts">
-import TheHeader from '@/layout/components/TheHeader.vue';
+import HeaderAdmin from '@/layout/components/HeaderAdmin.vue';
 import NavList from '@/layout/components/NavList.vue';
 
-defineOptions({ name: 'LayoutDefault' });
+defineOptions({ name: 'LayoutAdmin' });
 </script>
 
 <style module lang="scss">
@@ -42,8 +42,8 @@ defineOptions({ name: 'LayoutDefault' });
 
 .content {
   min-height: calc(100vh - 128px);
-  padding: 32px;
-  margin: 32px;
+  padding: 24px;
+  margin: 24px;
   overflow: hidden;
   background-color: var(--color-white);
   border-radius: 16px;

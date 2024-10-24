@@ -60,6 +60,6 @@ function submit() {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 300px;
+  min-width: 300px;
 }
 </style>

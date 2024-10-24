@@ -8,7 +8,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import LayoutDefault from '@/layout/components/LayoutDefault.vue';
+import LayoutAdmin from '@/layout/components/LayoutAdmin.vue';
 import LayoutEmpty from '@/layout/components/LayoutEmpty.vue';
 
 import { checkAuth } from '@/auth/services';
@@ -22,7 +22,7 @@ const router = useRouter();
 const isLoaded = ref(false);
 
 const layoutComponent = computed(() => {
-  return route.meta.layout === 'empty' ? LayoutEmpty : LayoutDefault;
+  return route.meta.layout === 'empty' ? LayoutEmpty : LayoutAdmin;
 });
 
 const token = getCookieToken(TOKEN_NAME);

@@ -1,13 +1,13 @@
 <template>
   <div>
-    {{ formatDateTime(props.activity.dateCreated) }}
+    {{ formatDate(props.activity.dateCreated) }}
   </div>
 </template>
 
 <script setup lang="ts">
 import { IActivity } from 'fitness-tracker-contracts';
 
-import { formatDateTime } from '@/common/helpers/date';
+import { formatDate } from '@/common/helpers/date';
 
 interface IProps {
   activity: IActivity;

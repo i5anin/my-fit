@@ -62,7 +62,6 @@ const queryClient = useQueryClient();
 const { mutate: mutateUpdate } = updateActivity({
   onSuccess: async () => {
     await queryClient.refetchQueries({ queryKey: [API_ACTIVITY] });
-    toast.success('Упражнение обновлено');
   },
 });
 
@@ -92,6 +91,8 @@ function finishActivity(duration: number) {
   formData.value.duration = duration;
 
   mutateUpdate(formData.value);
+
+  toast.success('Занятие закончено');
 }
 
 onMounted(() => {

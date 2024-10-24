@@ -1,10 +1,5 @@
 <template>
   <div :class="$style.page">
-    <div :class="$style.buttons">
-      <UiButton @click="goToAdminPanel" layout="secondary">Админка</UiButton>
-      <UiButton @click="logout(URL_HOME, deleteAuthHeader, TOKEN_NAME)" layout="secondary">Выйти</UiButton>
-    </div>
-
     <UiButton @click="startActivity">Сформировать занятие</UiButton>
 
     <ActivityList v-if="activities?.data.length" :activities="activities.data" />
@@ -19,11 +14,6 @@ import { UiButton } from 'mhz-ui';
 
 import ActivityList from '@/activity/components/ActivityList.vue';
 
-import { TOKEN_NAME } from '@/auth/constants';
-import { logout } from '@/auth/composables/useAuth';
-import { deleteAuthHeader } from '@/common/plugins/api';
-import { URL_EXERCISE } from '@/exercise/constants';
-import { URL_HOME } from '@/common/constants';
 import { getActivities } from '@/activity/services';
 import { URL_ACTIVITY_CREATE } from '@/activity/constants';
 
@@ -36,10 +26,6 @@ const { data: activities } = getActivities(page);
 function startActivity() {
   router.push(URL_ACTIVITY_CREATE);
 }
-
-function goToAdminPanel() {
-  router.push(URL_EXERCISE);
-}
 </script>
 
 <style module lang="scss">
@@ -47,10 +33,5 @@ function goToAdminPanel() {
   display: flex;
   flex-direction: column;
   gap: 32px;
-}
-
-.buttons {
-  display: flex;
-  gap: 16px;
 }
 </style>

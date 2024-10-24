@@ -15,13 +15,11 @@ export default defineConfig({
     vue(),
     svgLoader(),
     VitePWA({
-      workbox: {
-        globPatterns: ['**/*.{svg,png,jpg,webp,woff2}'],
-      },
       manifest: {
         name: 'FiT',
         short_name: 'FiT',
         description: 'Фитнес трекер',
+        display: 'fullscreen',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         lang: 'ru',

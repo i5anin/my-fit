@@ -28,6 +28,8 @@ import { useValidator, required, email } from '@/common/composables/useValidate'
 import { login } from '@/auth/services';
 import { TOKEN_NAME } from '@/auth/constants';
 
+const emit = defineEmits(['login']);
+
 const { auth } = useAuth();
 
 const formData = ref<ILoginData>({
@@ -39,6 +41,8 @@ const { mutate: mutateLogin } = login({
   onSuccess: (user: { token: string }) => {
     auth(user.token, setAuthHeader, TOKEN_NAME);
     toast.success('Добро пожаловать!');
+
+    emit('login');
   },
 });
 
@@ -61,6 +65,6 @@ function submit() {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 300px;
+  min-width: 300px;
 }
 </style>
