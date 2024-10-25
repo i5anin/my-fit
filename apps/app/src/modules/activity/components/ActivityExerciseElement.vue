@@ -9,7 +9,24 @@
       {{ buttonTitle }}
     </UiButton>
 
-    <UiCheckbox v-model="isToFailure" label="До отказа" :isDisabled="!isCurrentExerciseActive" />
+    <UiCheckbox v-model="isToFailure" label="Упражнение выполнено до отказа" :isDisabled="!isCurrentExerciseActive" />
+
+    <div>
+      <div :class="$style.title">Количество повторений</div>
+
+      <div :class="$style.repeats">
+        <UiButton
+          v-for="repeat in repeatButtons"
+          :key="repeat"
+          @click="repeats = repeat"
+          :layout="repeat === repeats ? 'accent' : 'primary'"
+          isNarrow
+          :isDisabled="!isCurrentExerciseActive"
+        >
+          {{ repeat }}
+        </UiButton>
+      </div>
+    </div>
 
     <ActivityDuration :duration="exercise.duration" :start="start" :stop="stop" isBig @stop="sendDurationData" />
   </div>
@@ -36,8 +53,17 @@ const start = ref(false);
 const stop = ref(false);
 
 const isToFailure = ref(false);
+const repeats = ref(props.exercise.repeats);
 
 const isCurrentExerciseActive = computed(() => props.exercise._id === props.activeExerciseId);
+
+const repeatButtons = [
+  props.exercise.repeats - 2,
+  props.exercise.repeats - 1,
+  props.exercise.repeats,
+  props.exercise.repeats + 1,
+  props.exercise.repeats + 2,
+];
 
 const buttonTitle = computed(() => {
   if (props.exercise.isDone) {
@@ -54,7 +80,9 @@ function handleClick() {
 }
 
 function sendDurationData(duration: number) {
-  if (isCurrentExerciseActive.value) emit('stop', { id: props.exercise._id, duration, isToFailure: isToFailure.value });
+  if (isCurrentExerciseActive.value) {
+    emit('stop', { _id: props.exercise._id, duration, isToFailure: isToFailure.value, repeats: repeats.value });
+  }
 }
 </script>
 
@@ -63,5 +91,15 @@ function sendDurationData(duration: number) {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.title {
+  text-align: center;
+}
+
+.repeats {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
 }
 </style>

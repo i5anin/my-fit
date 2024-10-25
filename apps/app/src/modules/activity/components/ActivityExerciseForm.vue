@@ -8,21 +8,23 @@
       @stop="stopExercise"
     />
 
-    <div>Занятие началось {{ formatDateTime(props.activity.dateCreated) }}.</div>
-
-    <div v-if="props.activity.dateUpdated">
-      Занятие {{ formData.isDone ? 'закончено' : 'обновлено' }} {{ formatDateTime(props.activity.dateUpdated) }}.
-    </div>
-
     <div>
-      Длительность:
-      <ActivityDuration
-        v-if="formData._id"
-        :duration="formData.duration"
-        :start="!formData.isDone"
-        :stop="formData.isDone"
-        @stop="finishActivity"
-      />
+      <div>Занятие началось {{ formatDateTime(props.activity.dateCreated) }}.</div>
+
+      <div v-if="props.activity.dateUpdated">
+        Занятие {{ formData.isDone ? 'закончено' : 'обновлено' }} {{ formatDateTime(props.activity.dateUpdated) }}.
+      </div>
+
+      <div>
+        Длительность:
+        <ActivityDuration
+          v-if="formData._id"
+          :duration="formData.duration"
+          :start="!formData.isDone"
+          :stop="formData.isDone"
+          @stop="finishActivity"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +33,7 @@
 import { ref, onMounted } from 'vue';
 
 import { toast } from 'mhz-ui';
-import { API_ACTIVITY, IActivity } from 'fitness-tracker-contracts';
+import { API_ACTIVITY, IActivity, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ActivityExerciseList from '@/activity/components/ActivityExerciseList.vue';
 import ActivityDuration from '@/activity/components/ActivityDuration.vue';
@@ -69,12 +71,18 @@ function startExercise(id: string) {
   activeExerciseId.value = id;
 }
 
-function stopExercise(durationData: { id: string; duration: number; isToFailure: boolean }) {
+function stopExercise(exerciseDone: IExerciseDone) {
   activeExerciseId.value = undefined;
 
   formData.value.exercises = formData.value.exercises.map((exercise) => {
-    if (exercise._id === durationData.id) {
-      return { ...exercise, isDone: true, duration: durationData.duration, isToFailure: durationData.isToFailure };
+    if (exercise._id === exerciseDone._id) {
+      return {
+        ...exercise,
+        isDone: true,
+        duration: exerciseDone.duration,
+        isToFailure: exerciseDone.isToFailure,
+        repeats: exerciseDone.repeats,
+      };
     }
 
     return exercise;
