@@ -1,8 +1,11 @@
 <template>
   <div :class="$style.layout">
-    <div :class="$style.content">
-      <HeaderEmpty @showLogin="isShowLogin = true" />
-      <RouterView />
+    <TheHeader @showLogin="isShowLogin = true" />
+
+    <div :class="$style.container">
+      <main :class="$style.main">
+        <RouterView :class="$style.content" />
+      </main>
 
       <UiModal v-model="isShowLogin">
         <LoginForm @login="isShowLogin = false" />
@@ -16,7 +19,7 @@ import { ref } from 'vue';
 
 import { UiModal } from 'mhz-ui';
 
-import HeaderEmpty from '@/layout/components/HeaderEmpty.vue';
+import TheHeader from '@/layout/components/TheHeader.vue';
 import LoginForm from '@/auth/components/LoginForm.vue';
 
 defineOptions({ name: 'LayoutEmpty' });
@@ -27,20 +30,29 @@ const isShowLogin = ref(false);
 <style module lang="scss">
 .layout {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  height: 100vh;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  height: calc(100vh - 64px);
+  margin-top: 64px;
+  overflow-y: auto;
+}
+
+.main {
+  flex: 1;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
   background-color: var(--color-gray-light);
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
-  min-height: calc(100vh - 48px);
+  min-height: calc(100vh - 128px);
   padding: 24px;
   margin: 24px;
+  overflow: hidden;
   background-color: var(--color-white);
   border-radius: 16px;
 }

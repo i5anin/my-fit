@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.layout">
-    <HeaderAdmin />
+    <TheHeader />
 
     <div :class="$style.container">
       <NavList />
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import HeaderAdmin from '@/layout/components/HeaderAdmin.vue';
+import TheHeader from '@/layout/components/TheHeader.vue';
 import NavList from '@/layout/components/NavList.vue';
 
 defineOptions({ name: 'LayoutAdmin' });

@@ -1,14 +1,19 @@
 <template>
   <header :class="$style.header">
     <div :class="$style.logoAndSearch">
-      <RouterLink :to="URL_ACTIVITY" :class="$style.logo" aria-label="Logo">
+      <RouterLink :to="URL_HOME" :class="$style.logo" aria-label="Logo">
         <IconLogo width="32" height="32" /> FiT
       </RouterLink>
     </div>
 
     <div :class="$style.buttons">
-      <UiButton @click="goToActivities" layout="plain">Занятия</UiButton>
-      <UiButton @click="logout(URL_HOME, deleteAuthHeader, TOKEN_NAME)" layout="plain">Выйти</UiButton>
+      <template v-if="isAuth">
+        <UiButton @click="router.push(URL_EXERCISE)" layout="plain">Админка</UiButton>
+        <UiButton @click="router.push(URL_ACTIVITY)" layout="plain">Занятия</UiButton>
+        <UiButton @click="logout(URL_HOME, deleteAuthHeader, TOKEN_NAME)" layout="plain">Выйти</UiButton>
+      </template>
+
+      <UiButton v-else @click="emit('showLogin')" layout="plain">Войти</UiButton>
     </div>
   </header>
 </template>
@@ -20,16 +25,15 @@ import { UiButton } from 'mhz-ui';
 import IconLogo from '@/common/images/logo.svg';
 
 import { TOKEN_NAME } from '@/auth/constants';
-import { logout } from '@/auth/composables/useAuth';
+import { isAuth, logout } from '@/auth/composables/useAuth';
 import { deleteAuthHeader } from '@/common/plugins/api';
 import { URL_HOME } from '@/common/constants';
 import { URL_ACTIVITY } from '@/activity/constants';
+import { URL_EXERCISE } from '@/exercise/constants';
+
+const emit = defineEmits(['showLogin']);
 
 const router = useRouter();
-
-function goToActivities() {
-  router.push(URL_ACTIVITY);
-}
 </script>
 
 <style module lang="scss">
