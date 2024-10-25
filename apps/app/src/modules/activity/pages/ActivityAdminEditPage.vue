@@ -11,6 +11,7 @@
       <div v-for="exercise in activity?.exercises" :key="exercise._id">
         <ExerciseTitle :exercise="exercise" />
         <span v-if="!exercise.isDone">Не выполнено</span>
+        <span v-if="exercise.isToFailure">До отказа</span>
         <div v-if="exercise.duration">Длительность: <ActivityDuration :duration="exercise.duration" /></div>
       </div>
     </div>

@@ -9,6 +9,8 @@
       {{ buttonTitle }}
     </UiButton>
 
+    <UiCheckbox v-model="isToFailure" label="До отказа" :isDisabled="!isCurrentExerciseActive" />
+
     <ActivityDuration :duration="exercise.duration" :start="start" :stop="stop" isBig @stop="sendDurationData" />
   </div>
 </template>
@@ -16,7 +18,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-import { UiButton } from 'mhz-ui';
+import { UiButton, UiCheckbox } from 'mhz-ui';
 import { IExerciseDone } from 'fitness-tracker-contracts';
 
 import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
@@ -32,6 +34,8 @@ const emit = defineEmits(['start', 'stop']);
 
 const start = ref(false);
 const stop = ref(false);
+
+const isToFailure = ref(false);
 
 const isCurrentExerciseActive = computed(() => props.exercise._id === props.activeExerciseId);
 
@@ -50,7 +54,7 @@ function handleClick() {
 }
 
 function sendDurationData(duration: number) {
-  if (isCurrentExerciseActive.value) emit('stop', { id: props.exercise._id, duration });
+  if (isCurrentExerciseActive.value) emit('stop', { id: props.exercise._id, duration, isToFailure: isToFailure.value });
 }
 </script>
 

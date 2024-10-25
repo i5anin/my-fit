@@ -69,12 +69,12 @@ function startExercise(id: string) {
   activeExerciseId.value = id;
 }
 
-function stopExercise(durationData: { id: string; duration: number }) {
+function stopExercise(durationData: { id: string; duration: number; isToFailure: boolean }) {
   activeExerciseId.value = undefined;
 
   formData.value.exercises = formData.value.exercises.map((exercise) => {
     if (exercise._id === durationData.id) {
-      return { ...exercise, isDone: true, duration: durationData.duration };
+      return { ...exercise, isDone: true, duration: durationData.duration, isToFailure: durationData.isToFailure };
     }
 
     return exercise;

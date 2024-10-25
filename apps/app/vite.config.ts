@@ -19,7 +19,7 @@ export default defineConfig({
         name: 'FiT',
         short_name: 'FiT',
         description: 'Фитнес трекер',
-        display: 'fullscreen',
+        display: 'standalone',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         lang: 'ru',
