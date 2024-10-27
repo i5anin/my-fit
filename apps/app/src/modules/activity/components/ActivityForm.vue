@@ -6,7 +6,7 @@
       <UiButton @click="isShowModal = true">Добавить упражнение</UiButton>
 
       <UiModal v-model="isShowModal">
-        <ExerciseChooseList :exercises="exercises" @choose="addExercise" />
+        <ExerciseChooseList v-if="exercises?.length" :exercises="exercises" @choose="addExercise" />
       </UiModal>
 
       <div v-if="formData.exercises?.length">

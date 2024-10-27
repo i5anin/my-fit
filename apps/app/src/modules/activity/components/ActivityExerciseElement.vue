@@ -65,13 +65,7 @@ const repeatButtons = [
   props.exercise.repeats + 2,
 ];
 
-const buttonTitle = computed(() => {
-  if (props.exercise.isDone) {
-    return 'Завершено';
-  } else {
-    return isCurrentExerciseActive.value ? 'Завершить' : 'Начать';
-  }
-});
+const buttonTitle = computed(() => (isCurrentExerciseActive.value ? 'Завершить' : 'Начать'));
 
 function handleClick() {
   emit('start', props.exercise._id);

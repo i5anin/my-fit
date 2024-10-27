@@ -17,7 +17,7 @@ import { UiSpoiler } from 'mhz-ui';
 import ExerciseChooseElement from './ExerciseChooseElement.vue';
 
 interface IProps {
-  exercises?: IExercise[];
+  exercises: IExercise[];
 }
 
 const props = defineProps<IProps>();

@@ -12,6 +12,7 @@ export interface IUser extends IEntity {
 export interface IExercise extends IEntity {
   title: string;
   weights?: number[];
+  defaultWeight?: number;
 }
 
 export interface IExerciseChoosen extends IEntity {

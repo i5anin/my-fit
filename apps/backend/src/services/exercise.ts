@@ -7,7 +7,7 @@ import { IBaseService } from '../interface/index.js';
 
 export const exerciseService: IBaseService = {
   getMany: async <T>(page?: number) => {
-    const { data, total } = await paginate(Exercise, page);
+    const { data, total } = await paginate(Exercise, page, 'title');
 
     return { data: data as T[], total };
   },

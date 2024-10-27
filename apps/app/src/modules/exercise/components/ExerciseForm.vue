@@ -16,6 +16,10 @@
       />
     </div>
 
+    <UiField label="Вес по-умолчанию" v-if="formData.weights?.length">
+      <UiSelect v-model="formData.defaultWeight" :options="[0, ...formData.weights]" lang="ru" />
+    </UiField>
+
     <FormButtons :id="props.exercise?._id" :isLoading="isLoadingPost || isLoadingUpdate" @delete="handleDelete" />
   </form>
 </template>
@@ -24,7 +28,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { UiField, UiInput, UiCheckbox, toast } from 'mhz-ui';
+import { UiField, UiInput, UiCheckbox, toast, UiSelect } from 'mhz-ui';
 import { API_EXERCISE, IExercise } from 'fitness-tracker-contracts';
 
 import FormButtons from '@/common/components/FormButtons.vue';
@@ -48,6 +52,7 @@ const router = useRouter();
 const formData = ref<IExercise>({
   title: '',
   weights: [],
+  defaultWeight: undefined,
 });
 
 const choosenWeights = ref<number[]>([]);
