@@ -1,31 +1,33 @@
 <template>
-  <div :class="$style.page">
-    <UiButton @click="startActivity">Сформировать занятие</UiButton>
+  <div>
+    <div :class="$style.page">
+      <ActivityAdminList :activities="activities" />
 
-    <ActivityList v-if="activities?.data.length" :activities="activities.data" />
+      <UiPagination
+        v-show="activities?.length"
+        :page="page"
+        :total="total"
+        @update="(value: number) => setPage(setPaginationPage(value, page))"
+        lang="ru"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { UiPagination } from 'mhz-ui';
 
-import { UiButton } from 'mhz-ui';
+import ActivityAdminList from '@/activity/components/ActivityAdminList.vue';
 
-import ActivityList from '@/activity/components/ActivityList.vue';
-
+import { usePagination } from '@/common/composables/usePagination';
+import { usePage } from '@/common/composables/usePage';
 import { getActivities } from '@/activity/services';
-import { URL_ACTIVITY_CREATE } from '@/activity/constants';
 
-const router = useRouter();
+const { page, setPage } = usePage();
 
-const page = ref(1);
+const { data } = getActivities(page);
 
-const { data: activities } = getActivities(page);
-
-function startActivity() {
-  router.push(URL_ACTIVITY_CREATE);
-}
+const { data: activities, total, setPaginationPage } = usePagination(data);
 </script>
 
 <style module lang="scss">

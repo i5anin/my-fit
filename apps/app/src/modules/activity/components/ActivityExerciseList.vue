@@ -5,6 +5,7 @@
       :key="exercise._id"
       :exercise="exercise"
       :activeExerciseId="props.activeExerciseId"
+      :isActivityDone="props.isActivityDone"
       @start="(id) => emit('start', id)"
       @stop="(exerciseDone) => emit('stop', exerciseDone)"
     />
@@ -19,6 +20,7 @@ import ActivityExerciseElement from '@/activity/components/ActivityExerciseEleme
 interface IProps {
   exercises: IExerciseDone[];
   activeExerciseId?: string;
+  isActivityDone: boolean;
 }
 
 const props = defineProps<IProps>();

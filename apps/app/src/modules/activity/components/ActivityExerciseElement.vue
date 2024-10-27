@@ -2,10 +2,7 @@
   <div :class="$style.exercise">
     <ExerciseTitle :exercise="props.exercise" />
 
-    <UiButton
-      @click="handleClick"
-      :isDisabled="props.exercise.isDone || (!isCurrentExerciseActive && !!props.activeExerciseId)"
-    >
+    <UiButton @click="handleClick" :isDisabled="isButtonDisabled">
       {{ buttonTitle }}
     </UiButton>
 
@@ -44,6 +41,7 @@ import ActivityDuration from '@/activity/components/ActivityDuration.vue';
 interface IProps {
   exercise: IExerciseDone;
   activeExerciseId?: string;
+  isActivityDone: boolean;
 }
 
 const props = defineProps<IProps>();
@@ -56,6 +54,10 @@ const isToFailure = ref(false);
 const repeats = ref(props.exercise.repeats);
 
 const isCurrentExerciseActive = computed(() => props.exercise._id === props.activeExerciseId);
+
+const isButtonDisabled = computed(
+  () => props.isActivityDone || props.exercise.isDone || (!isCurrentExerciseActive.value && !!props.activeExerciseId)
+);
 
 const repeatButtons = [
   props.exercise.repeats - 2,

@@ -4,6 +4,7 @@
       v-if="props.activity.exercises.length"
       :exercises="props.activity.exercises"
       :activeExerciseId="activeExerciseId"
+      :isActivityDone="formData.isDone"
       @start="startExercise"
       @stop="stopExercise"
     />
@@ -26,13 +27,15 @@
         />
       </div>
     </div>
+
+    <UiButton @click="formData.isDone = true" layout="secondary">Завершить занятие досрочно</UiButton>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-import { toast } from 'mhz-ui';
+import { toast, UiButton } from 'mhz-ui';
 import { API_ACTIVITY, IActivity, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ActivityExerciseList from '@/activity/components/ActivityExerciseList.vue';
@@ -54,8 +57,6 @@ const formData = ref<IActivity>({
   duration: 0,
   isDone: false,
 });
-
-const isTimerStopped = ref(false);
 
 const activeExerciseId = ref<string>();
 
@@ -89,8 +90,6 @@ function stopExercise(exerciseDone: IExerciseDone) {
   });
 
   formData.value.isDone = !formData.value.exercises.some((exercise) => !exercise.isDone);
-
-  isTimerStopped.value = true;
 
   mutateUpdate(formData.value);
 }

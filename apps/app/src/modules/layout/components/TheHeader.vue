@@ -9,7 +9,7 @@
     <div :class="$style.buttons">
       <template v-if="isAuth">
         <UiButton @click="router.push(URL_EXERCISE)" layout="plain">Админка</UiButton>
-        <UiButton @click="router.push(URL_ACTIVITY)" layout="plain">Занятия</UiButton>
+        <UiButton @click="router.push(URL_ACTIVITY_CREATE)" layout="plain">Занятие</UiButton>
         <UiButton @click="logout(URL_HOME, deleteAuthHeader, TOKEN_NAME)" layout="plain">Выйти</UiButton>
       </template>
 
@@ -28,7 +28,7 @@ import { TOKEN_NAME } from '@/auth/constants';
 import { isAuth, logout } from '@/auth/composables/useAuth';
 import { deleteAuthHeader } from '@/common/plugins/api';
 import { URL_HOME } from '@/common/constants';
-import { URL_ACTIVITY } from '@/activity/constants';
+import { URL_ACTIVITY_CREATE } from '@/activity/constants';
 import { URL_EXERCISE } from '@/exercise/constants';
 
 const emit = defineEmits(['showLogin']);

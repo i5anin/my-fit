@@ -31,5 +31,7 @@ const exerciseSpoilers = ref([]);
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-height: 64vh;
+  overflow: auto;
 }
 </style>

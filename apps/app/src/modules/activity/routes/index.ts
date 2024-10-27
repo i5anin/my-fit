@@ -1,5 +1,4 @@
 import {
-  URL_ACTIVITY,
   URL_ACTIVITY_CREATE,
   URL_ACTIVITY_EDIT,
   URL_ACTIVITY_ADMIN,
@@ -8,12 +7,6 @@ import {
 
 export const activityRoutes = [
   {
-    path: URL_ACTIVITY,
-    name: 'ActivityList',
-    component: () => import('@/activity/pages/ActivityListPage.vue'),
-    meta: { layout: 'empty' },
-  },
-  {
     path: URL_ACTIVITY_CREATE,
     name: 'ActivityCreate',
     component: () => import('@/activity/pages/ActivityCreatePage.vue'),
@@ -21,19 +14,19 @@ export const activityRoutes = [
   },
   {
     path: `${URL_ACTIVITY_EDIT}/:activity`,
-    name: 'ActivityEdit',
-    component: () => import('@/activity/pages/ActivityEditPage.vue'),
+    name: 'ActivityPassing',
+    component: () => import('@/activity/pages/ActivityPassingPage.vue'),
     meta: { layout: 'empty' },
   },
 
   {
     path: URL_ACTIVITY_ADMIN,
-    name: 'ActivityAdminList',
-    component: () => import('@/activity/pages/ActivityAdminListPage.vue'),
+    name: 'ActivityList',
+    component: () => import('@/activity/pages/ActivityListPage.vue'),
   },
   {
     path: `${URL_ACTIVITY_ADMIN_EDIT}/:activity`,
-    name: 'ActivityAdminEdit',
-    component: () => import('@/activity/pages/ActivityAdminEditPage.vue'),
+    name: 'ActivityEdit',
+    component: () => import('@/activity/pages/ActivityEditPage.vue'),
   },
 ];
