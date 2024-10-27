@@ -5,7 +5,7 @@
     </UiField>
 
     <div :class="$style.weights">
-      <div>Возможные веса</div>
+      <div>Возможный вес гантели</div>
 
       <UiCheckbox
         v-for="weight in EXERCISE_WEIGHT_OPTIONS"

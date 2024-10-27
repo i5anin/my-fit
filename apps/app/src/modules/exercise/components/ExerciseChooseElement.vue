@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.element">
-    <UiField v-if="props.exercise?.weights?.length" label="Вес, кг.">
+    <UiField v-if="props.exercise?.weights?.length" label="Вес гантелей, кг.">
       <UiSelect v-model="choosenExercise.weight" :options="props.exercise?.weights" lang="ru" />
     </UiField>
 
