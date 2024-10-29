@@ -26,13 +26,13 @@
     "prettier": "3.3.3",
     "turbo": "2.2.3"
   },
-  "packageManager": "npm@10.8.2",
+  "packageManager": "npm@10.9.0",
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "engines": {
-    "npm": ">=10.8.2",
-    "node": ">=22.8.0"
+    "npm": ">=10.9.0",
+    "node": ">=22.10.0"
   }
 }
