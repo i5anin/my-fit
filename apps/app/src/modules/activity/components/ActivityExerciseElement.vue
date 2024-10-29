@@ -1,32 +1,36 @@
 <template>
-  <div :class="$style.exercise">
+  <div>
     <ExerciseTitle :exercise="props.exercise" />
 
-    <UiButton @click="handleClick" :isDisabled="isButtonDisabled" isTall>
-      {{ buttonTitle }}
-    </UiButton>
+    <div v-if="props.exercise.isDone">Завершено</div>
 
-    <UiCheckbox v-model="isToFailure" label="Упражнение выполнено до отказа" :isDisabled="!isCurrentExerciseActive" />
+    <div v-if="props.isCurrentExercise" :class="$style.exercise">
+      <UiButton @click="handleClick" :isDisabled="isButtonDisabled" isTall>
+        {{ buttonTitle }}
+      </UiButton>
 
-    <div>
-      <div :class="$style.title">Количество повторений</div>
+      <UiCheckbox v-model="isToFailure" label="Упражнение выполнено до отказа" :isDisabled="!isCurrentExerciseActive" />
 
-      <div :class="$style.repeats">
-        <UiButton
-          v-for="repeat in repeatButtons"
-          :key="repeat"
-          @click="repeats = repeat"
-          :layout="repeat === repeats ? 'accent' : 'primary'"
-          isNarrow
-          isTall
-          :isDisabled="!isCurrentExerciseActive"
-        >
-          {{ repeat }}
-        </UiButton>
+      <div>
+        <div :class="$style.title">Количество повторений</div>
+
+        <div :class="$style.repeats">
+          <UiButton
+            v-for="repeat in repeatButtons"
+            :key="repeat"
+            @click="repeats = repeat"
+            :layout="repeat === repeats ? 'accent' : 'primary'"
+            isNarrow
+            isTall
+            :isDisabled="!isCurrentExerciseActive"
+          >
+            {{ repeat }}
+          </UiButton>
+        </div>
       </div>
-    </div>
 
-    <ActivityDuration :duration="exercise.duration" :start="start" :stop="stop" isBig @stop="sendDurationData" />
+      <ActivityDuration :duration="exercise.duration" :start="start" :stop="stop" isBig @stop="sendDurationData" />
+    </div>
   </div>
 </template>
 
@@ -43,6 +47,7 @@ interface IProps {
   exercise: IExerciseDone;
   activeExerciseId?: string;
   isActivityDone: boolean;
+  isCurrentExercise: boolean;
 }
 
 const props = defineProps<IProps>();

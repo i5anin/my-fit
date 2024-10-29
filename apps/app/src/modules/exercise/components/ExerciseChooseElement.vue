@@ -10,7 +10,10 @@
       </UiField>
     </div>
 
-    <UiButton @click="addExercise" isTall>Добавить в занятие</UiButton>
+    <div :class="$style.buttons">
+      <UiButton @click="addExercise(1)">Добавить</UiButton>
+      <UiButton @click="addExercise(2)" layout="secondary">Добавить два</UiButton>
+    </div>
   </div>
 </template>
 
@@ -35,12 +38,14 @@ const choosenExercise = ref({
   weight: 0,
 });
 
-function addExercise() {
-  emit('add', {
-    _id: createTempId(),
-    exercise: { _id: props.exercise?._id, title: props.exercise?.title },
-    ...choosenExercise.value,
-  });
+function addExercise(count: number) {
+  for (let i = 0; i < count; i++) {
+    emit('add', {
+      _id: createTempId(),
+      exercise: { _id: props.exercise?._id, title: props.exercise?.title },
+      ...choosenExercise.value,
+    });
+  }
 }
 
 onMounted(() => {
@@ -56,6 +61,12 @@ onMounted(() => {
 }
 
 .options {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.buttons {
   display: flex;
   gap: 8px;
   justify-content: space-between;
