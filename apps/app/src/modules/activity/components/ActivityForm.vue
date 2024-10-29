@@ -3,7 +3,7 @@
     <h2>Сформировать занятие</h2>
 
     <form @submit.prevent="submit" :class="$style.form">
-      <UiButton @click="isShowModal = true">Добавить упражнение</UiButton>
+      <UiButton @click="isShowModal = true" isTall>Добавить упражнение</UiButton>
 
       <UiModal v-model="isShowModal">
         <ExerciseChooseList v-if="exercises?.length" :exercises="exercises" @choose="addExercise" />
@@ -15,7 +15,7 @@
         <ExerciseChoosenList :choosenExercises="formData.exercises" @update="updateExercises" />
       </div>
 
-      <UiButton layout="accent" :isDisabled="!isValid || isLoadingPost" type="submit">Начать</UiButton>
+      <UiButton layout="accent" :isDisabled="!isValid || isLoadingPost" isTall type="submit">Начать</UiButton>
     </form>
   </div>
 </template>

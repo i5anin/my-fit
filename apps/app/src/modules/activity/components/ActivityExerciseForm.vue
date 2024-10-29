@@ -28,7 +28,9 @@
       </div>
     </div>
 
-    <UiButton @click="formData.isDone = true" layout="secondary">Завершить занятие досрочно</UiButton>
+    <UiButton @click="formData.isDone = true" layout="secondary" :isDisabled="props.activity.isDone">
+      Завершить занятие досрочно
+    </UiButton>
   </div>
 </template>
 

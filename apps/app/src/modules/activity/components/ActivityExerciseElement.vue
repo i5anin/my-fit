@@ -2,7 +2,7 @@
   <div :class="$style.exercise">
     <ExerciseTitle :exercise="props.exercise" />
 
-    <UiButton @click="handleClick" :isDisabled="isButtonDisabled">
+    <UiButton @click="handleClick" :isDisabled="isButtonDisabled" isTall>
       {{ buttonTitle }}
     </UiButton>
 
@@ -18,6 +18,7 @@
           @click="repeats = repeat"
           :layout="repeat === repeats ? 'accent' : 'primary'"
           isNarrow
+          isTall
           :isDisabled="!isCurrentExerciseActive"
         >
           {{ repeat }}

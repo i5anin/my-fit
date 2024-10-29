@@ -43,6 +43,7 @@ const router = useRouter();
 <style module lang="scss">
 .buttons {
   display: flex;
+  gap: 8px;
   justify-content: space-between;
   width: 100%;
 }

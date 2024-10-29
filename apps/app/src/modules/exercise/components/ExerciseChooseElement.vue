@@ -10,7 +10,7 @@
       </UiField>
     </div>
 
-    <UiButton @click="addExercise">Добавить в занятие</UiButton>
+    <UiButton @click="addExercise" isTall>Добавить в занятие</UiButton>
   </div>
 </template>
 
