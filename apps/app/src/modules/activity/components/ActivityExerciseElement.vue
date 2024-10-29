@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <ActivityDuration :duration="exercise.duration" :start="start" :stop="stop" isBig @stop="sendDurationData" />
+      <ActivityDuration :duration="exercise.duration" :start="start" :stop="stop" @stop="sendDurationData" />
     </div>
   </div>
 </template>

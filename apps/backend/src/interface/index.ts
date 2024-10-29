@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifySchema } from 'fastify';
 
-import type { ILoginData, IUser, IUserToken, IFileToUpload } from 'fitness-tracker-contracts';
+import type { ILoginData, IUser, IUserToken, IFileToUpload, IActivity } from 'fitness-tracker-contracts';
 
 export interface IFastifyInstance extends FastifyInstance {
   onlyUser: () => void;
@@ -43,6 +43,10 @@ export interface IBaseService {
 
 export interface IUserService extends IBaseService {
   getCurrent: (decode: (token: string) => IUserToken | null, token?: string) => Promise<IUser | null>;
+}
+
+export interface IActivityService extends IBaseService {
+  getCalendar: () => Promise<IActivity[]>;
 }
 
 export interface IAuthService {

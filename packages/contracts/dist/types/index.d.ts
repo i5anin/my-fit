@@ -64,4 +64,5 @@ export declare const API_AUTH_SETUP = "/auth/setup";
 export declare const API_USER = "/user";
 export declare const API_EXERCISE = "/exercise";
 export declare const API_ACTIVITY = "/activity";
+export declare const API_ACTIVITY_CALENDAR = "/activity_calendar";
 export declare const API_UPLOAD = "/upload";

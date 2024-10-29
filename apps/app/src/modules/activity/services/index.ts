@@ -1,5 +1,5 @@
 import { ComputedRef, Ref } from 'vue';
-import { API_ACTIVITY, IActivity, IBaseReply } from 'fitness-tracker-contracts';
+import { API_ACTIVITY, API_ACTIVITY_CALENDAR, IActivity, IBaseReply } from 'fitness-tracker-contracts';
 
 import { useMutation, useQuery } from '@/common/plugins/query';
 import { api } from '@/common/plugins/api';
@@ -11,6 +11,17 @@ export function getActivities(page: Ref<number>) {
       const { data } = await api.get<{ data: IActivity[]; total: number }>(API_ACTIVITY, {
         params: { page: page.value },
       });
+
+      return data;
+    },
+  });
+}
+
+export function getActivitiesCalendar() {
+  return useQuery({
+    queryKey: [API_ACTIVITY_CALENDAR],
+    queryFn: async () => {
+      const { data } = await api.get<IActivity[]>(API_ACTIVITY_CALENDAR);
 
       return data;
     },

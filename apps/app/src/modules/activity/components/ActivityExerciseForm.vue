@@ -15,20 +15,9 @@
       <div v-if="props.activity.dateUpdated">
         Занятие {{ formData.isDone ? 'закончено' : 'обновлено' }} {{ formatDateTime(props.activity.dateUpdated) }}.
       </div>
-
-      <div>
-        Длительность:
-        <ActivityDuration
-          v-if="formData._id"
-          :duration="formData.duration"
-          :start="!formData.isDone"
-          :stop="formData.isDone"
-          @stop="finishActivity"
-        />
-      </div>
     </div>
 
-    <UiButton @click="formData.isDone = true" layout="secondary" :isDisabled="props.activity.isDone">
+    <UiButton @click="finishActivity" layout="secondary" :isDisabled="props.activity.isDone">
       Завершить занятие досрочно
     </UiButton>
   </div>
@@ -41,7 +30,6 @@ import { toast, UiButton } from 'mhz-ui';
 import { API_ACTIVITY, IActivity, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ActivityExerciseList from '@/activity/components/ActivityExerciseList.vue';
-import ActivityDuration from '@/activity/components/ActivityDuration.vue';
 
 import { updateActivity } from '@/activity/services';
 import { formatDateTime } from '@/common/helpers/date';
@@ -93,11 +81,13 @@ function stopExercise(exerciseDone: IExerciseDone) {
 
   formData.value.isDone = !formData.value.exercises.some((exercise) => !exercise.isDone);
 
+  if (formData.value.isDone) toast.success('Занятие закончено');
+
   mutateUpdate(formData.value);
 }
 
-function finishActivity(duration: number) {
-  formData.value.duration = duration;
+function finishActivity() {
+  formData.value.isDone = true;
 
   mutateUpdate(formData.value);
 

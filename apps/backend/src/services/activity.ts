@@ -3,13 +3,19 @@ import type { IActivity } from 'fitness-tracker-contracts';
 import Activity from '../models/activity.js';
 
 import { paginate } from '../helpers/index.js';
-import { IBaseService } from '../interface/index.js';
+import { IActivityService } from '../interface/index.js';
 
-export const activityService: IBaseService = {
+export const activityService: IActivityService = {
   getMany: async <T>(page?: number) => {
     const { data, total } = await paginate(Activity, page);
 
     return { data: data as T[], total };
+  },
+
+  getCalendar: async <T>() => {
+    const data = await Activity.find().populate({ path: 'exercises.exercise', select: 'title' }).lean().exec();
+
+    return data as T[];
   },
 
   getOne: async <T>(_id: string) => {

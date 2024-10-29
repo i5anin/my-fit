@@ -1,18 +1,19 @@
 <template>
-  <component :is="props.isBig ? 'div' : 'span'" :class="$style.timer" :data-big="props.isBig">
-    <span>{{ addZero(minutes) }}<span v-if="!props.isBig"> мин. </span></span><span v-if="props.isBig">:</span
-    ><span>{{ addZero(seconds) }}<span v-if="!props.isBig"> сек. </span></span>
-  </component>
+  <div :class="$style.timer">
+    <span>{{ addZero(minutes) }}<span> мин. </span></span><span>:</span
+    ><span>{{ addZero(seconds) }}<span> сек. </span></span>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue';
 
+import { addZero } from '@/common/helpers/date';
+
 interface IProps {
   duration?: number;
   start?: boolean;
   stop?: boolean;
-  isBig?: boolean;
 }
 
 const props = defineProps<IProps>();
@@ -50,10 +51,6 @@ function stopTimer() {
   clearInterval(interval);
 }
 
-function addZero(value: number) {
-  return value.toString().length > 1 ? `${value}` : `0${value}`;
-}
-
 onMounted(() => {
   if (props.start && !props.duration) startTimer();
 
@@ -66,10 +63,7 @@ onMounted(() => {
 
 <style module lang="scss">
 .timer {
+  font-size: 2rem;
   text-align: center;
-
-  &[data-big='true'] {
-    font-size: 2rem;
-  }
 }
 </style>

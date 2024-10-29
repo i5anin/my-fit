@@ -19,3 +19,25 @@ export function formatDateTime(dateRaw?: string | Date): string {
     minute: 'numeric',
   }).format(new Date(dateRaw));
 }
+
+export function addZero(value: number) {
+  return value.toString().length > 1 ? `${value}` : `0${value}`;
+}
+
+export function formatDuration(duration: number) {
+  const minutes = Math.floor(duration / 60);
+  const seconds = duration - minutes * 60;
+
+  return `${minutes} мин. ${addZero(seconds)} сек.`;
+}
+
+export function subtractDates(dateRaw1?: string | Date, dateRaw2?: string | Date): string {
+  if (!dateRaw1 || !dateRaw2) return '-';
+
+  const date1 = new Date(dateRaw1);
+  const date2 = new Date(dateRaw2);
+
+  const duration = Math.floor(((date1 as unknown as number) - (date2 as unknown as number)) / 1000);
+
+  return formatDuration(duration);
+}

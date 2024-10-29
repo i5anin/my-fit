@@ -1,20 +1,11 @@
 <template>
   <div :class="$style.page">
-    <div v-if="activity">
-      <div>Занятие началось: {{ formatDateTime(activity.dateCreated) }}</div>
-      <div>Занятие закончилось: {{ formatDateTime(activity.dateUpdated) }}</div>
-      <div>Длительность: <ActivityDuration :duration="activity.duration" /></div>
-    </div>
-
-    <div>
-      Упражнения:<br />
-      <div v-for="exercise in activity?.exercises" :key="exercise._id">
-        <ExerciseTitle :exercise="exercise" />
-        <span v-if="!exercise.isDone">Не выполнено</span>
-        <span v-if="exercise.isToFailure">До отказа</span>
-        <div v-if="exercise.duration">Длительность: <ActivityDuration :duration="exercise.duration" /></div>
-      </div>
-    </div>
+    <ActivityInfo
+      v-if="activity"
+      :start="activity.dateCreated"
+      :end="activity.dateUpdated"
+      :exercises="activity.exercises"
+    />
 
     <UiModal v-model="isShowConfirm" isConfirm @confirm="mutateDelete(activity?._id)" lang="ru">
       Подтверждаете удаление?
@@ -34,13 +25,11 @@ import { useRoute, useRouter } from 'vue-router';
 import { toast, UiButton, UiModal } from 'mhz-ui';
 import { API_ACTIVITY } from 'fitness-tracker-contracts';
 
-import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
-import ActivityDuration from '@/activity/components/ActivityDuration.vue';
+import ActivityInfo from '@/activity/components/ActivityInfo.vue';
 
 import { useQueryClient } from '@/common/plugins/query';
 import { getActivity, deleteActivity } from '@/activity/services';
 import { URL_ACTIVITY_ADMIN } from '@/activity/constants';
-import { formatDateTime } from '@/common/helpers/date';
 
 const isShowConfirm = ref(false);
 
