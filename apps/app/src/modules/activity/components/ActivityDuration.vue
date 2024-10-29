@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.timer">
-    <span>{{ addZero(minutes) }}<span> мин. </span></span><span>:</span
-    ><span>{{ addZero(seconds) }}<span> сек. </span></span>
+    <span>{{ addZero(minutes) }}</span
+    >:<span>{{ addZero(seconds) }}</span>
   </div>
 </template>
 
