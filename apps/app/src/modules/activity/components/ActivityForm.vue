@@ -15,7 +15,7 @@
         <ExerciseChoosenList :choosenExercises="formData.exercises" @update="updateExercises" />
       </div>
 
-      <UiButton layout="accent" :isDisabled="!isValid || isLoadingPost" isTall type="submit">Начать</UiButton>
+      <UiButton layout="accent" :isDisabled="!isValid || isLoadingPost" type="submit">Начать</UiButton>
     </form>
   </div>
 </template>
