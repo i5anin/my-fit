@@ -2,4 +2,3 @@
 .turbo
 node_modules
 build
-public/upload

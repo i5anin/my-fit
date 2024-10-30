@@ -44,12 +44,6 @@ export interface ILoginData {
   password: string;
 }
 
-export interface IFileToUpload {
-  type: "file";
-  filename: string;
-  file: NodeJS.ReadableStream;
-}
-
 export interface IBaseReply {
   message: string;
 }
@@ -65,4 +59,3 @@ export declare const API_USER = "/user";
 export declare const API_EXERCISE = "/exercise";
 export declare const API_ACTIVITY = "/activity";
 export declare const API_ACTIVITY_CALENDAR = "/activity_calendar";
-export declare const API_UPLOAD = "/upload";

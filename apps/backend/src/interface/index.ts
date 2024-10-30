@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifySchema } from 'fastify';
 
-import type { ILoginData, IUser, IUserToken, IFileToUpload, IActivity } from 'fitness-tracker-contracts';
+import type { ILoginData, IUser, IUserToken, IActivity } from 'fitness-tracker-contracts';
 
 export interface IFastifyInstance extends FastifyInstance {
   onlyUser: () => void;
@@ -62,10 +62,4 @@ export interface IAuthService {
   }>;
 
   setup: (admin: ILoginData) => Promise<boolean>;
-}
-
-export interface IUploadService {
-  upload: (file: IFileToUpload | undefined) => Promise<{ filename: string; isFileExists: boolean }>;
-
-  delete: (_id: string) => Promise<void>;
 }
