@@ -15,7 +15,7 @@ import { NAV_ITEMS } from '@/layout/constants';
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 160px;
+  width: 192px;
   height: calc(100vh - 64px);
   padding: 24px 12px;
   overflow-y: auto;

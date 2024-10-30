@@ -1,18 +1,17 @@
 <template>
   <div :class="$style.info">
     <div>
-      <div>Занятие началось: {{ formatDateTime(props.start) }}</div>
-      <div>Занятие закончилось: {{ formatDateTime(props.end) }}</div>
-      <div>Длительность: {{ subtractDates(props.end, props.start) }}</div>
+      <div :class="$style.block">
+        <IconDate width="20" height="20" />
+        {{ formatDateTime(props.start) }},
+        <IconDuration width="20" height="20" />
+        {{ subtractDates(props.end, props.start) }}
+      </div>
     </div>
 
-    <div>
+    <div :class="$style.exercises">
       <div v-for="exercise in props.exercises" :key="exercise._id">
         <ExerciseTitle :exercise="exercise" />
-
-        <span v-if="!exercise.isDone">Не выполнено</span>
-        <span v-if="exercise.isToFailure">До отказа</span>
-        <div v-if="exercise.duration">Длительность: {{ formatDuration(exercise.duration) }}</div>
       </div>
     </div>
   </div>
@@ -22,8 +21,10 @@
 import { IExerciseDone } from 'fitness-tracker-contracts';
 
 import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
+import IconDate from '@/layout/icons/date.svg';
+import IconDuration from '@/layout/icons/duration.svg';
 
-import { formatDateTime, formatDuration, subtractDates } from '@/common/helpers/date';
+import { formatDateTime, subtractDates } from '@/common/helpers/date';
 
 interface IProps {
   start?: Date | string;
@@ -41,5 +42,17 @@ const props = defineProps<IProps>();
   gap: 16px;
   max-height: 600px;
   overflow-y: auto;
+}
+
+.block {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.exercises {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ExerciseTitle :exercise="props.exercise" />
+    <ExerciseTitle :exercise="props.exercise" isOnlyTitle />
 
     <div v-if="props.exercise.isDone">Завершено</div>
 

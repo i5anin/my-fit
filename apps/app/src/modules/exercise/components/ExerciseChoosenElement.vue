@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.exercise">
-    <ExerciseTitle :exercise="props.choosenExercise" />
+    <ExerciseTitle :exercise="props.choosenExercise" isOnlyTitle />
 
     <button @click="emit('delete', choosenExercise._id)" :class="$style.delete" type="button">×</button>
   </div>
