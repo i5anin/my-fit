@@ -50,6 +50,7 @@ const props = defineProps<IProps>();
 
 .description {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 

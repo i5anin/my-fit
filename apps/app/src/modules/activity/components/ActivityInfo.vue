@@ -3,7 +3,7 @@
     <div>
       <div :class="$style.block">
         <IconDate width="20" height="20" />
-        {{ formatDateTime(props.start) }},
+        {{ formatDate(props.start) }}
         <IconDuration width="20" height="20" />
         {{ subtractDates(props.end, props.start) }}
       </div>
@@ -24,7 +24,7 @@ import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
 import IconDate from '@/layout/icons/date.svg';
 import IconDuration from '@/layout/icons/duration.svg';
 
-import { formatDateTime, subtractDates } from '@/common/helpers/date';
+import { formatDate, subtractDates } from '@/common/helpers/date';
 
 interface IProps {
   start?: Date | string;
