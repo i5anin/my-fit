@@ -29,7 +29,6 @@ export interface IExerciseDone extends IExerciseChoosen {
 
 export interface IActivity extends IEntity {
   exercises: IExerciseDone[];
-  duration: number;
   isDone: boolean;
 }
 

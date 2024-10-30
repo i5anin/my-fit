@@ -16,7 +16,6 @@ const activitySchema = new Schema<IActivity>(
         },
       ],
     },
-    duration: { type: Number, required: true },
     isDone: { type: Boolean, required: true },
     dateCreated: { type: Date, default: Date.now },
     dateUpdated: { type: Date },

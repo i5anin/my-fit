@@ -44,7 +44,6 @@ const props = defineProps<IProps>();
 
 const formData = ref<IActivity>({
   exercises: [],
-  duration: 0,
   isDone: false,
 });
 
