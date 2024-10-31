@@ -10,8 +10,8 @@
     </div>
 
     <div :class="$style.exercises">
-      <div v-for="exercise in props.exercises" :key="exercise._id">
-        <ExerciseTitle :exercise="exercise" />
+      <div v-for="(exercise, index) in props.exercises" :key="exercise._id">
+        <ExerciseTitle :exercise="exercise" :isHideTitle="isPrevExerciseSame(index, exercise.exercise._id)" />
       </div>
     </div>
   </div>
@@ -33,6 +33,10 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
+
+function isPrevExerciseSame(index: number, id?: string) {
+  return id && props.exercises[index - 1] ? id === props.exercises[index - 1].exercise._id : false;
+}
 </script>
 
 <style module lang="scss">

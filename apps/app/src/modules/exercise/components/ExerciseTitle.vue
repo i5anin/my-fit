@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="$style.title">{{ props.exercise.exercise.title }}</div>
+    <div :class="$style.title" v-if="!props.isHideTitle">{{ props.exercise.exercise.title }}</div>
 
     <div v-if="!props.isOnlyTitle" :class="$style.description">
       <div v-if="!props.exercise.isDone" :class="[$style.tag, $style.error]">
@@ -11,7 +11,7 @@
         <IconDuration width="16" height="16" /> {{ formatDuration(props.exercise.duration) }}
       </div>
 
-      <div :class="$style.tag"><IconRepeat width="16" height="16" />{{ props.exercise.repeats }}</div>
+      <div :class="$style.tag">x{{ props.exercise.repeats }}</div>
 
       <div v-if="props.exercise.weight" :class="$style.tag">
         <IconWeight width="16" height="16" />{{ props.exercise.weight }} кг.
@@ -28,7 +28,6 @@
 import { IExerciseDone } from 'fitness-tracker-contracts';
 
 import IconDuration from '@/layout/icons/duration.svg';
-import IconRepeat from '@/layout/icons/repeat.svg';
 import IconToFailure from '@/layout/icons/to-failure.svg';
 import IconFail from '@/layout/icons/fail.svg';
 import IconWeight from '@/layout/icons/weight.svg';
@@ -38,6 +37,7 @@ import { formatDuration } from '@/common/helpers/date';
 interface IProps {
   exercise: IExerciseDone;
   isOnlyTitle?: boolean;
+  isHideTitle?: boolean;
 }
 
 const props = defineProps<IProps>();
@@ -45,6 +45,7 @@ const props = defineProps<IProps>();
 
 <style module lang="scss">
 .title {
+  margin-bottom: 2px;
   font-weight: 700;
 }
 

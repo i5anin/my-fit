@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@tanstack/vue-query": "5.59.16",
-    "@vueuse/core": "11.1.0",
-    "@vueuse/integrations": "11.1.0",
+    "@vueuse/core": "11.2.0",
+    "@vueuse/integrations": "11.2.0",
     "async-validator": "4.2.5",
     "axios": "1.7.7",
     "fitness-tracker-contracts": "1.0.3",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.13.0",
-    "@types/node": "22.8.4",
+    "@types/node": "22.8.5",
     "@vitejs/plugin-vue": "5.1.4",
     "eslint": "9.13.0",
     "eslint-config-prettier": "9.1.0",
@@ -58,7 +58,7 @@
     "vite-svg-loader": "5.1.0",
     "vue-eslint-parser": "9.4.3",
     "vue-linters-config": "0.3.8",
-    "vue-tsc": "2.1.8"
+    "vue-tsc": "2.1.10"
   },
   "engines": {
     "npm": ">=10.9.0",
