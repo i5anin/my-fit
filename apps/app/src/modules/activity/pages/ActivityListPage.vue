@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="$style.page">
+    <UiFlex column gap="32">
       <ActivityAdminList :activities="activities" />
 
       <UiPagination
@@ -10,12 +10,12 @@
         @update="(value: number) => setPage(setPaginationPage(value, page))"
         lang="ru"
       />
-    </div>
+    </UiFlex>
   </div>
 </template>
 
 <script setup lang="ts">
-import { UiPagination } from 'mhz-ui';
+import { UiFlex, UiPagination } from 'mhz-ui';
 
 import ActivityAdminList from '@/activity/components/ActivityAdminList.vue';
 
@@ -29,11 +29,3 @@ const { data } = getActivities(page);
 
 const { data: activities, total, setPaginationPage } = usePagination(data);
 </script>
-
-<style module lang="scss">
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-</style>

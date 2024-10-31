@@ -1,22 +1,24 @@
 <template>
-  <form @submit.prevent="props.user?._id ? update() : submit()" :class="$style.form">
-    <UiField label="Электронная почта" isRequired :error="error('email')">
-      <UiInput v-model="formData.email" />
-    </UiField>
+  <div>
+    <UiFlex @submit.prevent="props.user?._id ? update() : submit()" tag="form" column gap="24" align="flex-start">
+      <UiField label="Электронная почта" isRequired :error="error('email')">
+        <UiInput v-model="formData.email" />
+      </UiField>
 
-    <UiField v-if="!props.user?._id" label="Пароль" isRequired :error="error('password')">
-      <UiInput v-model="formData.password" />
-    </UiField>
+      <UiField v-if="!props.user?._id" label="Пароль" isRequired :error="error('password')">
+        <UiInput v-model="formData.password" />
+      </UiField>
 
-    <FormButtons :id="props.user?._id" :isLoading="isLoadingPost || isLoadingUpdate" @delete="handleDelete" />
-  </form>
+      <FormButtons :id="props.user?._id" :isLoading="isLoadingPost || isLoadingUpdate" @delete="handleDelete" />
+    </UiFlex>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { UiField, UiInput, toast } from 'mhz-ui';
+import { UiField, UiFlex, UiInput, toast } from 'mhz-ui';
 import { API_USER, IUser } from 'fitness-tracker-contracts';
 
 import FormButtons from '@/common/components/FormButtons.vue';
@@ -91,12 +93,3 @@ onMounted(() => {
   if (props.user) formData.value = clone(props.user);
 });
 </script>
-
-<style module lang="scss">
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
-}
-</style>

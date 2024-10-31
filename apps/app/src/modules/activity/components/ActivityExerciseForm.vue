@@ -1,32 +1,34 @@
 <template>
-  <div :class="$style.page">
-    <ActivityExerciseList
-      v-if="props.activity.exercises.length"
-      :exercises="props.activity.exercises"
-      :activeExerciseId="activeExerciseId"
-      :isActivityDone="formData.isDone"
-      @start="startExercise"
-      @stop="stopExercise"
-    />
+  <div>
+    <UiFlex column>
+      <ActivityExerciseList
+        v-if="props.activity.exercises.length"
+        :exercises="props.activity.exercises"
+        :activeExerciseId="activeExerciseId"
+        :isActivityDone="formData.isDone"
+        @start="startExercise"
+        @stop="stopExercise"
+      />
 
-    <div>
-      <div>Занятие началось {{ formatDateTime(props.activity.dateCreated) }}.</div>
+      <div>
+        <div>Занятие началось {{ formatDateTime(props.activity.dateCreated) }}.</div>
 
-      <div v-if="props.activity.dateUpdated">
-        Занятие {{ formData.isDone ? 'закончено' : 'обновлено' }} {{ formatDateTime(props.activity.dateUpdated) }}.
+        <div v-if="props.activity.dateUpdated">
+          Занятие {{ formData.isDone ? 'закончено' : 'обновлено' }} {{ formatDateTime(props.activity.dateUpdated) }}.
+        </div>
       </div>
-    </div>
 
-    <UiButton @click="finishActivity" layout="secondary" :isDisabled="props.activity.isDone">
-      Завершить занятие досрочно
-    </UiButton>
+      <UiButton @click="finishActivity" layout="secondary" :isDisabled="props.activity.isDone">
+        Завершить занятие досрочно
+      </UiButton>
+    </UiFlex>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-import { toast, UiButton } from 'mhz-ui';
+import { toast, UiButton, UiFlex } from 'mhz-ui';
 import { API_ACTIVITY, IActivity, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ActivityExerciseList from '@/activity/components/ActivityExerciseList.vue';
@@ -97,11 +99,3 @@ onMounted(() => {
   if (props.activity) formData.value = clone(props.activity);
 });
 </script>
-
-<style module lang="scss">
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-</style>

@@ -1,8 +1,6 @@
-import { IExerciseDone } from 'fitness-tracker-contracts';
-
-export interface IActivityCalendarEvent {
+export interface IActivityCalendarEvent<T> {
   start: Date;
   end: Date;
   title: string;
-  content: IExerciseDone[];
+  content: T[];
 }

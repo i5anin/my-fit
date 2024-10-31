@@ -1,19 +1,21 @@
 <template>
-  <div :class="$style.element">
-    <div :class="$style.options">
-      <UiField v-if="props.exercise?.weights?.length" label="Вес гантелей, кг.">
-        <UiSelect v-model="choosenExercise.weight" :options="props.exercise?.weights" lang="ru" />
-      </UiField>
+  <div>
+    <UiFlex column gap="16">
+      <UiFlex justify="space-between">
+        <UiField v-if="props.exercise?.weights?.length" label="Вес гантелей, кг.">
+          <UiSelect v-model="choosenExercise.weight" :options="props.exercise?.weights" lang="ru" />
+        </UiField>
 
-      <UiField label="Повторения">
-        <UiSelect v-model="choosenExercise.repeats" :options="EXERCISE_REPEATS_OPTIONS" lang="ru" />
-      </UiField>
-    </div>
+        <UiField label="Повторения">
+          <UiSelect v-model="choosenExercise.repeats" :options="EXERCISE_REPEATS_OPTIONS" lang="ru" />
+        </UiField>
+      </UiFlex>
 
-    <div :class="$style.buttons">
-      <UiButton @click="addExercise(1)">Добавить</UiButton>
-      <UiButton @click="addExercise(2)" layout="secondary">Добавить два</UiButton>
-    </div>
+      <UiFlex justify="space-between">
+        <UiButton @click="addExercise(1)">Добавить</UiButton>
+        <UiButton @click="addExercise(2)" layout="secondary">Добавить два</UiButton>
+      </UiFlex>
+    </UiFlex>
   </div>
 </template>
 
@@ -21,7 +23,7 @@
 import { onMounted, ref } from 'vue';
 
 import { IExercise } from 'fitness-tracker-contracts';
-import { UiButton, UiField, UiSelect } from 'mhz-ui';
+import { UiButton, UiField, UiFlex, UiSelect } from 'mhz-ui';
 
 import { EXERCISE_REPEATS_OPTIONS } from '@/exercise/constants';
 import { createTempId } from '@/common/helpers/id';
@@ -52,23 +54,3 @@ onMounted(() => {
   if (props.exercise.defaultWeight) choosenExercise.value.weight = props.exercise.defaultWeight;
 });
 </script>
-
-<style module lang="scss">
-.element {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.options {
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-}
-
-.buttons {
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-}
-</style>

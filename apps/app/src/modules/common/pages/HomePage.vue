@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { IActivity } from 'fitness-tracker-contracts';
+import { IActivity, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ActivityCalendar from '@/activity/components/ActivityCalendar.vue';
 
@@ -20,7 +20,7 @@ import { IActivityCalendarEvent } from '@/activity/interface';
 
 const { data } = getActivitiesCalendar();
 
-const events = computed<IActivityCalendarEvent[] | undefined>(() =>
+const events = computed<IActivityCalendarEvent<IExerciseDone>[] | undefined>(() =>
   data.value?.map((activity: IActivity) => {
     return {
       start: new Date(`${activity.dateCreated}`),

@@ -1,31 +1,30 @@
 <template>
   <div>
-    <div :class="$style.title" v-if="!props.isHideTitle">{{ props.exercise.exercise.title }}</div>
+    <div v-if="!props.isHideTitle" :class="$style.title">{{ props.exercise.exercise.title }}</div>
 
-    <div v-if="!props.isOnlyTitle" :class="$style.description">
-      <div v-if="!props.exercise.isDone" :class="[$style.tag, $style.error]">
-        <IconFail width="16" height="16" /> Не выполнено
-      </div>
+    <UiFlex v-if="!props.isOnlyTitle" wrap>
+      <UiChip v-if="!props.exercise.isDone" type="error"> <IconFail width="16" height="16" /> Не выполнено</UiChip>
 
-      <div v-if="props.exercise.duration" :class="$style.tag">
+      <UiChip v-if="props.exercise.duration">
         <IconDuration width="16" height="16" /> {{ formatDuration(props.exercise.duration) }}
-      </div>
+      </UiChip>
 
-      <div :class="$style.tag">x{{ props.exercise.repeats }}</div>
+      <UiChip>x{{ props.exercise.repeats }}</UiChip>
 
-      <div v-if="props.exercise.weight" :class="$style.tag">
+      <UiChip v-if="props.exercise.weight">
         <IconWeight width="16" height="16" />{{ props.exercise.weight }} кг.
-      </div>
+      </UiChip>
 
-      <div v-if="props.exercise.isToFailure" :class="[$style.tag, $style.success]">
+      <UiChip v-if="props.exercise.isToFailure" type="success">
         <IconToFailure width="16" height="16" /> До отказа
-      </div>
-    </div>
+      </UiChip>
+    </UiFlex>
   </div>
 </template>
 
 <script setup lang="ts">
 import { IExerciseDone } from 'fitness-tracker-contracts';
+import { UiChip, UiFlex } from 'mhz-ui';
 
 import IconDuration from '@/layout/icons/duration.svg';
 import IconToFailure from '@/layout/icons/to-failure.svg';
@@ -47,29 +46,5 @@ const props = defineProps<IProps>();
 .title {
   margin-bottom: 2px;
   font-weight: 700;
-}
-
-.description {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tag {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  padding: 2px 8px;
-  font-size: 0.875rem;
-  background-color: var(--color-gray-light);
-  border-radius: 8px;
-}
-
-.success {
-  color: var(--color-success-dark);
-}
-
-.error {
-  color: var(--color-error);
 }
 </style>

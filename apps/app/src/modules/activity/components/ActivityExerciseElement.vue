@@ -4,7 +4,7 @@
 
     <div v-if="props.exercise.isDone">Завершено</div>
 
-    <div v-if="props.isCurrentExercise" :class="$style.exercise">
+    <UiFlex v-if="props.isCurrentExercise" column>
       <UiButton @click="handleClick" :isDisabled="isButtonDisabled" isTall>
         {{ buttonTitle }}
       </UiButton>
@@ -12,9 +12,9 @@
       <UiCheckbox v-model="isToFailure" label="Упражнение выполнено до отказа" :isDisabled="!isCurrentExerciseActive" />
 
       <div>
-        <div :class="$style.title">Количество повторений</div>
+        <div>Количество повторений</div>
 
-        <div :class="$style.repeats">
+        <UiFlex justify="space-between">
           <UiButton
             v-for="repeat in repeatButtons"
             :key="repeat"
@@ -26,18 +26,18 @@
           >
             {{ repeat }}
           </UiButton>
-        </div>
+        </UiFlex>
       </div>
 
       <ActivityDuration :duration="exercise.duration" :start="start" :stop="stop" @stop="sendDurationData" />
-    </div>
+    </UiFlex>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-import { UiButton, UiCheckbox } from 'mhz-ui';
+import { UiButton, UiCheckbox, UiFlex } from 'mhz-ui';
 import { IExerciseDone } from 'fitness-tracker-contracts';
 
 import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
@@ -87,21 +87,3 @@ function sendDurationData(duration: number) {
   }
 }
 </script>
-
-<style module lang="scss">
-.exercise {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.title {
-  text-align: center;
-}
-
-.repeats {
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-}
-</style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="$style.page">
+    <UiFlex column gap="32">
       <RouterLink :to="URL_EXERCISE_CREATE">Добавить упражнение</RouterLink>
 
       <ExerciseList :exercises="exercises" />
@@ -12,12 +12,12 @@
         @update="(value: number) => setPage(setPaginationPage(value, page))"
         lang="ru"
       />
-    </div>
+    </UiFlex>
   </div>
 </template>
 
 <script setup lang="ts">
-import { UiPagination } from 'mhz-ui';
+import { UiFlex, UiPagination } from 'mhz-ui';
 
 import ExerciseList from '@/exercise/components/ExerciseList.vue';
 
@@ -32,11 +32,3 @@ const { data } = getExercises(page);
 
 const { data: exercises, total, setPaginationPage } = usePagination(data);
 </script>
-
-<style module lang="scss">
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-</style>

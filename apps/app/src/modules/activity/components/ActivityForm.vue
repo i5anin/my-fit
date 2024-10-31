@@ -2,7 +2,7 @@
   <div v-if="isShowForm">
     <h2>Сформировать занятие</h2>
 
-    <form @submit.prevent="submit" :class="$style.form">
+    <UiFlex @submit.prevent="submit" tag="form" column gap="24">
       <UiButton @click="isShowModal = true">Добавить упражнение</UiButton>
 
       <UiModal v-model="isShowModal">
@@ -16,7 +16,7 @@
       </div>
 
       <UiButton layout="accent" :isDisabled="!isValid || isLoadingPost" type="submit">Начать</UiButton>
-    </form>
+    </UiFlex>
   </div>
 </template>
 
@@ -24,7 +24,7 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { toast, UiButton, UiModal } from 'mhz-ui';
+import { toast, UiButton, UiFlex, UiModal } from 'mhz-ui';
 import { API_ACTIVITY, IActivity, IExerciseChoosen } from 'fitness-tracker-contracts';
 
 import ExerciseChooseList from '@/exercise/components/ExerciseChooseList.vue';
@@ -85,11 +85,3 @@ function submit() {
   }
 }
 </script>
-
-<style module lang="scss">
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-</style>

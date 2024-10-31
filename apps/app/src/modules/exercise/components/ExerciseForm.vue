@@ -1,34 +1,36 @@
 <template>
-  <form @submit.prevent="props.exercise?._id ? update() : submit()" :class="$style.form">
-    <UiField label="Название" isRequired :error="error('title')">
-      <UiInput v-model="formData.title" />
-    </UiField>
+  <div>
+    <UiFlex @submit.prevent="props.exercise?._id ? update() : submit()" tag="form" column gap="24" align="flex-start">
+      <UiField label="Название" isRequired :error="error('title')">
+        <UiInput v-model="formData.title" />
+      </UiField>
 
-    <div :class="$style.weights">
-      <div>Возможный вес гантели</div>
+      <UiFlex column>
+        <div>Возможный вес гантели</div>
 
-      <UiCheckbox
-        v-for="weight in EXERCISE_WEIGHT_OPTIONS"
-        :key="weight"
-        :modelValue="choosenWeights.some((choosen) => choosen === weight)"
-        @update:modelValue="updateWeights(weight, $event)"
-        :label="`${weight} кг.`"
-      />
-    </div>
+        <UiCheckbox
+          v-for="weight in EXERCISE_WEIGHT_OPTIONS"
+          :key="weight"
+          :modelValue="choosenWeights.some((choosen) => choosen === weight)"
+          @update:modelValue="updateWeights(weight, $event)"
+          :label="`${weight} кг.`"
+        />
+      </UiFlex>
 
-    <UiField label="Вес по-умолчанию" v-if="formData.weights?.length">
-      <UiSelect v-model="formData.defaultWeight" :options="[0, ...formData.weights]" lang="ru" />
-    </UiField>
+      <UiField label="Вес по-умолчанию" v-if="formData.weights?.length">
+        <UiSelect v-model="formData.defaultWeight" :options="[0, ...formData.weights]" lang="ru" />
+      </UiField>
 
-    <FormButtons :id="props.exercise?._id" :isLoading="isLoadingPost || isLoadingUpdate" @delete="handleDelete" />
-  </form>
+      <FormButtons :id="props.exercise?._id" :isLoading="isLoadingPost || isLoadingUpdate" @delete="handleDelete" />
+    </UiFlex>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { UiField, UiInput, UiCheckbox, toast, UiSelect } from 'mhz-ui';
+import { UiField, UiInput, UiCheckbox, toast, UiSelect, UiFlex } from 'mhz-ui';
 import { API_EXERCISE, IExercise } from 'fitness-tracker-contracts';
 
 import FormButtons from '@/common/components/FormButtons.vue';
@@ -116,18 +118,3 @@ onMounted(() => {
   }
 });
 </script>
-
-<style module lang="scss">
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
-}
-
-.weights {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-</style>

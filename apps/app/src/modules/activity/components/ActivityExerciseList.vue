@@ -1,15 +1,17 @@
 <template>
-  <div :class="$style.list">
-    <ActivityExerciseElement
-      v-for="(exercise, index) in props.exercises"
-      :key="exercise._id"
-      :exercise="exercise"
-      :activeExerciseId="props.activeExerciseId"
-      :isActivityDone="props.isActivityDone"
-      :isCurrentExercise="index === currentExerciseIndex"
-      @start="(id) => emit('start', id)"
-      @stop="(exerciseDone) => emit('stop', exerciseDone)"
-    />
+  <div>
+    <UiFlex column gap="16">
+      <ActivityExerciseElement
+        v-for="(exercise, index) in props.exercises"
+        :key="exercise._id"
+        :exercise="exercise"
+        :activeExerciseId="props.activeExerciseId"
+        :isActivityDone="props.isActivityDone"
+        :isCurrentExercise="index === currentExerciseIndex"
+        @start="(id) => emit('start', id)"
+        @stop="(exerciseDone) => emit('stop', exerciseDone)"
+      />
+    </UiFlex>
   </div>
 </template>
 
@@ -17,6 +19,7 @@
 import { computed } from 'vue';
 
 import { IExerciseDone } from 'fitness-tracker-contracts';
+import { UiFlex } from 'mhz-ui';
 
 import ActivityExerciseElement from '@/activity/components/ActivityExerciseElement.vue';
 
@@ -31,11 +34,3 @@ const emit = defineEmits(['start', 'stop']);
 
 const currentExerciseIndex = computed(() => props.exercises.filter((exercise) => exercise.isDone).length);
 </script>
-
-<style module lang="scss">
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-</style>

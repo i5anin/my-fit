@@ -1,20 +1,22 @@
 <template>
-  <div :class="$style.page">
-    <ActivityInfo
-      v-if="activity"
-      :start="activity.dateCreated"
-      :end="activity.dateUpdated"
-      :exercises="activity.exercises"
-    />
+  <div>
+    <UiFlex column gap="32">
+      <ActivityInfo
+        v-if="activity"
+        :start="activity.dateCreated"
+        :end="activity.dateUpdated"
+        :exercises="activity.exercises"
+      />
 
-    <UiModal v-model="isShowConfirm" isConfirm @confirm="mutateDelete(activity?._id)" lang="ru">
-      Подтверждаете удаление?
-    </UiModal>
+      <UiModal v-model="isShowConfirm" isConfirm @confirm="mutateDelete(activity?._id)" lang="ru">
+        Подтверждаете удаление?
+      </UiModal>
 
-    <div :class="$style.buttons">
-      <UiButton @click="router.go(-1)">Назад</UiButton>
-      <UiButton @click="isShowConfirm = true" layout="secondary">Удалить</UiButton>
-    </div>
+      <UiFlex justify="space-between">
+        <UiButton @click="router.go(-1)">Назад</UiButton>
+        <UiButton @click="isShowConfirm = true" layout="secondary">Удалить</UiButton>
+      </UiFlex>
+    </UiFlex>
   </div>
 </template>
 
@@ -22,7 +24,7 @@
 import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { toast, UiButton, UiModal } from 'mhz-ui';
+import { toast, UiButton, UiFlex, UiModal } from 'mhz-ui';
 import { API_ACTIVITY } from 'fitness-tracker-contracts';
 
 import ActivityInfo from '@/activity/components/ActivityInfo.vue';
@@ -51,17 +53,3 @@ const { mutate: mutateDelete } = deleteActivity({
   },
 });
 </script>
-
-<style module lang="scss">
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.buttons {
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-}
-</style>

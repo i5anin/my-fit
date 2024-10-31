@@ -1,24 +1,25 @@
 <template>
   <div :class="$style.info">
     <div>
-      <div :class="$style.block">
+      <UiFlex gap="4" align="center">
         <IconDate width="20" height="20" />
         {{ formatDate(props.start) }}
         <IconDuration width="20" height="20" />
         {{ subtractDates(props.end, props.start) }}
-      </div>
+      </UiFlex>
     </div>
 
-    <div :class="$style.exercises">
+    <UiFlex column>
       <div v-for="(exercise, index) in props.exercises" :key="exercise._id">
         <ExerciseTitle :exercise="exercise" :isHideTitle="isPrevExerciseSame(index, exercise.exercise._id)" />
       </div>
-    </div>
+    </UiFlex>
   </div>
 </template>
 
 <script setup lang="ts">
 import { IExerciseDone } from 'fitness-tracker-contracts';
+import { UiFlex } from 'mhz-ui';
 
 import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
 import IconDate from '@/layout/icons/date.svg';
@@ -46,17 +47,5 @@ function isPrevExerciseSame(index: number, id?: string) {
   gap: 16px;
   max-height: 600px;
   overflow-y: auto;
-}
-
-.block {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.exercises {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 </style>

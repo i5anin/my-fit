@@ -1,12 +1,12 @@
 <template>
   <header :class="$style.header">
-    <div :class="$style.logoAndSearch">
+    <UiFlex align="center" gap="64" shrink>
       <RouterLink :to="URL_HOME" :class="$style.logo" aria-label="Logo">
         <IconLogo width="32" height="32" /> FiT
       </RouterLink>
-    </div>
+    </UiFlex>
 
-    <div :class="$style.buttons">
+    <UiFlex gap="16" shrink justify="flex-end">
       <template v-if="isAuth">
         <UiButton @click="router.push(URL_EXERCISE)" layout="plain">Админка</UiButton>
         <UiButton @click="router.push(URL_ACTIVITY_CREATE)" layout="plain">Занятие</UiButton>
@@ -14,13 +14,13 @@
       </template>
 
       <UiButton v-else @click="emit('showLogin')" layout="plain">Войти</UiButton>
-    </div>
+    </UiFlex>
   </header>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { UiButton } from 'mhz-ui';
+import { UiButton, UiFlex } from 'mhz-ui';
 
 import IconLogo from '@/common/images/logo.svg';
 
@@ -50,12 +50,6 @@ const router = useRouter();
   border-bottom: 1px solid var(--color-gray);
 }
 
-.logoAndSearch {
-  display: flex;
-  gap: 64px;
-  align-items: center;
-}
-
 .logo {
   display: flex;
   gap: 4px;
@@ -64,10 +58,5 @@ const router = useRouter();
   font-weight: 700;
   color: var(--color-primary-dark);
   text-decoration: none;
-}
-
-.buttons {
-  display: flex;
-  gap: 16px;
 }
 </style>
