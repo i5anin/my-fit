@@ -21,9 +21,7 @@ const router = useRouter();
 
 const isLoaded = ref(false);
 
-const layoutComponent = computed(() => {
-  return route.meta.layout === 'empty' ? LayoutEmpty : LayoutAdmin;
-});
+const layoutComponent = computed(() => (route.meta.layout === 'empty' ? LayoutEmpty : LayoutAdmin));
 
 const token = getCookieToken(TOKEN_NAME);
 

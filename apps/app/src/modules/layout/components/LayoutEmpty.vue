@@ -8,7 +8,7 @@
       </main>
 
       <UiModal v-model="isShowLogin">
-        <LoginForm @login="isShowLogin = false" />
+        <AuthForm @login="isShowLogin = false" />
       </UiModal>
     </div>
   </div>
@@ -20,7 +20,7 @@ import { ref } from 'vue';
 import { UiModal } from 'mhz-ui';
 
 import TheHeader from '@/layout/components/TheHeader.vue';
-import LoginForm from '@/auth/components/LoginForm.vue';
+import AuthForm from '@/auth/components/AuthForm.vue';
 
 defineOptions({ name: 'LayoutEmpty' });
 

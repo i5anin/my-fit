@@ -1,8 +1,6 @@
 import { readonly, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { URL_ACTIVITY_CREATE } from '@/activity/constants';
-
 const isAuthLocal = ref(false);
 
 export const isAuth = readonly(isAuthLocal);
@@ -38,8 +36,6 @@ export function useAuth() {
     setCookieToken(token, tokenName);
     setAuthHeader(token);
     setAuth(true);
-
-    router.push(URL_ACTIVITY_CREATE);
   }
 
   function redirectIfAuth(url: string) {
