@@ -20,4 +20,11 @@ import { NAV_ITEMS } from '@/layout/constants';
   padding: 24px 12px;
   overflow-y: auto;
 }
+
+@media (max-width: 960px) {
+  .nav {
+    width: 60px;
+    padding: 24px 8px;
+  }
+}
 </style>

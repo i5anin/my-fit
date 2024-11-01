@@ -10,9 +10,6 @@
         <td data-no-wrap>
           {{ formatDate(user.dateCreated) }}
         </td>
-        <td data-no-wrap>
-          {{ formatDate(user.dateUpdated) }}
-        </td>
       </tr>
     </template>
   </UiTable>
@@ -31,5 +28,5 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
-const tableHeaders = [{ title: 'Электронная почта' }, { title: 'Создан' }, { title: 'Обновлен' }];
+const tableHeaders = [{ title: 'Электронная почта' }, { title: 'Создан' }];
 </script>

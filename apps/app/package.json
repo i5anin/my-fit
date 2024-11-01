@@ -25,7 +25,7 @@
     "async-validator": "4.2.5",
     "axios": "1.7.7",
     "fitness-tracker-contracts": "1.0.3",
-    "mhz-ui": "1.0.74",
+    "mhz-ui": "1.0.75",
     "sortablejs": "1.15.3",
     "sortablejs-vue3": "1.2.11",
     "vue": "3.5.12",
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.13.0",
-    "@types/node": "22.8.5",
+    "@types/node": "22.8.6",
     "@vitejs/plugin-vue": "5.1.4",
     "eslint": "9.13.0",
     "eslint-config-prettier": "9.1.0",
@@ -56,7 +56,7 @@
     "vite-plugin-pwa": "0.20.5",
     "vite-svg-loader": "5.1.0",
     "vue-eslint-parser": "9.4.3",
-    "vue-linters-config": "0.3.8",
+    "vue-linters-config": "0.3.9",
     "vue-tsc": "2.1.10"
   },
   "engines": {

@@ -4,7 +4,7 @@
       <tr v-for="activity in props.activities" :key="activity._id">
         <td data-grow>
           <RouterLink :to="`${URL_ACTIVITY_ADMIN_EDIT}/${activity._id}`">
-            {{ formatDateTime(activity.dateCreated) }}
+            {{ formatDate(activity.dateCreated) }}
           </RouterLink>
         </td>
         <td data-no-wrap>
@@ -19,7 +19,7 @@
 import { UiTable } from 'mhz-ui';
 import { IActivity } from 'fitness-tracker-contracts';
 
-import { formatDate, formatDateTime } from '@/common/helpers/date';
+import { formatDate } from '@/common/helpers/date';
 import { URL_ACTIVITY_ADMIN_EDIT } from '@/activity/constants';
 
 interface IProps {

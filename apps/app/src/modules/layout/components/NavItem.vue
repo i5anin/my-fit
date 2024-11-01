@@ -1,7 +1,7 @@
 <template>
-  <RouterLink :to="props.navItem.url" :class="$style.navItem">
+  <RouterLink :to="props.navItem.url" :class="$style.item">
     <component :is="props.navItem.icon" width="20" height="20" :class="$style.icon" />
-    <span>{{ props.navItem.title }}</span>
+    <span :class="$style.title">{{ props.navItem.title }}</span>
   </RouterLink>
 </template>
 
@@ -16,7 +16,7 @@ const props = defineProps<IProps>();
 </script>
 
 <style module lang="scss">
-.navItem {
+.item {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -35,5 +35,15 @@ const props = defineProps<IProps>();
 
 .icon {
   flex-shrink: 0;
+}
+
+@media (max-width: 960px) {
+  .item {
+    padding: 12px;
+  }
+
+  .title {
+    display: none;
+  }
 }
 </style>
