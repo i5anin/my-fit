@@ -15,11 +15,14 @@ export default async function (fastify: IFastifyInstance) {
     }
   );
 
-  fastify.get<{ Reply: { 200: IActivity[] } }>(API_ACTIVITY_CALENDAR, async function (request, reply) {
-    const data = await activityService.getCalendar();
+  fastify.get<{ Querystring: { dateFrom: string; dateTo: string }; Reply: { 200: IActivity[] } }>(
+    API_ACTIVITY_CALENDAR,
+    async function (request, reply) {
+      const data = await activityService.getCalendar(request.query.dateFrom, request.query.dateTo);
 
-    reply.code(200).send(data);
-  });
+      reply.code(200).send(data);
+    }
+  );
 
   fastify.get<{ Params: IBaseParams; Reply: { 200: { data: IActivity | null } } }>(
     `${API_ACTIVITY}/:id`,

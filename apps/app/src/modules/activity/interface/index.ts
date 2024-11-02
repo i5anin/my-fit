@@ -4,3 +4,8 @@ export interface IActivityCalendarEvent<T> {
   title: string;
   content: T[];
 }
+
+export interface ICalendarEvent {
+  firstCellDate: string;
+  lastCellDate: string;
+}

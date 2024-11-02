@@ -12,8 +12,11 @@ export const activityService: IActivityService = {
     return { data: data as T[], total };
   },
 
-  getCalendar: async <T>() => {
-    const data = await Activity.find().populate({ path: 'exercises.exercise', select: 'title' }).lean().exec();
+  getCalendar: async <T>(dateFrom: string, dateTo: string) => {
+    const data = await Activity.find({ dateCreated: { $gte: new Date(dateFrom), $lt: new Date(dateTo) } })
+      .populate({ path: 'exercises.exercise', select: 'title' })
+      .lean()
+      .exec();
 
     return data as T[];
   },

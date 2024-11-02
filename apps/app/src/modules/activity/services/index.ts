@@ -17,14 +17,17 @@ export function getActivities(page: Ref<number>) {
   });
 }
 
-export function getActivitiesCalendar() {
+export function getActivitiesCalendar(options: object, dateFrom?: Ref<string>, dateTo?: Ref<string>) {
   return useQuery({
-    queryKey: [API_ACTIVITY_CALENDAR],
+    queryKey: [API_ACTIVITY_CALENDAR, dateFrom, dateTo],
     queryFn: async () => {
-      const { data } = await api.get<IActivity[]>(API_ACTIVITY_CALENDAR);
+      const { data } = await api.get<IActivity[]>(API_ACTIVITY_CALENDAR, {
+        params: { dateFrom: dateFrom?.value, dateTo: dateTo?.value },
+      });
 
       return data;
     },
+    ...options,
   });
 }
 

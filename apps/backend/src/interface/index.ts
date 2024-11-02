@@ -46,7 +46,7 @@ export interface IUserService extends IBaseService {
 }
 
 export interface IActivityService extends IBaseService {
-  getCalendar: () => Promise<IActivity[]>;
+  getCalendar: (dateFrom: string, dateTo: string) => Promise<IActivity[]>;
 }
 
 export interface IAuthService {

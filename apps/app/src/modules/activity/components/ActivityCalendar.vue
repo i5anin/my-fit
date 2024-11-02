@@ -1,6 +1,11 @@
 <template>
   <div>
-    <UiCalendar v-if="props.events" :events="props.events" :onEventClick="showEvent" />
+    <UiCalendar
+      :events="props.events"
+      :onEventClick="showEvent"
+      @ready="(dates) => emit('ready', dates)"
+      @update="(dates) => emit('update', dates)"
+    />
 
     <UiModal v-model="isShowModal">
       <ActivityInfo :start="start" :end="end" :exercises="exercises" />
@@ -22,6 +27,7 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
+const emit = defineEmits(['ready', 'update']);
 
 const isShowModal = ref(false);
 

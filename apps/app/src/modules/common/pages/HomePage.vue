@@ -4,21 +4,26 @@
 
     <p>Кликните по дате с занятием для просмота подробной информации.</p>
 
-    <ActivityCalendar :events="events" />
+    <ActivityCalendar :events="events" @ready="updateDates" @update="updateDates" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 
 import { IActivity, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ActivityCalendar from '@/activity/components/ActivityCalendar.vue';
 
 import { getActivitiesCalendar } from '@/activity/services';
-import { IActivityCalendarEvent } from '@/activity/interface';
+import { IActivityCalendarEvent, ICalendarEvent } from '@/activity/interface';
 
-const { data } = getActivitiesCalendar();
+const dateFrom = ref('');
+const dateTo = ref('');
+
+const isRequestEnabled = ref(false);
+
+const { data } = getActivitiesCalendar({ enabled: isRequestEnabled }, dateFrom, dateTo);
 
 const events = computed<IActivityCalendarEvent<IExerciseDone>[] | undefined>(() =>
   data.value?.map((activity: IActivity) => {
@@ -30,4 +35,11 @@ const events = computed<IActivityCalendarEvent<IExerciseDone>[] | undefined>(() 
     };
   })
 );
+
+function updateDates(dates: ICalendarEvent) {
+  isRequestEnabled.value = true;
+
+  dateFrom.value = dates.firstCellDate;
+  dateTo.value = dates.lastCellDate;
+}
 </script>

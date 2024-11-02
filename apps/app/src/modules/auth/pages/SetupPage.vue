@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AuthForm />
+    <AuthForm isSetup />
   </div>
 </template>
 
