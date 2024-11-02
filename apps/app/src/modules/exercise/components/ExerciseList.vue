@@ -7,9 +7,6 @@
             {{ exercise.title }}
           </RouterLink>
         </td>
-        <td data-no-wrap>
-          {{ formatDate(exercise.dateCreated) }}
-        </td>
       </tr>
     </template>
   </UiTable>
@@ -19,7 +16,6 @@
 import { UiTable } from 'mhz-ui';
 import { IExercise } from 'fitness-tracker-contracts';
 
-import { formatDate } from '@/common/helpers/date';
 import { URL_EXERCISE_EDIT } from '@/exercise/constants';
 
 interface IProps {
@@ -28,5 +24,5 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
-const tableHeaders = [{ title: 'Название' }, { title: 'Создано' }];
+const tableHeaders = [{ title: 'Название' }];
 </script>

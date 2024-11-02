@@ -17,6 +17,18 @@
         />
       </UiFlex>
 
+      <UiFlex column>
+        <div>Задействованные мышцы</div>
+
+        <UiCheckbox
+          v-for="muscleGroup in EXERCISE_MUSCLE_GROUPS"
+          :key="muscleGroup._id"
+          :modelValue="choosenMuscleGroups.some((group) => group._id === muscleGroup._id)"
+          @update:modelValue="updateMuscleGroups(muscleGroup, $event)"
+          :label="muscleGroup.title"
+        />
+      </UiFlex>
+
       <UiField label="Вес по-умолчанию" v-if="formData.weights?.length">
         <UiSelect v-model="formData.defaultWeight" :options="[0, ...formData.weights]" lang="ru" />
       </UiField>
@@ -31,14 +43,14 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { UiField, UiInput, UiCheckbox, toast, UiSelect, UiFlex } from 'mhz-ui';
-import { API_EXERCISE, IExercise } from 'fitness-tracker-contracts';
+import { API_EXERCISE, IExercise, IMuscleGroup } from 'fitness-tracker-contracts';
 
 import FormButtons from '@/common/components/FormButtons.vue';
 
 import { useQueryClient } from '@/common/plugins/query';
 import { useValidator, required } from '@/common/composables/useValidate';
 import { clone } from '@/common/helpers/clone';
-import { URL_EXERCISE, EXERCISE_WEIGHT_OPTIONS } from '@/exercise/constants';
+import { URL_EXERCISE, EXERCISE_WEIGHT_OPTIONS, EXERCISE_MUSCLE_GROUPS } from '@/exercise/constants';
 import { postExercise, updateExercise, deleteExercise } from '@/exercise/services';
 
 interface IProps {
@@ -54,10 +66,12 @@ const router = useRouter();
 const formData = ref<IExercise>({
   title: '',
   weights: [],
+  muscleGroups: [],
   defaultWeight: undefined,
 });
 
 const choosenWeights = ref<number[]>([]);
+const choosenMuscleGroups = ref<IMuscleGroup[]>([]);
 
 function updateWeights(weight: number, isChecked: boolean) {
   choosenWeights.value = isChecked
@@ -65,6 +79,14 @@ function updateWeights(weight: number, isChecked: boolean) {
     : choosenWeights.value.filter((current) => current !== weight);
 
   formData.value.weights = [...choosenWeights.value];
+}
+
+function updateMuscleGroups(muscleGroup: IMuscleGroup, isChecked: boolean) {
+  choosenMuscleGroups.value = isChecked
+    ? [...choosenMuscleGroups.value, muscleGroup]
+    : choosenMuscleGroups.value.filter((current) => current._id !== muscleGroup._id);
+
+  formData.value.muscleGroups = [...choosenMuscleGroups.value];
 }
 
 const { mutate: mutatePost, isPending: isLoadingPost } = postExercise({
@@ -115,6 +137,7 @@ onMounted(() => {
   if (props.exercise) {
     formData.value = clone(props.exercise);
     if (formData.value.weights?.length) choosenWeights.value = [...formData.value.weights];
+    if (formData.value.muscleGroups?.length) choosenMuscleGroups.value = [...formData.value.muscleGroups];
   }
 });
 </script>

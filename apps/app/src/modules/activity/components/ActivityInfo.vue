@@ -1,18 +1,24 @@
 <template>
   <div :class="$style.info">
+    <UiFlex gap="4" align="center">
+      <IconDate width="20" height="20" />
+      {{ formatDate(props.start) }}
+      <IconDuration width="20" height="20" />
+      {{ subtractDates(props.end, props.start) }}
+    </UiFlex>
+
     <div>
-      <UiFlex gap="4" align="center">
-        <IconDate width="20" height="20" />
-        {{ formatDate(props.start) }}
-        <IconDuration width="20" height="20" />
-        {{ subtractDates(props.end, props.start) }}
-      </UiFlex>
+      Сетов: {{ props.exercises.length }}, до отказа:
+      {{ props.exercises.filter((exercise) => exercise.isToFailure).length }}.
     </div>
 
     <UiFlex column>
-      <div v-for="(exercise, index) in props.exercises" :key="exercise._id">
-        <ExerciseTitle :exercise="exercise" :isHideTitle="isPrevExerciseSame(index, exercise.exercise._id)" />
-      </div>
+      <ExerciseTitle
+        v-for="(exercise, index) in props.exercises"
+        :key="exercise._id"
+        :exercise="exercise"
+        :isHideTitle="isPrevExerciseSame(index, exercise.exercise._id)"
+      />
     </UiFlex>
   </div>
 </template>
@@ -44,8 +50,8 @@ function isPrevExerciseSame(index: number, id?: string) {
 .info {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-height: 600px;
+  gap: 8px;
+  max-height: 500px;
   overflow-y: auto;
 }
 </style>

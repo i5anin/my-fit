@@ -9,8 +9,15 @@ export interface IUser extends IEntity {
   password?: string;
 }
 
+interface IMuscleGroup {
+  _id: string;
+  title: string;
+  icon: string;
+}
+
 export interface IExercise extends IEntity {
   title: string;
+  muscleGroups: IMuscleGroup[];
   weights?: number[];
   defaultWeight?: number;
 }

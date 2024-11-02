@@ -7,9 +7,6 @@
             {{ formatDate(activity.dateCreated) }}
           </RouterLink>
         </td>
-        <td data-no-wrap>
-          {{ formatDate(activity.dateUpdated) }}
-        </td>
       </tr>
     </template>
   </UiTable>
@@ -28,5 +25,5 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
-const tableHeaders = [{ title: 'Создано' }, { title: 'Обновлено' }];
+const tableHeaders = [{ title: 'Создано' }];
 </script>

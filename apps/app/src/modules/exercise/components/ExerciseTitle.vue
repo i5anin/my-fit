@@ -1,23 +1,43 @@
 <template>
   <div>
-    <div v-if="!props.isHideTitle" :class="$style.title">{{ props.exercise.exercise.title }}</div>
+    <UiFlex column>
+      <UiFlex v-if="!props.isHideTitle" grow wrap align="center">
+        <div :class="$style.title">{{ props.exercise.exercise.title }}</div>
 
-    <UiFlex v-if="!props.isOnlyTitle" wrap>
-      <UiChip v-if="!props.exercise.isDone" type="error"> <IconFail width="16" height="16" /> Не выполнено</UiChip>
+        <UiFlex v-if="!props.isOnlyTitle" shrink>
+          <img
+            v-for="group in props.exercise.exercise.muscleGroups"
+            :key="group._id"
+            :src="group.icon"
+            width="32"
+            height="32"
+            :alt="group.title"
+            :title="group.title"
+            :class="$style.muscleGroup"
+            loading="lazy"
+          />
+        </UiFlex>
+      </UiFlex>
 
-      <UiChip v-if="props.exercise.duration">
-        <IconDuration width="16" height="16" /> {{ formatDuration(props.exercise.duration) }}
-      </UiChip>
+      <UiFlex column v-if="!props.isOnlyTitle">
+        <UiFlex wrap>
+          <UiChip v-if="!props.exercise.isDone" type="error"> <IconFail width="16" height="16" /> Не выполнено</UiChip>
 
-      <UiChip>x{{ props.exercise.repeats }}</UiChip>
+          <UiChip v-if="props.exercise.duration">
+            <IconDuration width="16" height="16" /> {{ formatDuration(props.exercise.duration) }}
+          </UiChip>
 
-      <UiChip v-if="props.exercise.weight">
-        <IconWeight width="16" height="16" />{{ props.exercise.weight }} кг.
-      </UiChip>
+          <UiChip>x{{ props.exercise.repeats }}</UiChip>
 
-      <UiChip v-if="props.exercise.isToFailure" type="success">
-        <IconToFailure width="16" height="16" /> До отказа
-      </UiChip>
+          <UiChip v-if="props.exercise.weight">
+            <IconWeight width="16" height="16" />{{ props.exercise.weight }} кг.
+          </UiChip>
+
+          <UiChip v-if="props.exercise.isToFailure" type="success">
+            <IconToFailure width="16" height="16" /> До отказа
+          </UiChip>
+        </UiFlex>
+      </UiFlex>
     </UiFlex>
   </div>
 </template>
@@ -44,7 +64,13 @@ const props = defineProps<IProps>();
 
 <style module lang="scss">
 .title {
-  margin-bottom: 2px;
   font-weight: 700;
+  line-height: 1.3;
+}
+
+.muscleGroup {
+  padding: 4px;
+  background-color: var(--color-primary-light-extra);
+  border-radius: 50%;
 }
 </style>

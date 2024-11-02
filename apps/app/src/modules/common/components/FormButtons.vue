@@ -1,5 +1,5 @@
 <template>
-  <UiFlex justify="space-between">
+  <div :class="$style.buttons">
     <UiFlex gap="16" shrink>
       <UiButton type="submit" :isDisabled="props.isLoading">
         {{ props.id ? 'Обновить' : 'Добавить' }}
@@ -15,7 +15,7 @@
     <UiModal v-model="isShowConfirm" isConfirm @confirm="emit('delete', props.id)" lang="ru">
       Подтверждаете удаление?
     </UiModal>
-  </UiFlex>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -37,3 +37,19 @@ const isShowConfirm = ref(false);
 
 const router = useRouter();
 </script>
+
+<style module lang="scss">
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .buttons {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
+</style>

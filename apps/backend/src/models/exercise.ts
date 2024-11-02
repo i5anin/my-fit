@@ -6,6 +6,7 @@ const exerciseSchema = new Schema<IExercise>(
   {
     title: { type: String, required: true, unique: true },
     weights: { type: [Number] },
+    muscleGroups: [{ _id: String, title: String, icon: String }],
     defaultWeight: { type: Number },
     dateCreated: { type: Date, default: Date.now },
     dateUpdated: { type: Date },

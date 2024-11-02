@@ -7,9 +7,6 @@
             {{ user.email }}
           </RouterLink>
         </td>
-        <td data-no-wrap>
-          {{ formatDate(user.dateCreated) }}
-        </td>
       </tr>
     </template>
   </UiTable>
@@ -19,7 +16,6 @@
 import { UiTable } from 'mhz-ui';
 import { IUser } from 'fitness-tracker-contracts';
 
-import { formatDate } from '@/common/helpers/date';
 import { URL_USER_EDIT } from '@/user/constants';
 
 interface IProps {
@@ -28,5 +24,5 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
-const tableHeaders = [{ title: 'Электронная почта' }, { title: 'Создан' }];
+const tableHeaders = [{ title: 'Электронная почта' }];
 </script>
