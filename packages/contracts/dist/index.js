@@ -5,3 +5,4 @@ export const API_USER = "/user";
 export const API_EXERCISE = "/exercise";
 export const API_ACTIVITY = "/activity";
 export const API_ACTIVITY_CALENDAR = "/activity_calendar";
+export const API_ACTIVITY_LAST = "/activity_last";

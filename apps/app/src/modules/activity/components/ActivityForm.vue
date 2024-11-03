@@ -3,6 +3,8 @@
     <h2>Сформировать занятие</h2>
 
     <UiFlex @submit.prevent="submit" tag="form" column gap="24">
+      <UiButton @click="repeatLastActivity" layout="secondary">Повторить прошлое</UiButton>
+
       <UiButton @click="isShowModal = true">Добавить упражнение</UiButton>
 
       <UiModal v-model="isShowModal">
@@ -33,9 +35,9 @@ import ExerciseChoosenList from '@/exercise/components/ExerciseChoosenList.vue';
 import { usePage } from '@/common/composables/usePage';
 import { usePagination } from '@/common/composables/usePagination';
 import { getExercises } from '@/exercise/services';
-import { postActivity } from '@/activity/services';
+import { getLastActivity, postActivity } from '@/activity/services';
 import { useQueryClient } from '@/common/plugins/query';
-import { deleteTempId } from '@/common/helpers/id';
+import { createTempId, deleteTempId } from '@/common/helpers/id';
 import { URL_ACTIVITY_EDIT } from '@/activity/constants';
 
 const router = useRouter();
@@ -53,7 +55,7 @@ const isShowForm = ref(true);
 const { page } = usePage();
 
 const { data } = getExercises(page);
-
+const { data: activity } = getLastActivity();
 const { data: exercises } = usePagination(data);
 
 function addExercise(exercise: IExerciseChoosen) {
@@ -80,8 +82,27 @@ const isValid = computed(() => !!formData.value.exercises?.length);
 function submit() {
   if (isValid.value) {
     isShowForm.value = false;
-    formData.value.exercises = deleteTempId(formData.value.exercises);
+    if (formData.value.exercises) formData.value.exercises = deleteTempId(formData.value.exercises);
     mutatePost(formData.value);
   }
+}
+
+function repeatLastActivity() {
+  if (!activity.value) return;
+
+  const lastActivityExercises = activity.value?.exercises?.map((exercise) => {
+    return {
+      _id: createTempId(),
+      exercise: {
+        _id: exercise.exercise?._id,
+        title: exercise.exercise?.title || '',
+        muscleGroups: exercise.exercise?.muscleGroups || [],
+      },
+      repeats: exercise.repeats,
+      weight: exercise.weight,
+    };
+  });
+
+  formData.value.exercises = lastActivityExercises?.length ? [...lastActivityExercises] : [];
 }
 </script>

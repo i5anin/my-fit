@@ -2,11 +2,14 @@
   <div>
     <UiFlex column>
       <UiFlex v-if="!props.isHideTitle" grow wrap align="center">
-        <div :class="$style.title">{{ props.exercise.exercise.title }}</div>
+        <div :class="$style.title">
+          {{ props.exercise.exercise?.title || 'Упражнение удалено' }}
+          <span v-if="props.isOnlyTitle"> x{{ props.exercise.repeats }}</span>
+        </div>
 
-        <UiFlex v-if="!props.isOnlyTitle" shrink>
+        <UiFlex v-if="!props.isOnlyTitle && props.exercise.exercise" shrink>
           <img
-            v-for="group in props.exercise.exercise.muscleGroups"
+            v-for="group in props.exercise.exercise?.muscleGroups"
             :key="group._id"
             :src="group.icon"
             width="32"

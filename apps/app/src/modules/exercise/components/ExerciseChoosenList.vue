@@ -39,7 +39,7 @@ function updateIndex(event: { oldIndex: number; newIndex: number }) {
 }
 
 function deleteChoosenExercise(idToDelete: string) {
-  exercisesSortable.value = exercisesSortable.value.filter((exercise) => exercise._id !== idToDelete);
+  exercisesSortable.value = exercisesSortable.value.filter((exercise) => exercise?._id !== idToDelete);
   emit('update', exercisesSortable.value);
 }
 </script>

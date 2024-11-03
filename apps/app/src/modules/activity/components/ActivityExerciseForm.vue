@@ -2,7 +2,7 @@
   <div>
     <UiFlex column>
       <ActivityExerciseList
-        v-if="props.activity.exercises.length"
+        v-if="props.activity.exercises?.length"
         :exercises="props.activity.exercises"
         :activeExerciseId="activeExerciseId"
         :isActivityDone="formData.isDone"
@@ -66,7 +66,7 @@ function startExercise(id: string) {
 function stopExercise(exerciseDone: IExerciseDone) {
   activeExerciseId.value = undefined;
 
-  formData.value.exercises = formData.value.exercises.map((exercise) => {
+  formData.value.exercises = formData.value.exercises?.map((exercise) => {
     if (exercise._id === exerciseDone._id) {
       return {
         ...exercise,
@@ -80,7 +80,7 @@ function stopExercise(exerciseDone: IExerciseDone) {
     return exercise;
   });
 
-  formData.value.isDone = !formData.value.exercises.some((exercise) => !exercise.isDone);
+  formData.value.isDone = !formData.value.exercises?.some((exercise) => !exercise.isDone);
 
   if (formData.value.isDone) toast.success('Занятие закончено');
 

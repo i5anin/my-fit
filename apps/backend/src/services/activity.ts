@@ -30,6 +30,16 @@ export const activityService: IActivityService = {
     return { data: activity as T };
   },
 
+  getLast: async <T>() => {
+    const activity: IActivity | null = await Activity.findOne()
+      .sort('-dateCreated')
+      .populate({ path: 'exercises.exercise', select: ['title', 'muscleGroups'] })
+      .lean()
+      .exec();
+
+    return { data: activity as T };
+  },
+
   update: async <T>(itemToUpdate: T, _id?: string) => {
     await Activity.findOneAndUpdate({ _id }, { ...itemToUpdate, dateUpdated: new Date() });
   },

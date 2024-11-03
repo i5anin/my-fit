@@ -24,7 +24,7 @@
     "@vueuse/integrations": "11.2.0",
     "async-validator": "4.2.5",
     "axios": "1.7.7",
-    "fitness-tracker-contracts": "1.0.4",
+    "fitness-tracker-contracts": "1.0.5",
     "mhz-ui": "1.0.78",
     "sortablejs": "1.15.3",
     "sortablejs-vue3": "1.2.11",
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.14.0",
-    "@types/node": "22.8.6",
+    "@types/node": "22.8.7",
     "@vitejs/plugin-vue": "5.1.4",
     "eslint": "9.14.0",
     "eslint-config-prettier": "9.1.0",

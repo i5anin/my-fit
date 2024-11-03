@@ -1,4 +1,4 @@
-import { API_ACTIVITY, API_ACTIVITY_CALENDAR } from 'fitness-tracker-contracts';
+import { API_ACTIVITY, API_ACTIVITY_CALENDAR, API_ACTIVITY_LAST } from 'fitness-tracker-contracts';
 import type { IBaseReply, IActivity, IBaseParams } from 'fitness-tracker-contracts';
 
 import { IFastifyInstance } from '../interface/index.js';
@@ -29,6 +29,16 @@ export default async function (fastify: IFastifyInstance) {
     { preValidation: [fastify.onlyUser] },
     async function (request, reply) {
       const data = await activityService.getOne<IActivity>(request.params.id);
+
+      reply.code(200).send(data);
+    }
+  );
+
+  fastify.get<{ Reply: { 200: { data: IActivity | null } } }>(
+    API_ACTIVITY_LAST,
+    { preValidation: [fastify.onlyUser] },
+    async function (request, reply) {
+      const data = await activityService.getLast<IActivity>();
 
       reply.code(200).send(data);
     }

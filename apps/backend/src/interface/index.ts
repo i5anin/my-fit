@@ -47,6 +47,13 @@ export interface IUserService extends IBaseService {
 
 export interface IActivityService extends IBaseService {
   getCalendar: (dateFrom: string, dateTo: string) => Promise<IActivity[]>;
+
+  getLast: <T>(
+    decode?: (token: string) => IUserToken | null,
+    token?: string
+  ) => Promise<{
+    data: T | null;
+  }>;
 }
 
 export interface IAuthService {

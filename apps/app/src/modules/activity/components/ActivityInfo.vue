@@ -17,7 +17,7 @@
         v-for="(exercise, index) in props.exercises"
         :key="exercise._id"
         :exercise="exercise"
-        :isHideTitle="isPrevExerciseSame(index, exercise.exercise._id)"
+        :isHideTitle="isPrevExerciseSame(index, exercise.exercise?._id)"
       />
     </UiFlex>
   </div>
@@ -42,7 +42,7 @@ interface IProps {
 const props = defineProps<IProps>();
 
 function isPrevExerciseSame(index: number, id?: string) {
-  return id && props.exercises[index - 1] ? id === props.exercises[index - 1].exercise._id : false;
+  return id && props.exercises[index - 1] ? id === props.exercises[index - 1].exercise?._id : false;
 }
 </script>
 
@@ -51,7 +51,7 @@ function isPrevExerciseSame(index: number, id?: string) {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 500px;
+  max-height: 480px;
   overflow-y: auto;
 }
 </style>

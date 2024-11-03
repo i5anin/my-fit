@@ -2,7 +2,7 @@
   <div>
     <UiFlex column gap="32">
       <ActivityInfo
-        v-if="activity"
+        v-if="activity?.exercises"
         :start="activity.dateCreated"
         :end="activity.dateUpdated"
         :exercises="activity.exercises"

@@ -1,5 +1,11 @@
 import { ComputedRef, Ref } from 'vue';
-import { API_ACTIVITY, API_ACTIVITY_CALENDAR, IActivity, IBaseReply } from 'fitness-tracker-contracts';
+import {
+  API_ACTIVITY,
+  API_ACTIVITY_CALENDAR,
+  API_ACTIVITY_LAST,
+  IActivity,
+  IBaseReply,
+} from 'fitness-tracker-contracts';
 
 import { useMutation, useQuery } from '@/common/plugins/query';
 import { api } from '@/common/plugins/api';
@@ -38,6 +44,17 @@ export function getActivity(id?: ComputedRef<string | string[]>) {
       if (!id?.value) return null;
 
       const { data } = await api.get<{ data: IActivity }>(`${API_ACTIVITY}/${id.value}`);
+
+      return data.data;
+    },
+  });
+}
+
+export function getLastActivity() {
+  return useQuery({
+    queryKey: [API_ACTIVITY],
+    queryFn: async () => {
+      const { data } = await api.get<{ data: IActivity }>(API_ACTIVITY_LAST);
 
       return data.data;
     },

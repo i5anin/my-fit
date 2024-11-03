@@ -23,7 +23,7 @@ export interface IExercise extends IEntity {
 }
 
 export interface IExerciseChoosen extends IEntity {
-  exercise: IExercise;
+  exercise?: IExercise;
   repeats: number;
   weight?: number;
 }
@@ -65,3 +65,4 @@ export declare const API_USER = "/user";
 export declare const API_EXERCISE = "/exercise";
 export declare const API_ACTIVITY = "/activity";
 export declare const API_ACTIVITY_CALENDAR = "/activity_calendar";
+export declare const API_ACTIVITY_LAST = "/activity_last";

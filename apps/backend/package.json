@@ -30,13 +30,13 @@
     "dotenv": "16.4.5",
     "fastify": "5.1.0",
     "fastify-plugin": "5.0.1",
-    "fitness-tracker-contracts": "1.0.4",
+    "fitness-tracker-contracts": "1.0.5",
     "mongoose": "8.8.0"
   },
   "devDependencies": {
     "@eslint/js": "9.14.0",
     "@types/bcryptjs": "2.4.6",
-    "@types/node": "22.8.6",
+    "@types/node": "22.8.7",
     "esbuild": "0.24.0",
     "eslint": "9.14.0",
     "eslint-config-prettier": "9.1.0",
