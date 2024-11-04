@@ -4,7 +4,6 @@
       <UiFlex v-if="!props.isHideTitle" grow wrap align="center">
         <div :class="$style.title">
           {{ props.exercise.exercise?.title || 'Упражнение удалено' }}
-          <span v-if="props.isOnlyTitle"> x{{ props.exercise.repeats }}</span>
         </div>
 
         <UiFlex v-if="!props.isOnlyTitle && props.exercise.exercise" shrink>

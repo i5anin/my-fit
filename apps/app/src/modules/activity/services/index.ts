@@ -37,7 +37,7 @@ export function getActivitiesCalendar(options: object, dateFrom?: Ref<string>, d
   });
 }
 
-export function getActivity(id?: ComputedRef<string | string[]>) {
+export function getActivity(options: object, id?: ComputedRef<string | string[] | undefined>) {
   return useQuery({
     queryKey: [API_ACTIVITY, id],
     queryFn: async () => {
@@ -47,6 +47,7 @@ export function getActivity(id?: ComputedRef<string | string[]>) {
 
       return data.data;
     },
+    ...options,
   });
 }
 

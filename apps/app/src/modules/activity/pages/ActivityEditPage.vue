@@ -3,6 +3,7 @@
     <UiFlex column gap="32">
       <ActivityInfo
         v-if="activity?.exercises"
+        :id="activity._id"
         :start="activity.dateCreated"
         :end="activity.dateUpdated"
         :exercises="activity.exercises"
@@ -42,7 +43,7 @@ const queryClient = useQueryClient();
 
 const activityId = computed(() => route.params.activity);
 
-const { data: activity } = getActivity(activityId);
+const { data: activity } = getActivity({}, activityId);
 
 const { mutate: mutateDelete } = deleteActivity({
   onSuccess: async () => {

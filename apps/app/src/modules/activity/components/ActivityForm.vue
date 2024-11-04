@@ -23,11 +23,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { toast, UiButton, UiFlex, UiModal } from 'mhz-ui';
-import { API_ACTIVITY, IActivity, IExerciseChoosen } from 'fitness-tracker-contracts';
+import { API_ACTIVITY, IActivity, IExerciseChoosen, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ExerciseChooseList from '@/exercise/components/ExerciseChooseList.vue';
 import ExerciseChoosenList from '@/exercise/components/ExerciseChoosenList.vue';
@@ -35,10 +35,16 @@ import ExerciseChoosenList from '@/exercise/components/ExerciseChoosenList.vue';
 import { usePage } from '@/common/composables/usePage';
 import { usePagination } from '@/common/composables/usePagination';
 import { getExercises } from '@/exercise/services';
-import { getLastActivity, postActivity } from '@/activity/services';
+import { getLastActivity, getActivity, postActivity } from '@/activity/services';
 import { useQueryClient } from '@/common/plugins/query';
 import { createTempId, deleteTempId } from '@/common/helpers/id';
 import { URL_ACTIVITY_EDIT } from '@/activity/constants';
+
+interface IProps {
+  copy?: string;
+}
+
+const props = defineProps<IProps>();
 
 const router = useRouter();
 
@@ -52,11 +58,21 @@ const formData = ref<IActivity>({
 const isShowModal = ref(false);
 const isShowForm = ref(true);
 
+const copyId = computed(() => props.copy);
+
 const { page } = usePage();
 
 const { data } = getExercises(page);
-const { data: activity } = getLastActivity();
+const { data: lastActivity } = getLastActivity();
+const { data: activity } = getActivity({ enabled: !!copyId.value }, copyId);
 const { data: exercises } = usePagination(data);
+
+watch(
+  () => activity.value,
+  () => {
+    if (activity.value) formData.value.exercises = generateExercises(activity.value?.exercises);
+  }
+);
 
 function addExercise(exercise: IExerciseChoosen) {
   formData.value.exercises = formData.value.exercises?.length ? [...formData.value.exercises, exercise] : [exercise];
@@ -87,10 +103,8 @@ function submit() {
   }
 }
 
-function repeatLastActivity() {
-  if (!activity.value) return;
-
-  const lastActivityExercises = activity.value?.exercises?.map((exercise) => {
+function generateExercises(exercisesDone: IExerciseDone[]) {
+  const lastActivityExercises = exercisesDone.map((exercise) => {
     return {
       _id: createTempId(),
       exercise: {
@@ -103,6 +117,16 @@ function repeatLastActivity() {
     };
   });
 
-  formData.value.exercises = lastActivityExercises?.length ? [...lastActivityExercises] : [];
+  return lastActivityExercises?.length ? [...lastActivityExercises] : [];
 }
+
+function repeatLastActivity() {
+  if (!lastActivity.value) return;
+
+  formData.value.exercises = generateExercises(lastActivity.value.exercises);
+}
+
+onMounted(() => {
+  if (activity.value) formData.value.exercises = generateExercises(activity.value?.exercises);
+});
 </script>

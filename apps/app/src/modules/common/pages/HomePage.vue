@@ -28,6 +28,7 @@ const { data } = getActivitiesCalendar({ enabled: isRequestEnabled }, dateFrom, 
 const events = computed<IActivityCalendarEvent<IExerciseDone>[] | undefined>(() =>
   data.value?.map((activity: IActivity) => {
     return {
+      _id: activity._id,
       start: new Date(`${activity.dateCreated}`),
       end: new Date(`${activity.dateUpdated}`),
       title: '+',

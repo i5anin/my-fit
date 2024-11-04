@@ -8,7 +8,7 @@
     />
 
     <UiModal v-model="isShowModal">
-      <ActivityInfo :start="start" :end="end" :exercises="exercises" />
+      <ActivityInfo :start="start" :end="end" :exercises="exercises" :id="id" />
     </UiModal>
   </div>
 </template>
@@ -34,11 +34,13 @@ const isShowModal = ref(false);
 const start = ref<Date>();
 const end = ref<Date>();
 const exercises = ref<IExerciseDone[]>([]);
+const id = ref();
 
 function showEvent(event: IActivityCalendarEvent<IExerciseDone>) {
   start.value = event.start;
   end.value = event.end;
   exercises.value = event.content;
+  id.value = event._id;
 
   isShowModal.value = true;
 }

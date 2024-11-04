@@ -16,5 +16,5 @@ const route = useRoute();
 
 const activityId = computed(() => route.params.activity);
 
-const { data: activity } = getActivity(activityId);
+const { data: activity } = getActivity({}, activityId);
 </script>
