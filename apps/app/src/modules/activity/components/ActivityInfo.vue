@@ -1,13 +1,15 @@
 <template>
   <div :class="$style.info">
-    <UiFlex gap="4" align="center">
-      <IconDate width="20" height="20" />
-      {{ formatDate(props.start) }}
-      <IconDuration width="20" height="20" />
-      {{ subtractDates(props.end, props.start) }}
-    </UiFlex>
+    <div>
+      <UiFlex gap="4" align="center">
+        <IconDate width="20" height="20" />
+        {{ formatDate(props.start) }}
+        <IconDuration width="20" height="20" />
+        {{ subtractDates(props.end, props.start) }}
+      </UiFlex>
 
-    <div>Сеты: {{ props.exercises.length }}, отказы: {{ toFailurePercent }}, отдых: {{ restPercent }}.</div>
+      <div>Сеты: {{ props.exercises.length }}, отказы: {{ toFailurePercent }}, отдых: {{ restPercent }}.</div>
+    </div>
 
     <div :class="$style.table">
       <UiTable :headers="STATISTICS_HEADERS" lang="ru">
@@ -87,7 +89,7 @@ const activityStatistics = computed(() => {
     if (sets) groups.push({ title, sets, repeats });
   });
 
-  return groups;
+  return groups.sort((a, b) => b.repeats - a.repeats);
 });
 
 const toFailurePercent = computed(() => {
@@ -117,7 +119,7 @@ function copyActivity() {
 .info {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   max-height: 480px;
   overflow-y: auto;
 }
