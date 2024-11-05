@@ -9,6 +9,16 @@
 
     <div>Сеты: {{ props.exercises.length }}, отказы: {{ toFailurePercent }}, отдых: {{ restPercent }}.</div>
 
+    <div :class="$style.table">
+      <UiTable :headers="STATISTICS_HEADERS" lang="ru">
+        <tr v-for="muscleGroup in activityStatistics" :key="muscleGroup.title">
+          <td>{{ muscleGroup.title }}</td>
+          <td>{{ muscleGroup.sets }}</td>
+          <td>{{ muscleGroup.repeats }}</td>
+        </tr>
+      </UiTable>
+    </div>
+
     <UiButton v-if="isAuth" @click="copyActivity">Сформировать такое же занятие</UiButton>
 
     <UiFlex column>
@@ -27,15 +37,16 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { IExerciseDone } from 'fitness-tracker-contracts';
-import { UiButton, UiFlex } from 'mhz-ui';
+import { UiButton, UiFlex, UiTable } from 'mhz-ui';
 
 import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
 import IconDate from '@/layout/icons/date.svg';
 import IconDuration from '@/layout/icons/duration.svg';
 
 import { formatDate, subtractDates } from '@/common/helpers/date';
-import { URL_ACTIVITY_CREATE } from '@/activity/constants';
+import { URL_ACTIVITY_CREATE, STATISTICS_HEADERS } from '@/activity/constants';
 import { isAuth } from '@/auth/composables/useAuth';
+import { EXERCISE_MUSCLE_GROUPS } from '@/exercise/constants';
 
 interface IProps {
   id?: string;
@@ -44,9 +55,40 @@ interface IProps {
   exercises: IExerciseDone[];
 }
 
+interface IMuscleGroupStatistics {
+  title: string;
+  sets: number;
+  repeats: number;
+}
+
 const props = defineProps<IProps>();
 
 const router = useRouter();
+
+const activityStatistics = computed(() => {
+  const groups: IMuscleGroupStatistics[] = [];
+
+  EXERCISE_MUSCLE_GROUPS.forEach((group) => {
+    const title = group.title;
+    let sets = 0;
+    let repeats = 0;
+
+    props.exercises.forEach((exercise) => {
+      const setsCount =
+        exercise.exercise?.muscleGroups.filter((muscleGroup) => muscleGroup._id === group._id).length || 0;
+
+      sets += setsCount;
+
+      if (exercise.exercise?.muscleGroups.some((groupToFilter) => groupToFilter._id === group._id)) {
+        repeats += exercise.repeats;
+      }
+    });
+
+    if (sets) groups.push({ title, sets, repeats });
+  });
+
+  return groups;
+});
 
 const toFailurePercent = computed(() => {
   const allExercises = props.exercises.length;
@@ -57,11 +99,7 @@ const toFailurePercent = computed(() => {
 
 const restPercent = computed(() => {
   const activityDuration = Number(subtractDates(props.end, props.start, true));
-
-  const exercisesDuration = props.exercises.reduce(
-    (accumulator, currentValue) => accumulator + (currentValue.duration || 0),
-    0
-  );
+  const exercisesDuration = props.exercises.reduce((acc, current) => acc + (current.duration || 0), 0);
 
   return `${Math.floor((exercisesDuration / activityDuration) * 100)}%`;
 });
@@ -82,5 +120,9 @@ function copyActivity() {
   gap: 8px;
   max-height: 480px;
   overflow-y: auto;
+}
+
+.table {
+  display: table;
 }
 </style>
