@@ -7,10 +7,7 @@
       {{ subtractDates(props.end, props.start) }}
     </UiFlex>
 
-    <div>
-      Сетов: {{ props.exercises.length }}, до отказа:
-      {{ props.exercises.filter((exercise) => exercise.isToFailure).length }}.
-    </div>
+    <div>Сеты: {{ props.exercises.length }}, отказы: {{ toFailurePercent }}, отдых: {{ restPercent }}.</div>
 
     <UiButton v-if="isAuth" @click="copyActivity">Сформировать такое же занятие</UiButton>
 
@@ -26,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { IExerciseDone } from 'fitness-tracker-contracts';
@@ -49,6 +47,24 @@ interface IProps {
 const props = defineProps<IProps>();
 
 const router = useRouter();
+
+const toFailurePercent = computed(() => {
+  const allExercises = props.exercises.length;
+  const toFailureExercises = props.exercises.filter((exercise) => exercise.isToFailure).length;
+
+  return `${Math.floor((toFailureExercises / allExercises) * 100)}%`;
+});
+
+const restPercent = computed(() => {
+  const activityDuration = Number(subtractDates(props.end, props.start, true));
+
+  const exercisesDuration = props.exercises.reduce(
+    (accumulator, currentValue) => accumulator + (currentValue.duration || 0),
+    0
+  );
+
+  return `${Math.floor((exercisesDuration / activityDuration) * 100)}%`;
+});
 
 function isPrevExerciseSame(index: number, id?: string) {
   return id && props.exercises[index - 1] ? id === props.exercises[index - 1].exercise?._id : false;

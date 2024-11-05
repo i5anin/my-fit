@@ -31,7 +31,11 @@ export function formatDuration(duration: number) {
   return `${minutes} мин. ${addZero(seconds)} сек.`;
 }
 
-export function subtractDates(dateRaw1?: string | Date, dateRaw2?: string | Date): string {
+export function subtractDates(
+  dateRaw1?: string | Date,
+  dateRaw2?: string | Date,
+  isRawResult?: boolean
+): string | number {
   if (!dateRaw1 || !dateRaw2) return '-';
 
   const date1 = new Date(dateRaw1);
@@ -39,5 +43,5 @@ export function subtractDates(dateRaw1?: string | Date, dateRaw2?: string | Date
 
   const duration = Math.floor(((date1 as unknown as number) - (date2 as unknown as number)) / 1000);
 
-  return formatDuration(duration);
+  return isRawResult ? duration : formatDuration(duration);
 }
