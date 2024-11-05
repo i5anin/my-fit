@@ -13,8 +13,7 @@
 
       <div v-if="formData.exercises?.length">
         <h3>Упражнения</h3>
-
-        <ExerciseChoosenList :choosenExercises="formData.exercises" @update="updateExercises" />
+        <ExerciseChoosenList :choosenExercises="formData.exercises" @delete="updateExercises" />
       </div>
 
       <UiButton layout="accent" :isDisabled="!isValid || isLoadingPost" type="submit">Начать</UiButton>
@@ -80,8 +79,8 @@ function addExercise(exercise: IExerciseChoosen) {
   isShowModal.value = false;
 }
 
-function updateExercises(updatedExercises: IExerciseChoosen[]) {
-  formData.value.exercises = [...updatedExercises];
+function updateExercises(id: string) {
+  formData.value.exercises = formData.value.exercises.filter((exercise) => exercise._id !== id);
 }
 
 const { mutate: mutatePost, isPending: isLoadingPost } = postActivity({

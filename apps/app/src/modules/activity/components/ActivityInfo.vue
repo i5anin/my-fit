@@ -1,15 +1,10 @@
 <template>
   <div :class="$style.info">
-    <div>
-      <UiFlex gap="4" align="center">
-        <IconDate width="20" height="20" />
-        {{ formatDate(props.start) }}
-        <IconDuration width="20" height="20" />
-        {{ subtractDates(props.end, props.start) }}
-      </UiFlex>
-
-      <div>Сеты: {{ props.exercises.length }}, отказы: {{ toFailurePercent }}, отдых: {{ restPercent }}.</div>
-    </div>
+    <UiFlex gap="4" align="center" wrap>
+      <span><IconDate width="16" height="16" /> {{ formatDate(props.start) }}</span>
+      <span><IconDuration width="16" height="16" /> {{ subtractDates(props.end, props.start) }}</span>
+      <span>Сеты: {{ props.exercises.length }}, отказы: {{ toFailurePercent }}, отдых: {{ restPercent }}.</span>
+    </UiFlex>
 
     <div :class="$style.table">
       <UiTable :headers="STATISTICS_HEADERS" lang="ru">

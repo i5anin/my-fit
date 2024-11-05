@@ -1,8 +1,8 @@
 <template>
   <div :class="$style.exercise">
-    <ExerciseTitle :exercise="props.choosenExercise" isOnlyTitle />
+    <ExerciseTitle :exercise="props.exercise" isOnlyTitle />
 
-    <button @click="emit('delete', choosenExercise._id)" :class="$style.delete" type="button">×</button>
+    <button @click="emit('delete', props.exercise._id)" :class="$style.delete" type="button">×</button>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import { IExerciseChoosen } from 'fitness-tracker-contracts';
 import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
 
 interface IProps {
-  choosenExercise: IExerciseChoosen;
+  exercise: IExerciseChoosen;
 }
 
 const props = defineProps<IProps>();
