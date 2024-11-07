@@ -38,7 +38,7 @@ export const exerciseService: IExerciseService = {
       statistics.push(exerciseStatistics);
     });
 
-    return statistics;
+    return statistics.sort((a, b) => b.repeats - a.repeats);
   },
 
   getOne: async <T>(_id: string) => {
