@@ -1,19 +1,21 @@
-import { API_EXERCISE } from 'fitness-tracker-contracts';
-import type { IBaseReply, IExercise, IBaseParams } from 'fitness-tracker-contracts';
+import { API_EXERCISE, API_EXERCISE_STATISTICS } from 'fitness-tracker-contracts';
+import type { IBaseReply, IExercise, IBaseParams, IExerciseStatistics } from 'fitness-tracker-contracts';
 
 import { IFastifyInstance } from '../interface/index.js';
 import { exerciseService } from '../services/exercise.js';
 
 export default async function (fastify: IFastifyInstance) {
-  fastify.get<{ Querystring: { page: number }; Reply: { 200: { data: IExercise[]; total?: number } } }>(
-    API_EXERCISE,
-    { preValidation: [fastify.onlyUser] },
-    async function (request, reply) {
-      const { data, total } = await exerciseService.getMany<IExercise>(request.query.page);
+  fastify.get<{ Reply: { 200: IExercise[] } }>(API_EXERCISE, async function (request, reply) {
+    const data = await exerciseService.getAll();
 
-      reply.code(200).send({ data, total });
-    }
-  );
+    reply.code(200).send(data);
+  });
+
+  fastify.get<{ Reply: { 200: IExerciseStatistics[] } }>(API_EXERCISE_STATISTICS, async function (request, reply) {
+    const data = await exerciseService.getStatistics();
+
+    reply.code(200).send(data);
+  });
 
   fastify.get<{ Params: IBaseParams; Reply: { 200: { data: IExercise | null } } }>(
     `${API_EXERCISE}/:id`,

@@ -1,15 +1,44 @@
-import type { IExercise } from 'fitness-tracker-contracts';
+import type { IActivity, IExercise, IExerciseStatistics } from 'fitness-tracker-contracts';
 
 import Exercise from '../models/exercise.js';
+import Activity from '../models/activity.js';
 
-import { paginate } from '../helpers/index.js';
-import { IBaseService } from '../interface/index.js';
+import { IExerciseService } from '../interface/index.js';
 
-export const exerciseService: IBaseService = {
-  getMany: async <T>(page?: number) => {
-    const { data, total } = await paginate(Exercise, page, 'title');
+export const exerciseService: IExerciseService = {
+  getAll: async () => {
+    const data = await Exercise.find().sort('title');
 
-    return { data: data as T[], total };
+    return data as IExercise[];
+  },
+
+  getStatistics: async () => {
+    const exercises = await Exercise.find().select(['_id', 'title']).lean().exec();
+    const activities = await Activity.find().select('_id exercises').populate({ path: 'exercises' }).lean().exec();
+
+    const statistics: IExerciseStatistics[] = [];
+
+    exercises.forEach((exercise: IExercise) => {
+      const exerciseStatistics: IExerciseStatistics = {
+        _id: exercise._id || '',
+        title: exercise.title,
+        sets: 0,
+        repeats: 0,
+      };
+
+      activities.forEach((activity: IActivity) => {
+        const filteredExercises = activity.exercises.filter(
+          (exerciseToFilter) => exerciseToFilter.exercise?.toString() === exercise._id?.toString()
+        );
+
+        exerciseStatistics.sets += filteredExercises.length;
+        exerciseStatistics.repeats += filteredExercises.reduce((acc, current) => acc + (current.repeats || 0), 0);
+      });
+
+      statistics.push(exerciseStatistics);
+    });
+
+    return statistics;
   },
 
   getOne: async <T>(_id: string) => {

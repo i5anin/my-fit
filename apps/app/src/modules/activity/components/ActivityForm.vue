@@ -31,8 +31,6 @@ import { API_ACTIVITY, IActivity, IExerciseChoosen, IExerciseDone } from 'fitnes
 import ExerciseChooseList from '@/exercise/components/ExerciseChooseList.vue';
 import ExerciseChoosenList from '@/exercise/components/ExerciseChoosenList.vue';
 
-import { usePage } from '@/common/composables/usePage';
-import { usePagination } from '@/common/composables/usePagination';
 import { getExercises } from '@/exercise/services';
 import { getLastActivity, getActivity, postActivity } from '@/activity/services';
 import { useQueryClient } from '@/common/plugins/query';
@@ -59,12 +57,9 @@ const isShowForm = ref(true);
 
 const copyId = computed(() => props.copy);
 
-const { page } = usePage();
-
-const { data } = getExercises(page);
+const { data: exercises } = getExercises();
 const { data: lastActivity } = getLastActivity();
 const { data: activity } = getActivity({ enabled: !!copyId.value }, copyId);
-const { data: exercises } = usePagination(data);
 
 watch(
   () => activity.value,

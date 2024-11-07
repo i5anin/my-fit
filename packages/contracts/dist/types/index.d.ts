@@ -39,6 +39,13 @@ export interface IActivity extends IEntity {
   isDone: boolean;
 }
 
+export interface IExerciseStatistics {
+  _id: string;
+  title: string;
+  sets: number;
+  repeats: number;
+}
+
 export interface IUserToken {
   _id: string;
   email: string;
@@ -63,6 +70,7 @@ export declare const API_AUTH_LOGIN = "/auth/login";
 export declare const API_AUTH_SETUP = "/auth/setup";
 export declare const API_USER = "/user";
 export declare const API_EXERCISE = "/exercise";
+export declare const API_EXERCISE_STATISTICS = "/exercise_statistics";
 export declare const API_ACTIVITY = "/activity";
 export declare const API_ACTIVITY_CALENDAR = "/activity_calendar";
 export declare const API_ACTIVITY_LAST = "/activity_last";

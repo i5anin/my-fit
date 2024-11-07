@@ -1,16 +1,31 @@
-import { ComputedRef, Ref } from 'vue';
-import { API_EXERCISE, IExercise, IBaseReply } from 'fitness-tracker-contracts';
+import { ComputedRef } from 'vue';
+import {
+  API_EXERCISE,
+  API_EXERCISE_STATISTICS,
+  IExercise,
+  IBaseReply,
+  IExerciseStatistics,
+} from 'fitness-tracker-contracts';
 
 import { useMutation, useQuery } from '@/common/plugins/query';
 import { api } from '@/common/plugins/api';
 
-export function getExercises(page: Ref<number>) {
+export function getExercises() {
   return useQuery({
-    queryKey: [API_EXERCISE, page],
+    queryKey: [API_EXERCISE],
     queryFn: async () => {
-      const { data } = await api.get<{ data: IExercise[]; total: number }>(API_EXERCISE, {
-        params: { page: page.value },
-      });
+      const { data } = await api.get<IExercise[]>(API_EXERCISE);
+
+      return data;
+    },
+  });
+}
+
+export function getExerciseStatistics() {
+  return useQuery({
+    queryKey: [API_EXERCISE_STATISTICS],
+    queryFn: async () => {
+      const { data } = await api.get<IExerciseStatistics[]>(API_EXERCISE_STATISTICS);
 
       return data;
     },

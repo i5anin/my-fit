@@ -1,6 +1,13 @@
 import type { FastifyInstance, FastifySchema } from 'fastify';
 
-import type { ILoginData, IUser, IUserToken, IActivity } from 'fitness-tracker-contracts';
+import type {
+  ILoginData,
+  IUser,
+  IUserToken,
+  IActivity,
+  IExercise,
+  IExerciseStatistics,
+} from 'fitness-tracker-contracts';
 
 export interface IFastifyInstance extends FastifyInstance {
   onlyUser: () => void;
@@ -41,6 +48,12 @@ export interface IBaseService {
   delete: (_id?: string, decode?: (token: string) => IUserToken | null, token?: string) => Promise<boolean | void>;
 }
 
+export interface IExerciseService extends Pick<IBaseService, 'getOne' | 'update' | 'create' | 'delete'> {
+  getAll: (decode?: (token: string) => IUserToken | null, token?: string) => Promise<IExercise[]>;
+
+  getStatistics: () => Promise<IExerciseStatistics[]>;
+}
+
 export interface IUserService extends IBaseService {
   getCurrent: (decode: (token: string) => IUserToken | null, token?: string) => Promise<IUser | null>;
 }
@@ -62,11 +75,7 @@ export interface IAuthService {
   login: (
     loginData: ILoginData,
     signData: (payload: IUserToken, options: object) => string
-  ) => Promise<{
-    user?: IUserToken;
-    isUserNotFound: boolean;
-    isWrongPassword: boolean;
-  }>;
+  ) => Promise<{ user?: IUserToken; isUserNotFound: boolean; isWrongPassword: boolean }>;
 
   setup: (admin: ILoginData) => Promise<boolean>;
 }
