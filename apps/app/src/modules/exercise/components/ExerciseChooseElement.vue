@@ -6,7 +6,7 @@
           <UiSelect v-model="choosenExercise.weight" :options="props.exercise?.weights" lang="ru" />
         </UiField>
 
-        <UiField label="Повторения">
+        <UiField label="Повторы">
           <UiSelect v-model="choosenExercise.repeats" :options="EXERCISE_REPEATS_OPTIONS" lang="ru" />
         </UiField>
       </UiFlex>

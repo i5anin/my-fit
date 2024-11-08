@@ -12,7 +12,7 @@
       <UiCheckbox v-model="isToFailure" label="Упражнение выполнено до отказа" :isDisabled="!isCurrentExerciseActive" />
 
       <div>
-        <div>Количество повторений</div>
+        <div>Количество повторов</div>
 
         <UiFlex justify="space-between">
           <UiButton

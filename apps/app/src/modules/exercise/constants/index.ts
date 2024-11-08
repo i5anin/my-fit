@@ -14,7 +14,7 @@ export const URL_EXERCISE_EDIT = `${URL_EXERCISE}/edit`;
 export const EXERCISE_WEIGHT_OPTIONS = [9, 16];
 export const EXERCISE_REPEATS_OPTIONS = [6, 8, 10, 12, 15, 20];
 
-export const EXERCISE_STATISTICS_HEADERS = [{ title: 'Упражнение' }, { title: 'Сеты' }, { title: 'Повторения' }];
+export const EXERCISE_STATISTICS_HEADERS = [{ title: 'Упражнение' }, { title: 'Сеты' }, { title: 'Повторы' }];
 
 export const EXERCISE_MUSCLE_GROUPS: IMuscleGroup[] = [
   { _id: '1', title: 'Плечи', icon: ImageShoulders },
