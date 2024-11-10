@@ -17,7 +17,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-
 import { IExerciseDone } from 'fitness-tracker-contracts';
 import { UiFlex } from 'mhz-ui';
 

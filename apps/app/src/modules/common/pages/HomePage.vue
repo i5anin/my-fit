@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-
 import { IActivity, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ActivityCalendar from '@/activity/components/ActivityCalendar.vue';

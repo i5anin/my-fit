@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.info">
     <UiFlex gap="4" align="center" wrap>
-      <span><IconDate width="16" height="16" /> {{ formatDate(props.start) }}</span>
+      <span><IconDate width="16" height="16" /> {{ formatDate(props.start, 'ru') }}</span>
       <span><IconDuration width="16" height="16" /> {{ subtractDates(props.end, props.start) }}</span>
       <span>Сеты: {{ props.exercises.length }}, отказы: {{ toFailurePercent }}, отдых: {{ restPercent }}.</span>
     </UiFlex>
@@ -32,17 +32,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-
 import { IExerciseDone } from 'fitness-tracker-contracts';
 import { UiButton, UiFlex, UiTable } from 'mhz-ui';
+import { formatDate, subtractDates, isAuth } from 'mhz-helpers';
 
 import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
 import IconDate from '@/layout/icons/date.svg';
 import IconDuration from '@/layout/icons/duration.svg';
 
-import { formatDate, subtractDates } from '@/common/helpers/date';
 import { URL_ACTIVITY_CREATE, STATISTICS_HEADERS } from '@/activity/constants';
-import { isAuth } from '@/auth/composables/useAuth';
 import { EXERCISE_MUSCLE_GROUPS } from '@/exercise/constants';
 
 interface IProps {

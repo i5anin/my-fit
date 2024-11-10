@@ -21,7 +21,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-
 import { UiButton, UiFlex, UiModal } from 'mhz-ui';
 
 interface IProps {

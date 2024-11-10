@@ -17,15 +17,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-
 import { UiField, UiFlex, UiInput, toast } from 'mhz-ui';
+import { useQueryClient, useValidator, required, email, clone } from 'mhz-helpers';
 import { API_USER, IUser } from 'fitness-tracker-contracts';
 
 import FormButtons from '@/common/components/FormButtons.vue';
 
-import { useQueryClient } from '@/common/plugins/query';
-import { useValidator, required, email } from '@/common/composables/useValidate';
-import { clone } from '@/common/helpers/clone';
 import { URL_USER } from '@/user/constants';
 import { postUser, updateUser, deleteUser } from '@/user/services';
 
@@ -70,8 +67,8 @@ const { mutate: mutateDelete } = deleteUser({
 
 const rules = computed(() => {
   return {
-    email: [required, email],
-    password: !props.user?._id && required,
+    email: [required('ru'), email('ru')],
+    password: !props.user?._id && required('ru'),
   };
 });
 

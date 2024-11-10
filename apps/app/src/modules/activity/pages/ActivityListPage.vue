@@ -16,14 +16,13 @@
 
 <script setup lang="ts">
 import { UiFlex, UiPagination } from 'mhz-ui';
+import { usePageNumber, usePagination } from 'mhz-helpers';
 
 import ActivityAdminList from '@/activity/components/ActivityAdminList.vue';
 
-import { usePagination } from '@/common/composables/usePagination';
-import { usePage } from '@/common/composables/usePage';
 import { getActivities } from '@/activity/services';
 
-const { page, setPage } = usePage();
+const { page, setPage } = usePageNumber();
 
 const { data } = getActivities(page);
 

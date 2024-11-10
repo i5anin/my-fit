@@ -24,13 +24,12 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-
 import { toast, UiButton, UiFlex, UiModal } from 'mhz-ui';
+import { useQueryClient } from 'mhz-helpers';
 import { API_ACTIVITY } from 'fitness-tracker-contracts';
 
 import ActivityInfo from '@/activity/components/ActivityInfo.vue';
 
-import { useQueryClient } from '@/common/plugins/query';
 import { getActivity, deleteActivity } from '@/activity/services';
 import { URL_ACTIVITY_ADMIN } from '@/activity/constants';
 

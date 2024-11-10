@@ -6,9 +6,7 @@ import {
   IBaseReply,
   IExerciseStatistics,
 } from 'fitness-tracker-contracts';
-
-import { useMutation, useQuery } from '@/common/plugins/query';
-import { api } from '@/common/plugins/api';
+import { useMutation, useQuery, api } from 'mhz-helpers';
 
 export function getExercises() {
   return useQuery({

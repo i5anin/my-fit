@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { getCookieToken, logout, deleteAuthHeader } from 'mhz-helpers';
 
 import { TOKEN_NAME, URL_SETUP } from '@/auth/constants';
 import { URL_HOME } from '@/common/constants';
-import { getCookieToken, logout } from '@/auth/composables/useAuth';
-import { deleteAuthHeader } from '@/common/plugins/api';
 import { routes } from '@/common/router/routes';
 
 const router = createRouter({

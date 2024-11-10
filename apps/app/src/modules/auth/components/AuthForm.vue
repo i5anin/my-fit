@@ -19,13 +19,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-
 import { UiButton, UiField, UiInput, toast } from 'mhz-ui';
+import { useAuth, setAuthHeader, useValidator, required, email } from 'mhz-helpers';
 import { ILoginData } from 'fitness-tracker-contracts';
 
-import { useAuth } from '@/auth/composables/useAuth';
-import { setAuthHeader } from '@/common/plugins/api';
-import { useValidator, required, email } from '@/common/composables/useValidate';
 import { login, setup } from '@/auth/services';
 import { TOKEN_NAME } from '@/auth/constants';
 import { URL_HOME } from '@/common/constants';
@@ -68,8 +65,8 @@ const { mutate: mutateSetup } = setup({
 
 const rules = computed(() => {
   return {
-    email: [required, email],
-    password: required,
+    email: [required('ru'), email('ru')],
+    password: required('ru'),
   };
 });
 

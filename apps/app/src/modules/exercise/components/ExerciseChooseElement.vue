@@ -21,12 +21,11 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-
 import { IExercise } from 'fitness-tracker-contracts';
 import { UiButton, UiField, UiFlex, UiSelect } from 'mhz-ui';
+import { createTempId } from 'mhz-helpers';
 
 import { EXERCISE_REPEATS_OPTIONS } from '@/exercise/constants';
-import { createTempId } from '@/common/helpers/id';
 
 interface IProps {
   exercise: IExercise;

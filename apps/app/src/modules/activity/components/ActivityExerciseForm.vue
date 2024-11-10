@@ -11,10 +11,11 @@
       />
 
       <div>
-        <div>Занятие началось {{ formatDateTime(props.activity.dateCreated) }}.</div>
+        <div>Занятие началось {{ formatDateTime(props.activity.dateCreated, 'ru') }}.</div>
 
         <div v-if="props.activity.dateUpdated">
-          Занятие {{ formData.isDone ? 'закончено' : 'обновлено' }} {{ formatDateTime(props.activity.dateUpdated) }}.
+          Занятие {{ formData.isDone ? 'закончено' : 'обновлено' }}
+          {{ formatDateTime(props.activity.dateUpdated, 'ru') }}.
         </div>
       </div>
 
@@ -27,16 +28,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-
 import { toast, UiButton, UiFlex } from 'mhz-ui';
+import { formatDateTime, useQueryClient, clone } from 'mhz-helpers';
 import { API_ACTIVITY, IActivity, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ActivityExerciseList from '@/activity/components/ActivityExerciseList.vue';
 
 import { updateActivity } from '@/activity/services';
-import { formatDateTime } from '@/common/helpers/date';
-import { useQueryClient } from '@/common/plugins/query';
-import { clone } from '@/common/helpers/clone';
 
 interface IProps {
   activity: IActivity;

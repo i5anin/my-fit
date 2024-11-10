@@ -24,8 +24,8 @@
 <script setup lang="ts">
 import { computed, ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-
 import { toast, UiButton, UiFlex, UiModal } from 'mhz-ui';
+import { createTempId, deleteTempId, useQueryClient } from 'mhz-helpers';
 import { API_ACTIVITY, IActivity, IExerciseChoosen, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ExerciseChooseList from '@/exercise/components/ExerciseChooseList.vue';
@@ -33,8 +33,6 @@ import ExerciseChoosenList from '@/exercise/components/ExerciseChoosenList.vue';
 
 import { getExercises } from '@/exercise/services';
 import { getLastActivity, getActivity, postActivity } from '@/activity/services';
-import { useQueryClient } from '@/common/plugins/query';
-import { createTempId, deleteTempId } from '@/common/helpers/id';
 import { URL_ACTIVITY_EDIT } from '@/activity/constants';
 
 interface IProps {

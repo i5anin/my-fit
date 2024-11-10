@@ -18,15 +18,14 @@
 
 <script setup lang="ts">
 import { UiFlex, UiPagination } from 'mhz-ui';
+import { usePagination, usePageNumber } from 'mhz-helpers';
 
 import UserList from '@/user/components/UserList.vue';
 
-import { usePagination } from '@/common/composables/usePagination';
-import { usePage } from '@/common/composables/usePage';
 import { getUsers } from '@/user/services';
 import { URL_USER_CREATE } from '@/user/constants';
 
-const { page, setPage } = usePage();
+const { page, setPage } = usePageNumber();
 
 const { data } = getUsers(page);
 

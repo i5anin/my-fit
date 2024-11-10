@@ -1,8 +1,6 @@
 import { ComputedRef, Ref } from 'vue';
 import { API_USER, IUser, IBaseReply } from 'fitness-tracker-contracts';
-
-import { useMutation, useQuery } from '@/common/plugins/query';
-import { api } from '@/common/plugins/api';
+import { useMutation, useQuery, api } from 'mhz-helpers';
 
 export function getUsers(page: Ref<number>) {
   return useQuery({

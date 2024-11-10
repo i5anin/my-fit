@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-
 import { UiModal } from 'mhz-ui';
 
 import TheHeader from '@/layout/components/TheHeader.vue';

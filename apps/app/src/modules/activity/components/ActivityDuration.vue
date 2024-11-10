@@ -7,8 +7,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue';
-
-import { addZero } from '@/common/helpers/date';
+import { addZero } from 'mhz-helpers';
 
 interface IProps {
   duration?: number;

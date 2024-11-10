@@ -34,7 +34,6 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-
 import { IExercise } from 'fitness-tracker-contracts';
 import { UiField, UiFlex, UiInput, UiSpoiler } from 'mhz-ui';
 

@@ -41,15 +41,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-
 import { UiField, UiInput, UiCheckbox, toast, UiSelect, UiFlex } from 'mhz-ui';
+import { useQueryClient, useValidator, required, clone } from 'mhz-helpers';
 import { API_EXERCISE, IExercise, IMuscleGroup } from 'fitness-tracker-contracts';
 
 import FormButtons from '@/common/components/FormButtons.vue';
 
-import { useQueryClient } from '@/common/plugins/query';
-import { useValidator, required } from '@/common/composables/useValidate';
-import { clone } from '@/common/helpers/clone';
 import { URL_EXERCISE, EXERCISE_WEIGHT_OPTIONS, EXERCISE_MUSCLE_GROUPS } from '@/exercise/constants';
 import { postExercise, updateExercise, deleteExercise } from '@/exercise/services';
 
@@ -115,7 +112,7 @@ const { mutate: mutateDelete } = deleteExercise({
 
 const rules = computed(() => {
   return {
-    title: required,
+    title: required('ru'),
   };
 });
 

@@ -7,14 +7,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { getCookieToken, setAuthHeader } from 'mhz-helpers';
 
 import LayoutAdmin from '@/layout/components/LayoutAdmin.vue';
 import LayoutEmpty from '@/layout/components/LayoutEmpty.vue';
 
 import { checkAuth } from '@/auth/services';
 import { TOKEN_NAME } from '@/auth/constants';
-import { getCookieToken } from '@/auth/composables/useAuth';
-import { setAuthHeader } from '@/common/plugins/api';
 
 const route = useRoute();
 const router = useRouter();

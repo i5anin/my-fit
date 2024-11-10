@@ -6,10 +6,7 @@ import {
   ILoginData,
   IUserToken,
 } from 'fitness-tracker-contracts';
-
-import { useQuery, useMutation } from '@/common/plugins/query';
-import { api } from '@/common/plugins/api';
-import { setAuth } from '@/auth/composables/useAuth';
+import { useQuery, useMutation, api, setAuth } from 'mhz-helpers';
 
 export function checkAuth() {
   return useQuery({
