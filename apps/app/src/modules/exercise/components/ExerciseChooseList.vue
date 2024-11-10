@@ -1,20 +1,40 @@
 <template>
   <div :class="$style.list">
-    <div v-for="(exercise, index) in props.exercises" :key="exercise._id">
-      <UiSpoiler v-model="exerciseSpoilers[index]" :title="exercise.title">
+    <UiFlex gap="4" justify="space-between">
+      <button
+        v-for="group in muscleGroups"
+        :key="group._id"
+        @click="currentMuscleGroup = group._id"
+        type="button"
+        :class="$style.button"
+        :data-current="group._id === currentMuscleGroup"
+      >
+        {{ group.title }}
+      </button>
+    </UiFlex>
+
+    <UiFlex column>
+      <UiSpoiler
+        v-model="exerciseSpoilers[index]"
+        :title="exercise.title"
+        v-for="(exercise, index) in filteredExercises"
+        :key="exercise._id"
+      >
         <ExerciseChooseElement :exercise="exercise" @add="(choosenExercise) => emit('choose', choosenExercise)" />
       </UiSpoiler>
-    </div>
+    </UiFlex>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 import { IExercise } from 'fitness-tracker-contracts';
-import { UiSpoiler } from 'mhz-ui';
+import { UiFlex, UiSpoiler } from 'mhz-ui';
 
 import ExerciseChooseElement from './ExerciseChooseElement.vue';
+
+import { EXERCISE_MUSCLE_GROUPS } from '@/exercise/constants';
 
 interface IProps {
   exercises: IExercise[];
@@ -24,6 +44,18 @@ const props = defineProps<IProps>();
 const emit = defineEmits(['choose']);
 
 const exerciseSpoilers = ref([]);
+
+const currentMuscleGroup = ref('');
+
+const muscleGroups = computed(() => [{ _id: '', title: 'Все' }, ...EXERCISE_MUSCLE_GROUPS]);
+
+const filteredExercises = computed(() =>
+  currentMuscleGroup.value
+    ? props.exercises.filter((exercise) =>
+        exercise.muscleGroups.some((group) => group._id === currentMuscleGroup.value)
+      )
+    : props.exercises
+);
 </script>
 
 <style module lang="scss">
@@ -31,7 +63,21 @@ const exerciseSpoilers = ref([]);
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-height: 64vh;
+  height: 64vh;
   overflow: auto;
+}
+
+.button {
+  padding: 4px 2px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-gray-dark-extra);
+  text-decoration: underline;
+  background: none;
+  border: none;
+
+  &[data-current='true'] {
+    color: var(--color-primary);
+  }
 }
 </style>

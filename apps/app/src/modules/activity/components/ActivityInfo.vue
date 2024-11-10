@@ -16,8 +16,6 @@
       </UiTable>
     </div>
 
-    <UiButton v-if="isAuth" @click="copyActivity">Сформировать такое же занятие</UiButton>
-
     <UiFlex column>
       <ExerciseTitle
         v-for="(exercise, index) in props.exercises"
@@ -26,6 +24,8 @@
         :isHideTitle="isPrevExerciseSame(index, exercise.exercise?._id)"
       />
     </UiFlex>
+
+    <UiButton v-if="isAuth" @click="copyActivity">Сформировать такое же занятие</UiButton>
   </div>
 </template>
 
@@ -115,7 +115,7 @@ function copyActivity() {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-height: 480px;
+  max-height: 64vh;
   overflow-y: auto;
 }
 
