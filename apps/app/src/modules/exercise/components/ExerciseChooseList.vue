@@ -1,10 +1,10 @@
 <template>
   <div :class="$style.list">
-    <UiFlex gap="4" justify="space-between">
+    <UiFlex gap="4">
       <button
         v-for="group in muscleGroups"
         :key="group._id"
-        @click="currentMuscleGroup = group._id"
+        @click="setCurrentGroup(group._id)"
         type="button"
         :class="$style.button"
         :data-current="group._id === currentMuscleGroup"
@@ -12,6 +12,12 @@
         {{ group.title }}
       </button>
     </UiFlex>
+
+    <div>
+      <UiField label="Фильтр по названию упражнения">
+        <UiInput v-model="muscleGroupTitle" />
+      </UiField>
+    </div>
 
     <UiFlex column>
       <UiSpoiler
@@ -30,7 +36,7 @@
 import { ref, computed } from 'vue';
 
 import { IExercise } from 'fitness-tracker-contracts';
-import { UiFlex, UiSpoiler } from 'mhz-ui';
+import { UiField, UiFlex, UiInput, UiSpoiler } from 'mhz-ui';
 
 import ExerciseChooseElement from './ExerciseChooseElement.vue';
 
@@ -47,15 +53,23 @@ const exerciseSpoilers = ref([]);
 
 const currentMuscleGroup = ref('');
 
+const muscleGroupTitle = ref('');
+
 const muscleGroups = computed(() => [{ _id: '', title: 'Все' }, ...EXERCISE_MUSCLE_GROUPS]);
 
 const filteredExercises = computed(() =>
-  currentMuscleGroup.value
-    ? props.exercises.filter((exercise) =>
-        exercise.muscleGroups.some((group) => group._id === currentMuscleGroup.value)
-      )
-    : props.exercises
+  props.exercises.filter((exercise) => {
+    const titleFilter = exercise.title.toLowerCase().includes(muscleGroupTitle.value.toLocaleLowerCase());
+    const muscleGroupFilter = exercise.muscleGroups.some((group) => group._id === currentMuscleGroup.value);
+
+    return currentMuscleGroup.value ? muscleGroupFilter && titleFilter : titleFilter;
+  })
 );
+
+function setCurrentGroup(id: string) {
+  currentMuscleGroup.value = id;
+  exerciseSpoilers.value = [];
+}
 </script>
 
 <style module lang="scss">
@@ -68,16 +82,24 @@ const filteredExercises = computed(() =>
 }
 
 .button {
-  padding: 4px 2px;
-  font-size: 0.875rem;
+  padding: 4px;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-gray-dark-extra);
   text-decoration: underline;
+  cursor: pointer;
   background: none;
   border: none;
 
   &[data-current='true'] {
     color: var(--color-primary);
+  }
+}
+
+@media (max-width: 960px) {
+  .button {
+    padding: 4px 2px;
+    font-size: 0.875rem;
   }
 }
 </style>
