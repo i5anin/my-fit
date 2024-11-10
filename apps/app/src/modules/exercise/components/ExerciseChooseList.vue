@@ -97,7 +97,7 @@ function setCurrentGroup(id: string) {
 
 @media (max-width: 960px) {
   .button {
-    padding: 4px 2px;
+    padding: 4px 1px;
     font-size: 0.875rem;
   }
 }

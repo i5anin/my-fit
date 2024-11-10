@@ -39,6 +39,15 @@ export interface IActivity extends IEntity {
   isDone: boolean;
 }
 
+export interface IActivityStatistics {
+  activitiesCount: number;
+  setsCount: number;
+  repeatsCount: number;
+  averageSetsPerActivity: number;
+  averageRepeatsPerActivity: number;
+  averageRepeatsPerSet: number;
+}
+
 export interface IExerciseStatistics {
   _id: string;
   title: string;

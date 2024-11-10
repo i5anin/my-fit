@@ -1,4 +1,4 @@
-import type { IActivity, IExercise, IExerciseStatistics } from 'fitness-tracker-contracts';
+import type { IActivity, IActivityStatistics, IExercise, IExerciseStatistics } from 'fitness-tracker-contracts';
 
 import Exercise from '../models/exercise.js';
 import Activity from '../models/activity.js';
@@ -13,13 +13,32 @@ export const exerciseService: IExerciseService = {
   },
 
   getStatistics: async () => {
-    const exercises = await Exercise.find().select(['_id', 'title']).lean().exec();
     const activities = await Activity.find().select('_id exercises').populate({ path: 'exercises' }).lean().exec();
+    const exercises = await Exercise.find().select(['_id', 'title']).lean().exec();
 
-    const statistics: IExerciseStatistics[] = [];
+    const activitiesCount = activities.length;
+    const setsCount = activities.reduce((acc, current) => acc + (current.exercises.length || 0), 0);
+    const repeatsCount = activities.reduce(
+      (acc, current) => acc + current.exercises.reduce((accEx, currentEx) => accEx + (currentEx.repeats || 0), 0),
+      0
+    );
+    const averageSetsPerActivity = Math.round(setsCount / activitiesCount);
+    const averageRepeatsPerActivity = Math.round(repeatsCount / activitiesCount);
+    const averageRepeatsPerSet = Math.round(repeatsCount / setsCount);
+
+    const activityStatistics: IActivityStatistics = {
+      activitiesCount,
+      setsCount,
+      repeatsCount,
+      averageSetsPerActivity,
+      averageRepeatsPerActivity,
+      averageRepeatsPerSet,
+    };
+
+    const exerciseStatistics: IExerciseStatistics[] = [];
 
     exercises.forEach((exercise: IExercise) => {
-      const exerciseStatistics: IExerciseStatistics = {
+      const exerciseStatisticsElement: IExerciseStatistics = {
         _id: exercise._id || '',
         title: exercise.title,
         sets: 0,
@@ -31,14 +50,17 @@ export const exerciseService: IExerciseService = {
           (exerciseToFilter) => exerciseToFilter.exercise?.toString() === exercise._id?.toString()
         );
 
-        exerciseStatistics.sets += filteredExercises.length;
-        exerciseStatistics.repeats += filteredExercises.reduce((acc, current) => acc + (current.repeats || 0), 0);
+        exerciseStatisticsElement.sets += filteredExercises.length;
+        exerciseStatisticsElement.repeats += filteredExercises.reduce(
+          (acc, current) => acc + (current.repeats || 0),
+          0
+        );
       });
 
-      statistics.push(exerciseStatistics);
+      exerciseStatistics.push(exerciseStatisticsElement);
     });
 
-    return statistics.sort((a, b) => b.repeats - a.repeats);
+    return { activity: activityStatistics, exercise: exerciseStatistics.sort((a, b) => b.repeats - a.repeats) };
   },
 
   getOne: async <T>(_id: string) => {

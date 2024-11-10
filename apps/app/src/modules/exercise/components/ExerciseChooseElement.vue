@@ -13,7 +13,7 @@
 
       <UiFlex justify="space-between">
         <UiButton @click="addExercise(1)">Добавить</UiButton>
-        <UiButton @click="addExercise(2)" layout="secondary">Добавить два</UiButton>
+        <UiButton @click="addExercise(2)" layout="secondary" isNarrow>Добавить два</UiButton>
       </UiFlex>
     </UiFlex>
   </div>

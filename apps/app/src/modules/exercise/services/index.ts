@@ -5,6 +5,7 @@ import {
   IExercise,
   IBaseReply,
   IExerciseStatistics,
+  IActivityStatistics,
 } from 'fitness-tracker-contracts';
 import { useMutation, useQuery, api } from 'mhz-helpers';
 
@@ -19,11 +20,13 @@ export function getExercises() {
   });
 }
 
-export function getExerciseStatistics() {
+export function getStatistics() {
   return useQuery({
     queryKey: [API_EXERCISE_STATISTICS],
     queryFn: async () => {
-      const { data } = await api.get<IExerciseStatistics[]>(API_EXERCISE_STATISTICS);
+      const { data } = await api.get<{ activity: IActivityStatistics; exercise: IExerciseStatistics[] }>(
+        API_EXERCISE_STATISTICS
+      );
 
       return data;
     },

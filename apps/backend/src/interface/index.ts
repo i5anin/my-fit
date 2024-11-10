@@ -7,6 +7,7 @@ import type {
   IActivity,
   IExercise,
   IExerciseStatistics,
+  IActivityStatistics,
 } from 'fitness-tracker-contracts';
 
 export interface IFastifyInstance extends FastifyInstance {
@@ -51,7 +52,7 @@ export interface IBaseService {
 export interface IExerciseService extends Pick<IBaseService, 'getOne' | 'update' | 'create' | 'delete'> {
   getAll: (decode?: (token: string) => IUserToken | null, token?: string) => Promise<IExercise[]>;
 
-  getStatistics: () => Promise<IExerciseStatistics[]>;
+  getStatistics: () => Promise<{ activity: IActivityStatistics; exercise: IExerciseStatistics[] }>;
 }
 
 export interface IUserService extends IBaseService {
