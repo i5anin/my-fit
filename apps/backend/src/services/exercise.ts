@@ -38,7 +38,7 @@ export const exerciseService: IExerciseService = {
     const averageSetsPerActivity = Math.round(setsCount / activitiesCount);
     const averageRepeatsPerActivity = Math.round(repeatsCount / activitiesCount);
     const averageRepeatsPerSet = Math.round(repeatsCount / setsCount);
-    const averageDuration = duration / activitiesCount;
+    const averageDuration = Math.round(duration / activitiesCount);
 
     const activityStatistics: IActivityStatistics = {
       activitiesCount,
