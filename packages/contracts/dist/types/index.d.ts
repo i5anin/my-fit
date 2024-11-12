@@ -43,9 +43,11 @@ export interface IActivityStatistics {
   activitiesCount: number;
   setsCount: number;
   repeatsCount: number;
+  duration: number;
   averageSetsPerActivity: number;
   averageRepeatsPerActivity: number;
   averageRepeatsPerSet: number;
+  averageDuration: number;
 }
 
 export interface IExerciseStatistics {

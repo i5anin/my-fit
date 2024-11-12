@@ -13,7 +13,11 @@ export const exerciseService: IExerciseService = {
   },
 
   getStatistics: async () => {
-    const activities = await Activity.find().select('_id exercises').populate({ path: 'exercises' }).lean().exec();
+    const activities = await Activity.find()
+      .select('_id exercises dateCreated dateUpdated')
+      .populate({ path: 'exercises' })
+      .lean()
+      .exec();
     const exercises = await Exercise.find().select(['_id', 'title']).lean().exec();
 
     const activitiesCount = activities.length;
@@ -22,17 +26,29 @@ export const exerciseService: IExerciseService = {
       (acc, current) => acc + current.exercises.reduce((accEx, currentEx) => accEx + (currentEx.repeats || 0), 0),
       0
     );
+    const duration = activities.reduce((acc, current) => {
+      const dateFrom = new Date(current.dateUpdated || 0);
+      const dateTo = new Date(current.dateCreated || 0);
+
+      const diff = Math.floor(((dateFrom as unknown as number) - (dateTo as unknown as number)) / 1000);
+
+      return acc + diff || 0;
+    }, 0);
+
     const averageSetsPerActivity = Math.round(setsCount / activitiesCount);
     const averageRepeatsPerActivity = Math.round(repeatsCount / activitiesCount);
     const averageRepeatsPerSet = Math.round(repeatsCount / setsCount);
+    const averageDuration = duration / activitiesCount;
 
     const activityStatistics: IActivityStatistics = {
       activitiesCount,
       setsCount,
       repeatsCount,
+      duration,
       averageSetsPerActivity,
       averageRepeatsPerActivity,
       averageRepeatsPerSet,
+      averageDuration,
     };
 
     const exerciseStatistics: IExerciseStatistics[] = [];
