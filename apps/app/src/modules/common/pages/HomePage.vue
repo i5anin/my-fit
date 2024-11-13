@@ -5,9 +5,6 @@
     <div :class="$style.info">
       <div :class="$style.calendar">
         <ActivityCalendar :events="events" @ready="updateDates" @update="updateDates" />
-
-        <p>Кликните по дате с занятием для просмота подробной информации.</p>
-
         <ActivityStatistics :activityStatistics="statistics?.activity" />
       </div>
 
@@ -26,8 +23,7 @@ import ActivityCalendar from '@/activity/components/ActivityCalendar.vue';
 import ActivityStatistics from '@/activity/components/ActivityStatistics.vue';
 import ExerciseStatistics from '@/exercise/components/ExerciseStatistics.vue';
 
-import { getActivitiesCalendar } from '@/activity/services';
-import { getStatistics } from '@/exercise/services';
+import { getActivitiesCalendar, getStatistics } from '@/activity/services';
 import { IActivityCalendarEvent, ICalendarEvent } from '@/activity/interface';
 
 const dateFrom = ref('');

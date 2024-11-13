@@ -51,8 +51,6 @@ export interface IBaseService {
 
 export interface IExerciseService extends Pick<IBaseService, 'getOne' | 'update' | 'create' | 'delete'> {
   getAll: (decode?: (token: string) => IUserToken | null, token?: string) => Promise<IExercise[]>;
-
-  getStatistics: () => Promise<{ activity: IActivityStatistics; exercise: IExerciseStatistics[] }>;
 }
 
 export interface IUserService extends IBaseService {
@@ -61,6 +59,8 @@ export interface IUserService extends IBaseService {
 
 export interface IActivityService extends IBaseService {
   getCalendar: (dateFrom: string, dateTo: string) => Promise<IActivity[]>;
+
+  getStatistics: () => Promise<{ activity: IActivityStatistics; exercise: IExerciseStatistics[] }>;
 
   getLast: <T>(
     decode?: (token: string) => IUserToken | null,

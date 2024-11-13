@@ -1,12 +1,5 @@
 import { ComputedRef } from 'vue';
-import {
-  API_EXERCISE,
-  API_EXERCISE_STATISTICS,
-  IExercise,
-  IBaseReply,
-  IExerciseStatistics,
-  IActivityStatistics,
-} from 'fitness-tracker-contracts';
+import { API_EXERCISE, IExercise, IBaseReply } from 'fitness-tracker-contracts';
 import { useMutation, useQuery, api } from 'mhz-helpers';
 
 export function getExercises() {
@@ -14,19 +7,6 @@ export function getExercises() {
     queryKey: [API_EXERCISE],
     queryFn: async () => {
       const { data } = await api.get<IExercise[]>(API_EXERCISE);
-
-      return data;
-    },
-  });
-}
-
-export function getStatistics() {
-  return useQuery({
-    queryKey: [API_EXERCISE_STATISTICS],
-    queryFn: async () => {
-      const { data } = await api.get<{ activity: IActivityStatistics; exercise: IExerciseStatistics[] }>(
-        API_EXERCISE_STATISTICS
-      );
 
       return data;
     },

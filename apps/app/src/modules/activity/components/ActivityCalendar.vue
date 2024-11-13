@@ -7,6 +7,8 @@
       @update="(dates) => emit('update', dates)"
     />
 
+    <p>Кликните по дате с занятием для просмота подробной информации.</p>
+
     <UiModal v-model="isShowModal">
       <ActivityInfo :start="start" :end="end" :exercises="exercises" :id="id" />
     </UiModal>
