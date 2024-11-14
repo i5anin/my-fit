@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UiFlex column gap="16">
+    <UiFlex column>
       <ActivityExerciseElement
         v-for="(exercise, index) in props.exercises"
         :key="exercise._id"
@@ -8,6 +8,8 @@
         :activeExerciseId="props.activeExerciseId"
         :isActivityDone="props.isActivityDone"
         :isCurrentExercise="index === currentExerciseIndex"
+        :index="index + 1"
+        :exercisesCount="props.exercises.length"
         @start="(id) => emit('start', id)"
         @stop="(exerciseDone) => emit('stop', exerciseDone)"
       />

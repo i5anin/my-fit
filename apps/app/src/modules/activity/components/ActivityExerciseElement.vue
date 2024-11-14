@@ -1,10 +1,16 @@
 <template>
-  <div>
-    <ExerciseTitle :exercise="props.exercise" isOnlyTitle />
+  <div :class="$style.element" :data-current="props.isCurrentExercise" :data-active="isCurrentExerciseActive">
+    <div :class="$style.title" :data-current="props.isCurrentExercise">
+      {{ props.index }}<template v-if="props.isCurrentExercise">{{ ` из ${props.exercisesCount}` }}</template
+      >.
+      {{ props.exercise.exercise?.title || 'Упражнение удалено' }}
 
-    <div v-if="props.exercise.isDone">Завершено</div>
+      <template v-if="props.exercise.weight">{{ props.exercise.weight }} кг.</template>
 
-    <UiFlex v-if="props.isCurrentExercise" column>
+      <IconDone v-if="props.exercise.isDone" width="16" height="16" />
+    </div>
+
+    <template v-if="props.isCurrentExercise">
       <UiButton @click="handleClick" :isDisabled="isButtonDisabled" isTall>
         {{ buttonTitle }}
       </UiButton>
@@ -12,7 +18,7 @@
       <UiCheckbox v-model="isToFailure" label="Упражнение выполнено до отказа" :isDisabled="!isCurrentExerciseActive" />
 
       <div>
-        <div>Количество повторов</div>
+        <div :class="$style.repeats">Количество повторов</div>
 
         <UiFlex justify="space-between">
           <UiButton
@@ -30,7 +36,7 @@
       </div>
 
       <ActivityDuration :duration="exercise.duration" :start="start" :stop="stop" @stop="sendDurationData" />
-    </UiFlex>
+    </template>
   </div>
 </template>
 
@@ -39,14 +45,16 @@ import { ref, computed } from 'vue';
 import { UiButton, UiCheckbox, UiFlex } from 'mhz-ui';
 import { IExerciseDone } from 'fitness-tracker-contracts';
 
-import ExerciseTitle from '@/exercise/components/ExerciseTitle.vue';
 import ActivityDuration from '@/activity/components/ActivityDuration.vue';
+import IconDone from '@/layout/icons/to-failure.svg';
 
 interface IProps {
   exercise: IExerciseDone;
   activeExerciseId?: string;
   isActivityDone: boolean;
   isCurrentExercise: boolean;
+  index: number;
+  exercisesCount: number;
 }
 
 const props = defineProps<IProps>();
@@ -86,3 +94,37 @@ function sendDurationData(duration: number) {
   }
 }
 </script>
+
+<style module lang="scss">
+.element {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &[data-current='true'] {
+    padding: 8px 0;
+    border-top: 8px solid var(--color-gray);
+    border-bottom: 8px solid var(--color-gray);
+  }
+
+  &[data-active='true'] {
+    border-color: var(--color-accent);
+  }
+}
+
+.title {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  color: var(--color-gray-dark-extra);
+
+  &[data-current='true'] {
+    font-weight: 700;
+    color: var(--color-black);
+  }
+}
+
+.repeats {
+  text-align: center;
+}
+</style>
