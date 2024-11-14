@@ -2,9 +2,10 @@
   <div>
     <UiFlex column>
       <ExerciseChoosenElement
-        v-for="exercise in props.choosenExercises"
+        v-for="(exercise, index) in props.choosenExercises"
         :key="exercise._id"
         :exercise="exercise"
+        :index="index + 1"
         @delete="(id) => emit('delete', id)"
       />
     </UiFlex>
