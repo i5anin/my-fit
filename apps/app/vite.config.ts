@@ -11,6 +11,8 @@ export default defineConfig({
 
   resolve: { alias: { '@': resolve(__dirname, './src/modules') } },
 
+  css: { preprocessorOptions: { scss: { api: 'modern-compiler' } } },
+
   plugins: [
     vue(),
     svgLoader(),
