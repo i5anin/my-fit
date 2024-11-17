@@ -20,7 +20,7 @@
       </div>
 
       <UiButton @click="finishActivity" layout="secondary" :isDisabled="props.activity.isDone">
-        Завершить занятие досрочно
+        Завершить досрочно
       </UiButton>
     </UiFlex>
   </div>

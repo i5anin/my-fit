@@ -24,7 +24,7 @@ const emit = defineEmits(['delete']);
   gap: 16px;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 4px 12px;
   background-color: var(--color-gray-light);
   border-radius: 16px;
 }

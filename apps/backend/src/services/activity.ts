@@ -19,6 +19,7 @@ export const activityService: IActivityService = {
       .populate({ path: 'exercises' })
       .lean()
       .exec();
+
     const exercises = await Exercise.find().select(['_id', 'title']).lean().exec();
 
     const activitiesCount = activities.length;
@@ -41,6 +42,14 @@ export const activityService: IActivityService = {
     const averageRepeatsPerSet = Math.round(repeatsCount / setsCount);
     const averageDuration = Math.round(duration / activitiesCount);
 
+    const exercisesDurationSumm = activities.reduce((acc, current) => {
+      const exercisesDuration = current.exercises.reduce((acc, current) => acc + (current.duration || 0), 0);
+
+      return acc + exercisesDuration || 0;
+    }, 0);
+
+    const averageRestPercent = Math.floor(100 - (exercisesDurationSumm / duration) * 100);
+
     const activityStatistics: IActivityStatistics = {
       activitiesCount,
       setsCount,
@@ -50,6 +59,7 @@ export const activityService: IActivityService = {
       averageRepeatsPerActivity,
       averageRepeatsPerSet,
       averageDuration,
+      averageRestPercent,
     };
 
     const exerciseStatistics: IExerciseStatistics[] = [];
@@ -60,6 +70,7 @@ export const activityService: IActivityService = {
         title: exercise.title,
         sets: 0,
         repeats: 0,
+        averageDuration: 0,
       };
 
       activities.forEach((activity: IActivity) => {
@@ -68,11 +79,20 @@ export const activityService: IActivityService = {
         );
 
         exerciseStatisticsElement.sets += filteredExercises.length;
+
         exerciseStatisticsElement.repeats += filteredExercises.reduce(
           (acc, current) => acc + (current.repeats || 0),
           0
         );
+
+        exerciseStatisticsElement.averageDuration += filteredExercises.reduce(
+          (acc, current) => acc + (current.duration || 0),
+          0
+        );
       });
+
+      exerciseStatisticsElement.averageDuration =
+        exerciseStatisticsElement.averageDuration / exerciseStatisticsElement.repeats || 0;
 
       exerciseStatistics.push(exerciseStatisticsElement);
     });

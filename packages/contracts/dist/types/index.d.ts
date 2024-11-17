@@ -48,6 +48,7 @@ export interface IActivityStatistics {
   averageRepeatsPerActivity: number;
   averageRepeatsPerSet: number;
   averageDuration: number;
+  averageRestPercent: number;
 }
 
 export interface IExerciseStatistics {
@@ -55,6 +56,7 @@ export interface IExerciseStatistics {
   title: string;
   sets: number;
   repeats: number;
+  averageDuration: number;
 }
 
 export interface IUserToken {

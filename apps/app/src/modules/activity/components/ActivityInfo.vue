@@ -96,7 +96,7 @@ const restPercent = computed(() => {
   const activityDuration = Number(subtractDates(props.end, props.start, true));
   const exercisesDuration = props.exercises.reduce((acc, current) => acc + (current.duration || 0), 0);
 
-  return `${Math.floor((exercisesDuration / activityDuration) * 100)}%`;
+  return `${Math.floor(100 - (exercisesDuration / activityDuration) * 100)}%`;
 });
 
 function isPrevExerciseSame(index: number, id?: string) {

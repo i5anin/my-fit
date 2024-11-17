@@ -3,6 +3,8 @@
     <h2>Сформировать занятие</h2>
 
     <UiFlex @submit.prevent="submit" tag="form" column gap="24">
+      <p>Примерная длительность: {{ potentionDuration }}</p>
+
       <UiButton @click="repeatLastActivity" layout="secondary">Повторить прошлое</UiButton>
 
       <UiButton @click="isShowModal = true">Добавить упражнение</UiButton>
@@ -25,8 +27,14 @@
 import { computed, ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast, UiButton, UiFlex, UiModal } from 'mhz-ui';
-import { createTempId, deleteTempId, useQueryClient } from 'mhz-helpers';
-import { API_ACTIVITY, IActivity, IExerciseChoosen, IExerciseDone } from 'fitness-tracker-contracts';
+import { createTempId, deleteTempId, formatDuration, useQueryClient } from 'mhz-helpers';
+import {
+  API_ACTIVITY,
+  IActivity,
+  IExerciseChoosen,
+  IExerciseDone,
+  IExerciseStatistics,
+} from 'fitness-tracker-contracts';
 
 import ExerciseChooseList from '@/exercise/components/ExerciseChooseList.vue';
 import ExerciseChoosenList from '@/exercise/components/ExerciseChoosenList.vue';
@@ -37,6 +45,8 @@ import { URL_ACTIVITY_EDIT } from '@/activity/constants';
 
 interface IProps {
   copy?: string;
+  exerciseStatistics?: IExerciseStatistics[];
+  averageRestPercent?: number;
 }
 
 const props = defineProps<IProps>();
@@ -48,6 +58,20 @@ const queryClient = useQueryClient();
 const formData = ref<IActivity>({
   exercises: [],
   isDone: false,
+});
+
+const potentionDuration = computed(() => {
+  const totalDuration = formData.value.exercises.reduce((acc, exercise) => {
+    const averageDuration =
+      props.exerciseStatistics?.find((choosenExericse) => choosenExericse._id === exercise.exercise?._id)
+        ?.averageDuration || 0;
+
+    return acc + averageDuration * exercise.repeats;
+  }, 0);
+
+  const durationWithRest = Math.round(totalDuration + totalDuration * ((props.averageRestPercent || 0) / 100));
+
+  return formatDuration(durationWithRest);
 });
 
 const isShowModal = ref(false);
