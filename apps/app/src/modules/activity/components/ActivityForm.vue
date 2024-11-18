@@ -3,7 +3,7 @@
     <h2>Сформировать занятие</h2>
 
     <UiFlex @submit.prevent="submit" tag="form" column gap="24">
-      <p>Примерная длительность: {{ potentionDuration }}</p>
+      <p>Примерная длительность: {{ potentialActivityDuration }}</p>
 
       <UiButton @click="repeatLastActivity" layout="secondary">Повторить прошлое</UiButton>
 
@@ -60,7 +60,7 @@ const formData = ref<IActivity>({
   isDone: false,
 });
 
-const potentionDuration = computed(() => {
+const potentialActivityDuration = computed(() => {
   if (!props.averageRestPercent) return '-';
 
   const totalDuration = formData.value.exercises.reduce((acc, exercise) => {
@@ -73,7 +73,7 @@ const potentionDuration = computed(() => {
 
   const durationWithRest = Math.round(totalDuration + totalDuration * (props.averageRestPercent / 100));
 
-  return `${formatDuration(durationWithRest)} ${formatDuration(totalDuration)}`;
+  return formatDuration(durationWithRest);
 });
 
 const isShowModal = ref(false);
