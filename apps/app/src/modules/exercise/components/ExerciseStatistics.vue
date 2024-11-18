@@ -16,7 +16,7 @@
         <td>
           <div :class="$style.cell">
             <span>{{ exercise.repeats }}</span>
-            <span :class="$style.time">{{ exercise.averageDuration }}с</span>
+            <span :class="$style.time">{{ exercise.averageDuration.toFixed(2) }}с</span>
           </div>
         </td>
       </tr>
