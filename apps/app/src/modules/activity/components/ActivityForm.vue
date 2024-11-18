@@ -61,6 +61,8 @@ const formData = ref<IActivity>({
 });
 
 const potentionDuration = computed(() => {
+  if (!props.averageRestPercent) return '-';
+
   const totalDuration = formData.value.exercises.reduce((acc, exercise) => {
     const averageDuration =
       props.exerciseStatistics?.find((choosenExericse) => choosenExericse._id === exercise.exercise?._id)
@@ -69,7 +71,7 @@ const potentionDuration = computed(() => {
     return acc + averageDuration * exercise.repeats;
   }, 0);
 
-  const durationWithRest = Math.round(totalDuration + totalDuration * ((props.averageRestPercent || 0) / 100));
+  const durationWithRest = Math.round(totalDuration + totalDuration * (props.averageRestPercent / 100));
 
   return formatDuration(durationWithRest);
 });
