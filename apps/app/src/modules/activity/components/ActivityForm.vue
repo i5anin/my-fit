@@ -73,7 +73,7 @@ const potentionDuration = computed(() => {
 
   const durationWithRest = Math.round(totalDuration + totalDuration * (props.averageRestPercent / 100));
 
-  return formatDuration(durationWithRest);
+  return `${formatDuration(durationWithRest)} ${formatDuration(totalDuration)}`;
 });
 
 const isShowModal = ref(false);
