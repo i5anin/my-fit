@@ -7,7 +7,8 @@
           <span>длительность: {{ formatDuration(props.activityStatistics.duration) }}, </span>
           <span>занятия: {{ props.activityStatistics.activitiesCount }}, </span>
           <span>сеты: {{ props.activityStatistics.setsCount }}, </span>
-          <span>повторы: {{ props.activityStatistics.repeatsCount }}.</span>
+          <span>повторы: {{ props.activityStatistics.repeatsCount }}, </span>
+          <span>отдых: {{ props.activityStatistics.averageRestPercent }}%</span>
         </span>
       </div>
 
