@@ -42,8 +42,11 @@ export const activityService: IActivityService = {
     const averageRepeatsPerSet = Math.round(repeatsCount / setsCount);
     const averageDuration = Math.round(duration / activitiesCount);
 
-    const exercisesDurationSumm = activities.reduce((acc, current) => {
-      const exercisesDuration = current.exercises.reduce((acc, current) => acc + (current.duration || 0), 0);
+    const exercisesDurationSumm = activities.reduce((acc, currentActivity) => {
+      const exercisesDuration = currentActivity.exercises.reduce(
+        (accEx, currentEx) => accEx + (currentEx.duration || 0),
+        0
+      );
 
       return acc + exercisesDuration || 0;
     }, 0);
