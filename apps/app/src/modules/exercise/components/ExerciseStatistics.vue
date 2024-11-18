@@ -9,14 +9,14 @@
           <div :class="$style.cell">
             <span>{{ exercise.sets }}</span>
             <span :class="$style.time">
-              {{ (exercise.averageDuration * exercise.repeats) / exercise.sets || 0 }}с
+              {{ ((exercise.averageDuration * exercise.repeats) / exercise.sets).toFixed(1) || 0 }}с
             </span>
           </div>
         </td>
         <td>
           <div :class="$style.cell">
             <span>{{ exercise.repeats }}</span>
-            <span :class="$style.time">{{ exercise.averageDuration.toFixed(2) }}с</span>
+            <span :class="$style.time">{{ exercise.averageDuration.toFixed(1) }}с</span>
           </div>
         </td>
       </tr>
