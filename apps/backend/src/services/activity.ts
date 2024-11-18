@@ -100,7 +100,7 @@ export const activityService: IActivityService = {
       exerciseStatistics.push(exerciseStatisticsElement);
     });
 
-    return { activity: activityStatistics, exercise: exerciseStatistics.sort((a, b) => b.repeats - a.repeats) };
+    return { activity: activityStatistics, exercise: exerciseStatistics.sort((a, b) => b.sets - a.sets) };
   },
 
   getCalendar: async <T>(dateFrom: string, dateTo: string) => {
