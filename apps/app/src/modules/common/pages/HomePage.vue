@@ -1,16 +1,12 @@
 <template>
-  <div>
-    <h1>Фитнес трекер</h1>
+  <div :class="$style.info">
+    <div :class="$style.calendar">
+      <ActivityCalendar :events="events" @ready="updateDates" @update="updateDates" />
+      <ActivityStatistics :activityStatistics="statistics?.activity" />
+    </div>
 
-    <div :class="$style.info">
-      <div :class="$style.calendar">
-        <ActivityCalendar :events="events" @ready="updateDates" @update="updateDates" />
-        <ActivityStatistics :activityStatistics="statistics?.activity" />
-      </div>
-
-      <div :class="$style.statistics">
-        <ExerciseStatistics :exerciseStatistics="statistics?.exercise" />
-      </div>
+    <div :class="$style.statistics">
+      <ExerciseStatistics :exerciseStatistics="statistics?.exercise" />
     </div>
   </div>
 </template>

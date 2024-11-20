@@ -7,6 +7,7 @@
         :start="activity.dateCreated"
         :end="activity.dateUpdated"
         :exercises="activity.exercises"
+        isAdmin
       />
 
       <UiModal v-model="isShowConfirm" isConfirm @confirm="mutateDelete(activity?._id)" lang="ru">

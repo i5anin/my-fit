@@ -9,7 +9,7 @@
           <div :class="$style.cell">
             <span>{{ exercise.sets }}</span>
             <span :class="$style.time">
-              {{ ((exercise.averageDuration * exercise.repeats) / exercise.sets).toFixed(1) }}с
+              {{ ((exercise.averageDuration * exercise.repeats) / exercise.sets || 0).toFixed(1) }}с
             </span>
           </div>
         </td>
@@ -41,7 +41,7 @@ const props = defineProps<IProps>();
 .cell {
   display: flex;
   gap: 4px;
-  align-items: flex-end;
+  align-items: baseline;
 }
 
 .time {

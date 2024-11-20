@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.info">
+  <div :class="$style.info" :data-scrollable="!props.isAdmin">
     <UiFlex gap="4" align="center" wrap>
       <span><IconDate width="16" height="16" /> {{ formatDate(props.start, 'ru') }}</span>
       <span><IconDuration width="16" height="16" /> {{ subtractDates(props.end, props.start) }}</span>
@@ -25,7 +25,7 @@
       />
     </UiFlex>
 
-    <UiButton v-if="isAuth" @click="copyActivity">Сформировать такое же занятие</UiButton>
+    <UiButton v-if="isAuth && !isAdmin" @click="copyActivity">Сформировать такое же занятие</UiButton>
   </div>
 </template>
 
@@ -48,6 +48,7 @@ interface IProps {
   start?: Date | string;
   end?: Date | string;
   exercises: IExerciseDone[];
+  isAdmin?: boolean;
 }
 
 interface IMuscleGroupStatistics {
@@ -113,8 +114,11 @@ function copyActivity() {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-height: 64vh;
-  overflow-y: auto;
+
+  &[data-scrollable='true'] {
+    max-height: 64vh;
+    overflow-y: auto;
+  }
 }
 
 .table {
