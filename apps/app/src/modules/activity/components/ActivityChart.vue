@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UiChart title="Занятия по неделям" :labels="props.labels" :data="props.data" />
+    <UiChart title="Занятия по неделям" :labels="props.labels" :data="props.data" type="Line" />
   </div>
 </template>
 
