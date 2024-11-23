@@ -3,12 +3,14 @@ import {
   API_ACTIVITY_CALENDAR,
   API_ACTIVITY_LAST,
   API_ACTIVITY_STATISTICS,
+  API_ACTIVITY_CHART,
 } from 'fitness-tracker-contracts';
 import type {
   IBaseReply,
   IActivity,
   IBaseParams,
   IActivityStatistics,
+  IActivityChart,
   IExerciseStatistics,
 } from 'fitness-tracker-contracts';
 
@@ -43,6 +45,12 @@ export default async function (fastify: IFastifyInstance) {
       reply.code(200).send(data);
     }
   );
+
+  fastify.get<{ Reply: { 200: IActivityChart } }>(API_ACTIVITY_CHART, async function (request, reply) {
+    const data = await activityService.getChart();
+
+    reply.code(200).send(data);
+  });
 
   fastify.get<{ Params: IBaseParams; Reply: { 200: { data: IActivity | null } } }>(
     `${API_ACTIVITY}/:id`,

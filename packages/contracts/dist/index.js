@@ -6,4 +6,5 @@ export const API_EXERCISE = "/exercise";
 export const API_ACTIVITY = "/activity";
 export const API_ACTIVITY_CALENDAR = "/activity_calendar";
 export const API_ACTIVITY_STATISTICS = "/activity_statistics";
+export const API_ACTIVITY_CHART = "/activity_chart";
 export const API_ACTIVITY_LAST = "/activity_last";

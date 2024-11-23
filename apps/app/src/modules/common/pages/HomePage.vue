@@ -2,7 +2,8 @@
   <div :class="$style.info">
     <div :class="$style.calendar">
       <ActivityCalendar :events="events" @ready="updateDates" @update="updateDates" />
-      <ActivityStatistics :activityStatistics="statistics?.activity" />
+      <ActivityStatistics v-if="statistics" :activityStatistics="statistics?.activity" />
+      <ActivityChart v-if="chart" :labels="chart.labels" :data="chart.data" />
     </div>
 
     <div :class="$style.statistics">
@@ -17,9 +18,10 @@ import { IActivity, IExerciseDone } from 'fitness-tracker-contracts';
 
 import ActivityCalendar from '@/activity/components/ActivityCalendar.vue';
 import ActivityStatistics from '@/activity/components/ActivityStatistics.vue';
+import ActivityChart from '@/activity/components/ActivityChart.vue';
 import ExerciseStatistics from '@/exercise/components/ExerciseStatistics.vue';
 
-import { getActivitiesCalendar, getStatistics } from '@/activity/services';
+import { getActivitiesCalendar, getStatistics, getActivityChart } from '@/activity/services';
 import { IActivityCalendarEvent, ICalendarEvent } from '@/activity/interface';
 
 const dateFrom = ref('');
@@ -29,6 +31,7 @@ const isRequestEnabled = ref(false);
 
 const { data } = getActivitiesCalendar({ enabled: isRequestEnabled }, dateFrom, dateTo);
 const { data: statistics } = getStatistics();
+const { data: chart } = getActivityChart();
 
 const events = computed<IActivityCalendarEvent<IExerciseDone>[] | undefined>(() =>
   data.value?.map((activity: IActivity) => {
@@ -59,7 +62,7 @@ function updateDates(dates: ICalendarEvent) {
 .calendar {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   width: 60%;
 }
 

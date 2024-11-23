@@ -4,8 +4,10 @@ import {
   API_ACTIVITY_CALENDAR,
   API_ACTIVITY_LAST,
   API_ACTIVITY_STATISTICS,
+  API_ACTIVITY_CHART,
   IActivity,
   IActivityStatistics,
+  IActivityChart,
   IBaseReply,
   IExerciseStatistics,
 } from 'fitness-tracker-contracts';
@@ -45,6 +47,17 @@ export function getStatistics() {
       const { data } = await api.get<{ activity: IActivityStatistics; exercise: IExerciseStatistics[] }>(
         API_ACTIVITY_STATISTICS
       );
+
+      return data;
+    },
+  });
+}
+
+export function getActivityChart() {
+  return useQuery({
+    queryKey: [API_ACTIVITY_CHART],
+    queryFn: async () => {
+      const { data } = await api.get<IActivityChart>(API_ACTIVITY_CHART);
 
       return data;
     },

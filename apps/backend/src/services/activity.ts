@@ -3,7 +3,7 @@ import type { IActivity, IActivityStatistics, IExerciseStatistics } from 'fitnes
 import Activity from '../models/activity.js';
 import Exercise from '../models/exercise.js';
 
-import { paginate } from '../helpers/index.js';
+import { paginate, getFirstAndLastWeekDays } from '../helpers/index.js';
 import { IActivityService } from '../interface/index.js';
 
 export const activityService: IActivityService = {
@@ -110,6 +110,25 @@ export const activityService: IActivityService = {
       .exec();
 
     return data as T[];
+  },
+
+  getChart: async () => {
+    const weeks = getFirstAndLastWeekDays();
+
+    const labels: string[] = [];
+    const data: number[] = [];
+
+    for (const week of weeks) {
+      labels.push(week.label);
+
+      const count = await Activity.find({ dateCreated: { $gte: week.dateFrom, $lt: week.dateTo } })
+        .countDocuments()
+        .exec();
+
+      data.push(count);
+    }
+
+    return { labels, data };
   },
 
   getOne: async <T>(_id: string) => {

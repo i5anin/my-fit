@@ -51,6 +51,11 @@ export interface IActivityStatistics {
   averageRestPercent: number;
 }
 
+export interface IActivityChart {
+  labels: string[];
+  data: number[];
+}
+
 export interface IExerciseStatistics {
   _id: string;
   title: string;
@@ -86,4 +91,5 @@ export declare const API_EXERCISE = "/exercise";
 export declare const API_ACTIVITY = "/activity";
 export declare const API_ACTIVITY_CALENDAR = "/activity_calendar";
 export declare const API_ACTIVITY_STATISTICS = "/activity_statistics";
+export declare const API_ACTIVITY_CHART = "/activity_chart";
 export declare const API_ACTIVITY_LAST = "/activity_last";
