@@ -17,7 +17,7 @@ export function getFirstAndLastWeekDays() {
     days.push({
       dateFrom: firstDay,
       dateTo: lastDay,
-      label: `${firstDay.toLocaleDateString().slice(0, -5)} - ${lastDay.toLocaleDateString().slice(0, -5)}`,
+      label: `${firstDay.toLocaleDateString('ru').slice(0, -5)} - ${lastDay.toLocaleDateString('ru').slice(0, -5)}`,
     });
   }
 
