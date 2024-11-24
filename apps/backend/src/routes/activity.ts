@@ -12,6 +12,7 @@ import type {
   IActivityStatistics,
   IActivityChart,
   IExerciseStatistics,
+  TActivityChartType,
 } from 'fitness-tracker-contracts';
 
 import { IFastifyInstance } from '../interface/index.js';
@@ -46,11 +47,14 @@ export default async function (fastify: IFastifyInstance) {
     }
   );
 
-  fastify.get<{ Reply: { 200: IActivityChart } }>(API_ACTIVITY_CHART, async function (request, reply) {
-    const data = await activityService.getChart();
+  fastify.get<{ Querystring: { type: TActivityChartType }; Reply: { 200: IActivityChart } }>(
+    API_ACTIVITY_CHART,
+    async function (request, reply) {
+      const data = await activityService.getChart(request.query.type);
 
-    reply.code(200).send(data);
-  });
+      reply.code(200).send(data);
+    }
+  );
 
   fastify.get<{ Params: IBaseParams; Reply: { 200: { data: IActivity | null } } }>(
     `${API_ACTIVITY}/:id`,

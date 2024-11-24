@@ -9,6 +9,7 @@ import type {
   IExerciseStatistics,
   IActivityStatistics,
   IActivityChart,
+  TActivityChartType,
 } from 'fitness-tracker-contracts';
 
 export interface IFastifyInstance extends FastifyInstance {
@@ -63,7 +64,7 @@ export interface IActivityService extends IBaseService {
 
   getStatistics: () => Promise<{ activity: IActivityStatistics; exercise: IExerciseStatistics[] }>;
 
-  getChart: () => Promise<IActivityChart>;
+  getChart: (type: TActivityChartType) => Promise<IActivityChart>;
 
   getLast: <T>(
     decode?: (token: string) => IUserToken | null,

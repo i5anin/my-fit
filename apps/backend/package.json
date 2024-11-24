@@ -30,7 +30,7 @@
     "dotenv": "16.4.5",
     "fastify": "5.1.0",
     "fastify-plugin": "5.0.1",
-    "fitness-tracker-contracts": "1.0.12",
+    "fitness-tracker-contracts": "1.0.13",
     "mongoose": "8.8.2"
   },
   "devDependencies": {

@@ -1,4 +1,9 @@
-import type { IActivity, IActivityStatistics, IExerciseStatistics } from 'fitness-tracker-contracts';
+import type {
+  IActivity,
+  IActivityStatistics,
+  IExerciseStatistics,
+  TActivityChartType,
+} from 'fitness-tracker-contracts';
 
 import Activity from '../models/activity.js';
 import Exercise from '../models/exercise.js';
@@ -112,8 +117,8 @@ export const activityService: IActivityService = {
     return data as T[];
   },
 
-  getChart: async () => {
-    const weeks = getFirstAndLastWeekDays();
+  getChart: async (type: TActivityChartType) => {
+    const weeks = getFirstAndLastWeekDays(5);
 
     const labels: string[] = [];
     const data: number[] = [];
@@ -121,11 +126,43 @@ export const activityService: IActivityService = {
     for (const week of weeks) {
       labels.push(week.label);
 
-      const count = await Activity.find({ dateCreated: { $gte: week.dateFrom, $lt: week.dateTo } })
-        .countDocuments()
-        .exec();
+      if (type === 'activity') {
+        const count = await Activity.find({ dateCreated: { $gte: week.dateFrom, $lt: week.dateTo } })
+          .countDocuments()
+          .exec();
 
-      data.push(count);
+        data.push(count);
+      }
+
+      if (type === 'set') {
+        const activities = await Activity.find({ dateCreated: { $gte: week.dateFrom, $lt: week.dateTo } })
+          .select('_id exercises dateCreated')
+          .populate({ path: 'exercises' })
+          .lean()
+          .exec();
+
+        const count = activities.reduce((acc, current) => acc + (current.exercises.length || 0), 0);
+
+        data.push(count);
+      }
+
+      if (type === 'repeat') {
+        const activities = await Activity.find({ dateCreated: { $gte: week.dateFrom, $lt: week.dateTo } })
+          .select('_id exercises dateCreated')
+          .populate({ path: 'exercises.exercise', select: ['title'] })
+          .lean()
+          .exec();
+
+        let count = 0;
+
+        activities.forEach((activity) => {
+          const repeats = activity.exercises.reduce((acc, current) => acc + (current.repeats || 0), 0);
+
+          count += repeats;
+        });
+
+        data.push(count);
+      }
     }
 
     return { labels, data };

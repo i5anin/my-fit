@@ -1,16 +1,31 @@
 <template>
   <div>
-    <UiChart title="Занятия по неделям" :labels="props.labels" :data="props.data" type="Line" />
+    <UiFlex column>
+      <UiFlex gap="16">
+        <UiButton
+          v-for="chartType in CHART_TYPES"
+          :key="chartType.value"
+          :layout="chartType.value === type ? 'accent' : 'primary'"
+          isNarrow
+          @click="type = chartType.value"
+          >{{ chartType.title }}</UiButton
+        >
+      </UiFlex>
+
+      <UiChart v-if="chart" :labels="chart.labels" :data="chart.data" type="Line" :key="type" />
+    </UiFlex>
   </div>
 </template>
 
 <script setup lang="ts">
-import { UiChart } from 'mhz-ui';
+import { ref } from 'vue';
+import { UiButton, UiChart, UiFlex } from 'mhz-ui';
+import { TActivityChartType } from 'fitness-tracker-contracts';
 
-interface IProps {
-  labels: string[];
-  data: number[];
-}
+import { getActivityChart } from '@/activity/services';
+import { CHART_TYPES } from '@/activity/constants';
 
-const props = defineProps<IProps>();
+const type = ref<TActivityChartType>('activity');
+
+const { data: chart } = getActivityChart(type);
 </script>

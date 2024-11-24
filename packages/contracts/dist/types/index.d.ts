@@ -56,6 +56,8 @@ export interface IActivityChart {
   data: number[];
 }
 
+export type TActivityChartType = "activity" | "set" | "repeat";
+
 export interface IExerciseStatistics {
   _id: string;
   title: string;

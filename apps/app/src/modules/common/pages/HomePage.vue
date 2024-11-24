@@ -2,8 +2,8 @@
   <div :class="$style.info">
     <div :class="$style.calendar">
       <ActivityCalendar :events="events" @ready="updateDates" @update="updateDates" />
-      <ActivityStatistics v-if="statistics" :activityStatistics="statistics?.activity" />
-      <ActivityChart v-if="chart" :labels="chart.labels" :data="chart.data" />
+      <ActivityStatistics v-if="statistics" :activityStatistics="statistics.activity" />
+      <ActivityChart />
     </div>
 
     <div :class="$style.statistics">
@@ -21,7 +21,7 @@ import ActivityStatistics from '@/activity/components/ActivityStatistics.vue';
 import ActivityChart from '@/activity/components/ActivityChart.vue';
 import ExerciseStatistics from '@/exercise/components/ExerciseStatistics.vue';
 
-import { getActivitiesCalendar, getStatistics, getActivityChart } from '@/activity/services';
+import { getActivitiesCalendar, getStatistics } from '@/activity/services';
 import { IActivityCalendarEvent, ICalendarEvent } from '@/activity/interface';
 
 const dateFrom = ref('');
@@ -31,7 +31,6 @@ const isRequestEnabled = ref(false);
 
 const { data } = getActivitiesCalendar({ enabled: isRequestEnabled }, dateFrom, dateTo);
 const { data: statistics } = getStatistics();
-const { data: chart } = getActivityChart();
 
 const events = computed<IActivityCalendarEvent<IExerciseDone>[] | undefined>(() =>
   data.value?.map((activity: IActivity) => {

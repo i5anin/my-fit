@@ -1,6 +1,5 @@
-export function getFirstAndLastWeekDays() {
+export function getFirstAndLastWeekDays(weeksCount: number) {
   const days = [];
-  const weeksCount = 5;
 
   for (let i = 0; i < weeksCount; i++) {
     const today = new Date();

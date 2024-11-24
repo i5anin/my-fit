@@ -10,6 +10,7 @@ import {
   IActivityChart,
   IBaseReply,
   IExerciseStatistics,
+  TActivityChartType,
 } from 'fitness-tracker-contracts';
 import { useMutation, useQuery, api } from 'mhz-helpers';
 
@@ -53,11 +54,11 @@ export function getStatistics() {
   });
 }
 
-export function getActivityChart() {
+export function getActivityChart(type: Ref<TActivityChartType>) {
   return useQuery({
-    queryKey: [API_ACTIVITY_CHART],
+    queryKey: [API_ACTIVITY_CHART, type],
     queryFn: async () => {
-      const { data } = await api.get<IActivityChart>(API_ACTIVITY_CHART);
+      const { data } = await api.get<IActivityChart>(API_ACTIVITY_CHART, { params: { type: type.value } });
 
       return data;
     },
